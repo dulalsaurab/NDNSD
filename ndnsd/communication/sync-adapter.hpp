@@ -1,9 +1,9 @@
 /* -*- Mode:C++; c-file-style:"gnu"; indent-tabs-mode:nil; -*- */
 /*
- * Copyright (c) 2014-2019,  The University of Memphis
+ * Copyright (c) 2014-2020,  The University of Memphis
  *
  * This file is part of NDNSD.
- * See AUTHORS.md for complete list of NDNSD authors and contributors.
+ * See NLSR's AUTHORS.md for complete list of NDNSD authors and contributors.
  *
  * NDNSD is free software: you can redistribute it and/or modify it under the terms
  * of the GNU Lesser General Public License as published by the Free Software Foundation,
@@ -15,27 +15,39 @@
  *
  * You should have received a copy of the GNU Lesser General Public License along with
  * NDNSD, e.g., in COPYING.md file.  If not, see <http://www.gnu.org/licenses/>.
+
+  @ most part of sync-adapter code is taken from NLSR/communication/
+
  **/
 
 #ifndef NDNSD_SYNC_ADAPTER_HPP
 #define NDNSD_SYNC_ADAPTER_HPP
 
-#include "conf-parameter.hpp"
-
+#include "logger.hpp"
 #include <ndn-cxx/face.hpp>
 #include <ChronoSync/logic.hpp>
 #include <PSync/full-producer.hpp>
 
 namespace ndnsd {
 
-typedef std::function<void(const ndn::Name& updateName,
-                           uint64_t seqNo)> SyncUpdateCallback;
+struct SyncDataInfo
+{
+  ndn::Name prefix;
+  uint64_t highSeq;
+};
+
+typedef std::function<void(const std::vector<SyncDataInfo>& updates)> SyncUpdateCallback;
+
+enum {
+  SYNC_PROTOCOL_CHRONOSYNC = 0,
+  SYNC_PROTOCOL_PSYNC = 1
+};
 
 class SyncProtocolAdapter
 {
 public:
   SyncProtocolAdapter(ndn::Face& facePtr,
-                      int32_t syncProtocol,
+                      uint8_t syncProtocol,
                       const ndn::Name& syncPrefix,
                       const ndn::Name& userPrefix,
                       ndn::time::milliseconds syncInterestLifetime,
@@ -57,9 +69,9 @@ public:
    * \param seq the sequence of userPrefix
    */
   void
-  publishUpdate(const ndn::Name& userPrefix, uint64_t seq);
+  publishUpdate(const ndn::Name& userPrefix);
 
-PUBLIC_WITH_TESTS_ELSE_PRIVATE:
+// PUBLIC_WITH_TESTS_ELSE_PRIVATE:
    /*! \brief Hook function to call whenever ChronoSync detects new data.
    *
    * This function packages the sync information into discrete updates
@@ -83,7 +95,7 @@ PUBLIC_WITH_TESTS_ELSE_PRIVATE:
   onPSyncUpdate(const std::vector<psync::MissingDataInfo>& updates);
 
 private:
-  int32_t m_syncProtocol;
+  uint8_t m_syncProtocol;
   SyncUpdateCallback m_syncUpdateCallback;
   std::shared_ptr<chronosync::Logic> m_chronoSyncLogic;
   std::shared_ptr<psync::FullProducer> m_psyncLogic;

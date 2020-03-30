@@ -1,9 +1,9 @@
 /* -*- Mode:C++; c-file-style:"gnu"; indent-tabs-mode:nil; -*- */
 /*
- * Copyright (c) 2014-2019,  The University of Memphis
+ * Copyright (c) 2014-2020,  The University of Memphis
  *
  * This file is part of NDNSD.
- * See AUTHORS.md for complete list of NDNSD authors and contributors.
+ * See NLSR's AUTHORS.md for complete list of NDNSD authors and contributors.
  *
  * NDNSD is free software: you can redistribute it and/or modify it under the terms
  * of the GNU Lesser General Public License as published by the Free Software Foundation,
@@ -15,28 +15,31 @@
  *
  * You should have received a copy of the GNU Lesser General Public License along with
  * NDNSD, e.g., in COPYING.md file.  If not, see <http://www.gnu.org/licenses/>.
+
+  @ most part of sync-adapter code is taken from NLSR/communication/
+
  **/
 
 #include "sync-adapter.hpp"
-// #include "logger.hpp"
+#include <iostream>
 
-// INIT_LOGGER(SyncProtocolAdapter);
+INIT_LOGGER(SyncProtocolAdapter);
 
 namespace ndnsd {
 
 const auto FIXED_SESSION = ndn::name::Component::fromNumber(0);
 
 SyncProtocolAdapter::SyncProtocolAdapter(ndn::Face& face,
-                                         int32_t syncProtocol,
+                                         uint8_t syncProtocol,
                                          const ndn::Name& syncPrefix,
                                          const ndn::Name& userPrefix,
                                          ndn::time::milliseconds syncInterestLifetime,
                                          const SyncUpdateCallback& syncUpdateCallback)
- : m_syncProtocol(syncProtocol)
- , m_syncUpdateCallback(syncUpdateCallback)
+  : m_syncProtocol(syncProtocol)
+  , m_syncUpdateCallback(syncUpdateCallback)
 {
   if (m_syncProtocol == SYNC_PROTOCOL_CHRONOSYNC) {
-    NDN_LOG_DEBUG("Using ChronoSync");
+    NDNSD_LOG_DEBUG("Using ChronoSync");
     m_chronoSyncLogic = std::make_shared<chronosync::Logic>(face,
                           syncPrefix,
                           userPrefix,
@@ -52,7 +55,7 @@ SyncProtocolAdapter::SyncProtocolAdapter(ndn::Face& face,
                           FIXED_SESSION);
   }
   else {
-    NDN_LOG_DEBUG("Using PSync");
+    NDNSD_LOG_DEBUG("Using PSync");
     m_psyncLogic = std::make_shared<psync::FullProducer>(80,
                      face,
                      syncPrefix,
@@ -74,35 +77,49 @@ SyncProtocolAdapter::addUserNode(const ndn::Name& userPrefix)
 }
 
 void
-SyncProtocolAdapter::publishUpdate(const ndn::Name& userPrefix, uint64_t seq)
+SyncProtocolAdapter::publishUpdate(const ndn::Name& userPrefix)
 {
+  NDNSD_LOG_INFO("Publishing update for Sync Prefix " << userPrefix);
   if (m_syncProtocol == SYNC_PROTOCOL_CHRONOSYNC) {
+    auto seq = m_chronoSyncLogic->getSeqNo(userPrefix) + 1;
+    NDNSD_LOG_INFO("SeqNumber :" << seq);
     m_chronoSyncLogic->updateSeqNo(seq, userPrefix);
   }
   else {
-    m_psyncLogic->publishName(userPrefix, seq);
+    m_psyncLogic->publishName(userPrefix);
   }
 }
 
 void
 SyncProtocolAdapter::onChronoSyncUpdate(const std::vector<chronosync::MissingDataInfo>& updates)
 {
-  NLSR_LOG_TRACE("Received ChronoSync update event");
+  NDNSD_LOG_INFO("Received ChronoSync update event");
+  std::vector<ndnsd::SyncDataInfo> dinfo;
 
   for (const auto& update : updates) {
     // Remove FIXED_SESSION
-    m_syncUpdateCallback(update.session.getPrefix(-1), update.high);
+    SyncDataInfo di;
+    di.prefix = update.session.getPrefix(-1);
+    di.highSeq = update.high;
+    dinfo.insert(dinfo.begin(), di);
   }
+  m_syncUpdateCallback(dinfo);
 }
 
 void
 SyncProtocolAdapter::onPSyncUpdate(const std::vector<psync::MissingDataInfo>& updates)
 {
-  NLSR_LOG_TRACE("Received PSync update event");
+  NDNSD_LOG_INFO("Received PSync update event");
+  std::vector<ndnsd::SyncDataInfo> dinfo;
 
   for (const auto& update : updates) {
-    m_syncUpdateCallback(update.prefix, update.highSeq);
+    // Remove FIXED_SESSION
+    SyncDataInfo di;
+    di.prefix = update.prefix;
+    di.highSeq = update.highSeq;
+    dinfo.insert(dinfo.begin(), di);
   }
+  m_syncUpdateCallback(dinfo);
 }
 
 } // namespace ndnsd
