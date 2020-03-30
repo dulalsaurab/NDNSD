@@ -36,7 +36,7 @@ SyncProtocolAdapter::SyncProtocolAdapter(ndn::Face& face,
  , m_syncUpdateCallback(syncUpdateCallback)
 {
   if (m_syncProtocol == SYNC_PROTOCOL_CHRONOSYNC) {
-    NDN_LOG_DEBUG("Using ChronoSync");
+    // NDN_LOG_DEBUG("Using ChronoSync");
     m_chronoSyncLogic = std::make_shared<chronosync::Logic>(face,
                           syncPrefix,
                           userPrefix,
@@ -52,7 +52,7 @@ SyncProtocolAdapter::SyncProtocolAdapter(ndn::Face& face,
                           FIXED_SESSION);
   }
   else {
-    NDN_LOG_DEBUG("Using PSync");
+    // NDN_LOG_DEBUG("Using PSync");
     m_psyncLogic = std::make_shared<psync::FullProducer>(80,
                      face,
                      syncPrefix,
@@ -87,7 +87,7 @@ SyncProtocolAdapter::publishUpdate(const ndn::Name& userPrefix, uint64_t seq)
 void
 SyncProtocolAdapter::onChronoSyncUpdate(const std::vector<chronosync::MissingDataInfo>& updates)
 {
-  NLSR_LOG_TRACE("Received ChronoSync update event");
+  // NDN_LOG_TRACE("Received ChronoSync update event");
 
   for (const auto& update : updates) {
     // Remove FIXED_SESSION
@@ -98,7 +98,7 @@ SyncProtocolAdapter::onChronoSyncUpdate(const std::vector<chronosync::MissingDat
 void
 SyncProtocolAdapter::onPSyncUpdate(const std::vector<psync::MissingDataInfo>& updates)
 {
-  NLSR_LOG_TRACE("Received PSync update event");
+  // NDN_LOG_TRACE("Received PSync update event");
 
   for (const auto& update : updates) {
     m_syncUpdateCallback(update.prefix, update.highSeq);

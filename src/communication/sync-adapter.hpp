@@ -20,7 +20,7 @@
 #ifndef NDNSD_SYNC_ADAPTER_HPP
 #define NDNSD_SYNC_ADAPTER_HPP
 
-#include "conf-parameter.hpp"
+// #include "conf-parameter.hpp"
 
 #include <ndn-cxx/face.hpp>
 #include <ChronoSync/logic.hpp>
@@ -30,6 +30,11 @@ namespace ndnsd {
 
 typedef std::function<void(const ndn::Name& updateName,
                            uint64_t seqNo)> SyncUpdateCallback;
+
+enum {
+  SYNC_PROTOCOL_CHRONOSYNC = 0,
+  SYNC_PROTOCOL_PSYNC = 1
+};
 
 class SyncProtocolAdapter
 {
@@ -59,7 +64,7 @@ public:
   void
   publishUpdate(const ndn::Name& userPrefix, uint64_t seq);
 
-PUBLIC_WITH_TESTS_ELSE_PRIVATE:
+// PUBLIC_WITH_TESTS_ELSE_PRIVATE:
    /*! \brief Hook function to call whenever ChronoSync detects new data.
    *
    * This function packages the sync information into discrete updates

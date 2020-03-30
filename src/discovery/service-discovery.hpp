@@ -36,13 +36,10 @@ class ServiceDiscovery
 {
 
 public:
-  /**
-   * @brief Initialize producer and schedule updates
-   *
-   * Set IBF size as 80 expecting 80 updates to IBF in a sync cycle
-   * Set syncInterestLifetime and syncReplyFreshness to 1.6 seconds
-   * userPrefix is the default user prefix, no updates are published on it in this example
-   */
+  // // for consumer
+  // ServiceDiscovery(const std::vector<std::string>& services, const std::list<char* >& flags);
+  
+  // for producer
   ServiceDiscovery(const ndn::Name& syncPrefix, const std::string& userPrefix);
 
   void
@@ -50,15 +47,15 @@ public:
 
 private:
   void 
-  doUpdate();
+  doUpdate(const ndn::Name& prefix);
 
   void
-  processSyncUpdate();
+  processSyncUpdate(const std::vector<psync::MissingDataInfo>& updates);
    
   ndn::Face m_face;
   ndn::Scheduler m_scheduler;
 
-  psync::FullProducer m_fullProducer;
+  // psync::FullProducer m_fullProducer;
 
   int m_numDataStreams;
   uint64_t m_maxNumPublish;
@@ -67,3 +64,5 @@ private:
   std::uniform_int_distribution<> m_rangeUniformRandom;
 
 };
+
+#endif // NDNSD_SERVICE_DISCOVERY_HPP

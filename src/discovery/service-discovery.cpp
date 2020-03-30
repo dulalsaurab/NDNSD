@@ -21,45 +21,44 @@
 
 #include <iostream>
 
-NDN_LOG_INIT(examples.FullSyncApp);
+// NDN_LOG_INIT(examples.FullSyncApp);
 
 using namespace ndn::time_literals;
 
-class ServiceDiscovery
-{
-public:
-  /**
-   * @brief Initialize producer and schedule updates
-   *
-   * Set IBF size as 80 expecting 80 updates to IBF in a sync cycle
-   * Set syncInterestLifetime and syncReplyFreshness to 1.6 seconds
-   * userPrefix is the default user prefix, no updates are published on it in this example
-   */
-  ServiceDiscovery(const ndn::Name& syncPrefix, const std::string& userPrefix,
-           int numDataStreams, int maxNumPublish)
-    : m_scheduler(m_face.getIoService())
-    , m_fullProducer(80, m_face, syncPrefix, userPrefix,
-                     std::bind(&Producer::processSyncUpdate, this, _1),
-                     1600_ms, 1600_ms)
-    , m_numDataStreams(numDataStreams)
-    , m_maxNumPublish(maxNumPublish)
-    , m_rng(ndn::random::getRandomNumberEngine())
-    , m_rangeUniformRandom(0, 60000)
-  {
-    // Add user prefixes and schedule updates for them in specified interval
-    for (int i = 0; i < m_numDataStreams; i++) {
-      ndn::Name prefix(userPrefix + "-" + ndn::to_string(i));
-      m_fullProducer.addUserNode(prefix);
-      m_scheduler.schedule(ndn::time::milliseconds(m_rangeUniformRandom(m_rng)),
-                           [this, prefix] { doUpdate(prefix); });
-    }
-  }
 
-  void
-  run()
-  {
-    m_face.processEvents();
-  }
+// ServiceDiscovery::ServiceDiscovery(const std::vector<std::string>& services, 
+//                                    const std::list<char* >& flags)
+// : m_scheduler(m_face.getIoService())
+// {
+
+// } 
+
+ServiceDiscovery::ServiceDiscovery(const ndn::Name& syncPrefix, const std::string& userPrefix)
+
+
+// }
+  // ServiceDiscovery(const ndn::Name& syncPrefix, const std::string& userPrefix,
+  //          int numDataStreams, int maxNumPublish)
+    : m_scheduler(m_face.getIoService())
+    , m_rng(ndn::random::getRandomNumberEngine())
+{
+  //   , m_fullProducer(80, m_face, syncPrefix, userPrefix,
+  //                    std::bind(&Producer::processSyncUpdate, this, _1),
+  //                    1600_ms, 1600_ms)
+  //   , m_numDataStreams(numDataStreams)
+  //   , m_maxNumPublish(maxNumPublish)
+  //   , m_rangeUniformRandom(0, 60000)
+  //   // Add user prefixes and schedule updates for them in specified interval
+  //   for (int i = 0; i < m_numDataStreams; i++) {
+      ndn::Name prefix(userPrefix + "-" + ndn::to_string(1));
+  //     m_fullProducer.addUserNode(prefix);
+      m_scheduler.schedule(ndn::time::milliseconds(m_rangeUniformRandom(m_rng)),
+                           [this, prefix] { 
+                            std::cout << "hello world" << std::endl;
+                            // doUpdate(prefix); 
+                            
+                            });
+
 }
 
 void
@@ -68,46 +67,27 @@ ServiceDiscovery::run()
   m_face.processEvents();
 }
 
-
 void
 ServiceDiscovery::doUpdate(const ndn::Name& prefix)
 {
-  m_fullProducer.publishName(prefix);
+  // m_fullProducer.publishName(prefix);
 
-  uint64_t seqNo = m_fullProducer.getSeqNo(prefix).value();
-  NDN_LOG_INFO("Publish: " << prefix << "/" << seqNo);
+  // uint64_t seqNo = m_fullProducer.getSeqNo(prefix).value();
+  // NDN_LOG_INFO("Publish: " << prefix << "/" << seqNo);
 
-  if (seqNo < m_maxNumPublish) {
-    m_scheduler.schedule(ndn::time::milliseconds(m_rangeUniformRandom(m_rng)),
-                         [this, prefix] { doUpdate(prefix); });
-  }
+  // if (seqNo < m_maxNumPublish) {
+  //   m_scheduler.schedule(ndn::time::milliseconds(m_rangeUniformRandom(m_rng)),
+  //                        [this, prefix] { doUpdate(prefix); });
+  // }
 }
 
 void
 ServiceDiscovery::processSyncUpdate(const std::vector<psync::MissingDataInfo>& updates)
 {
-  for (const auto& update : updates) {
-    for (uint64_t i = update.lowSeq; i <= update.highSeq; i++) {
-      NDN_LOG_INFO("Update " << update.prefix << "/" << i);
-    }
-  }
+  // for (const auto& update : updates) {
+  //   for (uint64_t i = update.lowSeq; i <= update.highSeq; i++) {
+  //     NDN_LOG_INFO("Update " << update.prefix << "/" << i);
+  //   }
+  // }
 }
 
-int
-main(int argc, char* argv[])
-{
-  if (argc != 5) {
-    std::cout << "usage: " << argv[0] << " <syncPrefix> <user-prefix> "
-              << "<number-of-user-prefixes> <max-number-of-updates-per-user-prefix>"
-              << std::endl;
-    return 1;
-  }
-
-  try {
-    Producer producer(argv[1], argv[2], std::stoi(argv[3]), std::stoi(argv[4]));
-    producer.run();
-  }
-  catch (const std::exception& e) {
-    NDN_LOG_ERROR(e.what());
-  }
-}
