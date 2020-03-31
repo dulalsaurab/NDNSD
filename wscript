@@ -85,8 +85,8 @@ def build(bld):
     headers = bld.path.ant_glob('src/**/*.hpp')
     bld.install_files(bld.env.INCLUDEDIR, headers, relative_trick=True)
 
-    bld.install_files('${INCLUDEDIR}/ndnsd',
-                      bld.path.find_resource('ndnsd/config.hpp'))
+    bld.install_files('${INCLUDEDIR}/src/ndnsd',
+                      bld.path.find_resource('ndnsd/src/config.hpp'))
 
     bld(features='subst',
         source='ndnsd.pc.in',

@@ -21,29 +21,62 @@
 #ifndef NDNSD_SERVICE_DISCOVERY_HPP
 #define NDNSD_SERVICE_DISCOVERY_HPP
 
-#include <PSync/full-producer.hpp>
+#include "src/communication/sync-adapter.hpp"
 
 #include <ndn-cxx/face.hpp>
 #include <ndn-cxx/util/logger.hpp>
 #include <ndn-cxx/util/random.hpp>
 #include <ndn-cxx/util/scheduler.hpp>
+#include <ndn-cxx/util/time.hpp>
 
 #include <iostream>
 
 using namespace ndn::time_literals;
 
+namespace ndnsd {
+namespace discovery {
+
 class ServiceDiscovery
 {
 
 public:
-  // // for consumer
-  // ServiceDiscovery(const std::vector<std::string>& services, const std::list<char* >& flags);
-  
-  // for producer
-  ServiceDiscovery(const ndn::Name& syncPrefix, const std::string& userPrefix);
+
+  /* ctor for Producer 
+    serviceName: syncPrefix will be constructed out of service name,
+    e.g. serviceName printer, syncPrefix = /<prefix>/discovery/printer
+    userPrefix: Application prefix name
+    timeStamp: when the userPrefix was updated the last time. When combine 
+    with prefixExpTime, the prefix will expire from that time onward.
+    The assumption here is that the machines are loosely synchronized.
+    serviceInfo: detail information about the service, this can also be a Json (later)
+  */
+
+  ServiceDiscovery(const ndn::Name& serviceName, const std::string& userPrefix,
+                   const std::list<std::string>& pFlags,
+                   const std::string &serviceInfo,
+                   const ndn::time::system_clock::TimePoint& timeStamp,
+                   ndn::time::milliseconds prefixExpirationTime);
 
   void
   run();
+
+  uint32_t
+  getSyncProtocol() const
+  {
+    return m_syncProtocol;
+  }
+
+  void
+  setSyncProtocol(std::string syncProtocol)
+  {
+    
+    m_syncProtocol = (syncProtocol.compare("chronosync")) 
+                     ? SYNC_PROTOCOL_CHRONOSYNC 
+                     : SYNC_PROTOCOL_PSYNC;
+  }
+
+  void
+  ProcessFalgs();
 
 private:
   void 
@@ -52,17 +85,18 @@ private:
   void
   processSyncUpdate(const std::vector<psync::MissingDataInfo>& updates);
    
-  ndn::Face m_face;
-  ndn::Scheduler m_scheduler;
+   ndn::Name m_serviceName;
+   std::string m_userPrefix;
+   std::list<std::string> m_producerFlags;
+   std::string m_serviceInfo;
+   ndn::time::system_clock::TimePoint m_publishTimeStamp;
+   ndn::time::milliseconds m_prefixLifeTime;
+   
+   ndn::Face m_face;
+   ndn::Scheduler m_scheduler;
 
-  // psync::FullProducer m_fullProducer;
-
-  int m_numDataStreams;
-  uint64_t m_maxNumPublish;
-
-  ndn::random::RandomNumberEngine& m_rng;
-  std::uniform_int_distribution<> m_rangeUniformRandom;
-
+   // ndnsd::SyncProtocolAdapter m_syncProtocolAdapter;
+   uint32_t m_syncProtocol;
 };
-
+}}
 #endif // NDNSD_SERVICE_DISCOVERY_HPP

@@ -18,47 +18,51 @@
  **/
 
 #include "service-discovery.hpp"
-
 #include <iostream>
-
-// NDN_LOG_INIT(examples.FullSyncApp);
 
 using namespace ndn::time_literals;
 
+namespace ndnsd {
+namespace discovery {
 
-// ServiceDiscovery::ServiceDiscovery(const std::vector<std::string>& services, 
-//                                    const std::list<char* >& flags)
-// : m_scheduler(m_face.getIoService())
-// {
+ServiceDiscovery::ServiceDiscovery(const ndn::Name& serviceName, const std::string& userPrefix,
+                                   const std::list<std::string>& pFlags,
+                                   const std::string& serviceInfo,
+                                   const ndn::time::system_clock::TimePoint& timeStamp,
+                                   ndn::time::milliseconds prefixExpirationTime)
+: m_scheduler(m_face.getIoService())
+, m_serviceName(serviceName)
+, m_userPrefix(userPrefix)
+, m_producerFlags(pFlags)
+, m_serviceInfo(serviceInfo)
+, m_publishTimeStamp(timeStamp)
+, m_prefixLifeTime(prefixExpirationTime)
+, m_syncProtocol(SYNC_PROTOCOL_PSYNC)
 
-// } 
-
-ServiceDiscovery::ServiceDiscovery(const ndn::Name& syncPrefix, const std::string& userPrefix)
-
-
-// }
-  // ServiceDiscovery(const ndn::Name& syncPrefix, const std::string& userPrefix,
-  //          int numDataStreams, int maxNumPublish)
-    : m_scheduler(m_face.getIoService())
-    , m_rng(ndn::random::getRandomNumberEngine())
 {
-  //   , m_fullProducer(80, m_face, syncPrefix, userPrefix,
-  //                    std::bind(&Producer::processSyncUpdate, this, _1),
-  //                    1600_ms, 1600_ms)
-  //   , m_numDataStreams(numDataStreams)
-  //   , m_maxNumPublish(maxNumPublish)
-  //   , m_rangeUniformRandom(0, 60000)
-  //   // Add user prefixes and schedule updates for them in specified interval
-  //   for (int i = 0; i < m_numDataStreams; i++) {
-      ndn::Name prefix(userPrefix + "-" + ndn::to_string(1));
-  //     m_fullProducer.addUserNode(prefix);
-      m_scheduler.schedule(ndn::time::milliseconds(m_rangeUniformRandom(m_rng)),
-                           [this, prefix] { 
-                            std::cout << "hello world" << std::endl;
-                            // doUpdate(prefix); 
-                            
-                            });
+  ProcessFalgs();
 
+  // ,m_syncLogic(m_syncFace, m_confParam.getSyncProtocol(), m_confParam.getSyncPrefix(),
+  //               m_nameLsaUserPrefix, m_confParam.getSyncInterestLifetime(),
+  //               std::bind(&SyncLogicHandler::processUpdate, this, _1, _2))
+
+  // SyncProtocolAdapter(ndn::Face& facePtr,
+  //                     int32_t syncProtocol,
+  //                     const ndn::Name& syncPrefix,
+  //                     const ndn::Name& userPrefix,
+  //                     ndn::time::milliseconds syncInterestLifetime,
+  //                     const SyncUpdateCallback& syncUpdateCallback);
+
+
+}
+
+void
+ServiceDiscovery::ProcessFalgs()
+{
+  // for( auto const& a : m_producerFlags )
+  // {
+  //     std::cout << a << std::endl;
+  // }
 }
 
 void
@@ -91,3 +95,29 @@ ServiceDiscovery::processSyncUpdate(const std::vector<psync::MissingDataInfo>& u
   // }
 }
 
+// void
+// ndnsd::printUsage()
+// {
+//   std::cout << "Usage:\n" << "ProgramName"  << " [-h] [-V] COMMAND [<Command Options>]\n"
+//     "       -h print usage and exit\n"
+//     "       -V print version and exit\n"
+//     "\n"
+//     "   COMMAND can be one of the following:\n"
+//     "       lsdb\n"
+//     "           display NLSR lsdb status\n"
+//     "       routing\n"
+//     "           display routing table status\n"
+//     "       status\n"
+//     "           display all NLSR status (lsdb & routingtable)\n"
+//     "       advertise name\n"
+//     "           advertise a name prefix through NLSR\n"
+//     "       advertise name save\n"
+//     "           advertise and save the name prefix to the conf file\n"
+//     "       withdraw name\n"
+//     "           remove a name prefix advertised through NLSR\n"
+//     "       withdraw name delete\n"
+//     "           withdraw and delete the name prefix from the conf file"
+//     << std::endl;
+// }
+
+}}
