@@ -66,7 +66,7 @@ def configure(conf):
     # or conf.define_cond().  Everything that was added directly to conf.env.DEFINES
     # will not appear in the config header, but will instead be passed directly to the
     # compiler on the command line.
-    conf.write_config_header('config.hpp')
+    conf.write_config_header('ndnsd/config.hpp')
 
 
 def build(bld):
@@ -74,7 +74,7 @@ def build(bld):
               target='ndnsd',
               vnum=VERSION,
               cnum=VERSION,
-              source=bld.path.ant_glob('src/**/*.cpp'),
+              source=bld.path.ant_glob('ndnsd/**/*.cpp'),
               use='NDN_CXX BOOST SYNC PSYNC',
               includes='.',
               export_includes='.')
@@ -82,11 +82,11 @@ def build(bld):
     if bld.env.WITH_EXAMPLES:
         bld.recurse('examples')
 
-    headers = bld.path.ant_glob('src/**/*.hpp')
+    headers = bld.path.ant_glob('ndnsd/**/*.hpp')
     bld.install_files(bld.env.INCLUDEDIR, headers, relative_trick=True)
 
-    bld.install_files('${INCLUDEDIR}/src/ndnsd',
-                      bld.path.find_resource('ndnsd/src/config.hpp'))
+    bld.install_files('${INCLUDEDIR}/ndnsd/',
+                      bld.path.find_resource('ndnsd/config.hpp'))
 
     bld(features='subst',
         source='ndnsd.pc.in',

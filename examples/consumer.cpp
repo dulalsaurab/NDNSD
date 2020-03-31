@@ -1,5 +1,5 @@
 #include<iostream>
-#include "src/discovery/service-discovery.hpp"
+#include "ndnsd/discovery/service-discovery.hpp"
 
 class consumer 
 {
