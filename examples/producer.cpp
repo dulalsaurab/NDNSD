@@ -7,16 +7,21 @@ class Producer
 public:
     Producer(const ndn::Name& serviceName, const std::string& userPrefix,
              const std::string &serviceInfo,
-             const std::list<std::string>& pFlags)
+             const std::map<char, std::string>& pFlags)
     
     : m_serviceDiscovery(serviceName, userPrefix, pFlags, serviceInfo,
                         ndn::time::system_clock::now(), 10_s)
     {
     }
 
+void 
+execute ()
+{
+  m_serviceDiscovery.run();
+}
+
 private:
     ndnsd::discovery::ServiceDiscovery m_serviceDiscovery;
-    // std::list<std::string> m_flags;
 
 };
 
@@ -31,13 +36,12 @@ main(int argc, char* argv[])
     return 1;
   }
 
-  std::list<std::string> flags;
-  flags.push_back("psync");
+  std::map<char, std::string> flags;
+  flags.insert(std::pair<char, std::string>('p', "sync"));
 
   try {
-    std::cout << argv[1] << ":" << argv[2] << ":" <<  argv[3] << std::endl;
     Producer producer(argv[1], argv[2], argv[3], flags);
-    // producer.run();
+    producer.execute();
   }
   catch (const std::exception& e) {
 
