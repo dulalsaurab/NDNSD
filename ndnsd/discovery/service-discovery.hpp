@@ -28,6 +28,7 @@
 #include <ndn-cxx/util/random.hpp>
 #include <ndn-cxx/util/scheduler.hpp>
 #include <ndn-cxx/util/time.hpp>
+#include <ndn-cxx/util/dummy-client-face.hpp>
 
 #include <iostream>
 #include "logger.hpp"
@@ -37,13 +38,40 @@ using namespace ndn::time_literals;
 namespace ndnsd {
 namespace discovery {
 
+/*
+ map: stores data from producer to serve on demand
+ first arg: string: prefix name, second arg: parameters (service name, 
+  publish timestamps, lifetime, serviceInfo)
+*/
+
+struct Details
+{
+  ndn::Name serviceName;
+  ndn::time::system_clock::TimePoint timeStamp;
+  ndn::time::milliseconds prefixExpirationTime;
+  std::string serviceInfo;
+};
+
+typedef struct Details Details;
+std::map<ndn::Name, Details> servicesDetails;
+
 class ServiceDiscovery
 {
 
 public:
 
+  /* ctor for Consumer 
+    serviceName: Service consumer is interested on. e.g. = /<prefix>/discovery/printer
+    timeStamp: when was the service requested.
+  */
+  // consumer
+  ServiceDiscovery(const ndn::Name& serviceName,
+                   const std::map<char, std::string>& pFlags,
+                   const ndn::time::system_clock::TimePoint& timeStamp);
+
   /* ctor for Producer 
-    serviceName: syncPrefix will be constructed out of service name,
+    serviceName: Service producer is willing to publish. syncPrefix will be 
+    constructed out of service name,
     e.g. serviceName printer, syncPrefix = /<prefix>/discovery/printer
     userPrefix: Application prefix name
     timeStamp: when the userPrefix was updated the last time. When combine 
@@ -60,6 +88,12 @@ public:
 
   void
   run();
+
+  void
+  producerHandler();
+
+  void
+  consumerHandler();
 
   uint32_t
   getSyncProtocol() const
@@ -92,6 +126,9 @@ private:
   processInterest(const ndn::Name& name, const ndn::Interest& interest);
 
   void
+  sendData(const ndn::Name& name, const struct Details& serviceDetail);
+
+  void
   setInterestFilter(const ndn::Name& prefix, const bool loopback = false);
 
   void
@@ -100,6 +137,7 @@ private:
   void
   onRegistrationSuccess(const ndn::Name& name);
   
+
   ndn::Face m_face;
   ndn::Scheduler m_scheduler;
   // ndn::security::SigningInfo& m_signingInfo;
@@ -114,6 +152,7 @@ private:
 
   uint32_t m_syncProtocol;
   SyncProtocolAdapter m_syncAdapter;
+  static const ndn::Name DEFAULT_CONSUMER_ONLY_NAME;
 };
 }}
 #endif // NDNSD_SERVICE_DISCOVERY_HPP

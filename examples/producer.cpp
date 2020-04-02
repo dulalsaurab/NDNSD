@@ -17,12 +17,11 @@ public:
 void 
 execute ()
 {
-  m_serviceDiscovery.run();
+  m_serviceDiscovery.producerHandler();
 }
 
 private:
     ndnsd::discovery::ServiceDiscovery m_serviceDiscovery;
-
 };
 
 

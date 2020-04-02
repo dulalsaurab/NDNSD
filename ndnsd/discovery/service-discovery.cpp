@@ -27,21 +27,22 @@ using namespace ndn::time_literals;
 namespace ndnsd {
 namespace discovery {
 
-/*
- map: stores data from producer to serve on demand
- first arg: string: prefix name, second arg: parameters (service name, 
-  publish timestamps, lifetime, serviceInfo)
-*/
-struct Details
+// consumer
+ServiceDiscovery::ServiceDiscovery(const ndn::Name& serviceName,
+                                   const std::map<char, std::string>& pFlags,
+                                   const ndn::time::system_clock::TimePoint& timeStamp)
+: m_scheduler(m_face.getIoService())
+, m_serviceName(serviceName)
+, m_producerFlags(pFlags)
+, m_publishTimeStamp(timeStamp)
+, m_syncProtocol(SYNC_PROTOCOL_PSYNC)
+, m_syncAdapter(m_face, getSyncProtocol(), makeSyncPrefix(m_serviceName),
+                "/defaultName", 1600_ms,
+                std::bind(&ServiceDiscovery::processSyncUpdate, this, _1, _2))
 {
-  ndn::Name serviceName;
-  ndn::time::system_clock::TimePoint timeStamp;
-  ndn::time::milliseconds prefixExpirationTime;
-  std::string serviceInfo;
-};
+}
 
-std::map<ndn::Name, Details> servicesDetails;
-
+// producer
 ServiceDiscovery::ServiceDiscovery(const ndn::Name& serviceName, const std::string& userPrefix,
                                    const std::map<char, std::string>& pFlags,
                                    const std::string& serviceInfo,
@@ -60,6 +61,7 @@ ServiceDiscovery::ServiceDiscovery(const ndn::Name& serviceName, const std::stri
                 std::bind(&ServiceDiscovery::processSyncUpdate, this, _1, _2))
 
 {
+  setInterestFilter(m_userPrefix);
 }
 
 ndn::Name
@@ -77,7 +79,7 @@ ServiceDiscovery::processFalgs()
 }
 
 void
-ServiceDiscovery::run()
+ServiceDiscovery::producerHandler()
 {
   std::cout << "inside run " << m_userPrefix << std::endl;
   processFalgs();
@@ -87,8 +89,13 @@ ServiceDiscovery::run()
   servicesDetails.emplace(m_userPrefix, d);
   
   doUpdate(m_userPrefix);
-  setInterestFilter(m_userPrefix);
 
+  run();
+}
+
+void
+ServiceDiscovery::run()
+{
   m_face.processEvents();
 }
 
@@ -107,10 +114,39 @@ void
 ServiceDiscovery::processInterest(const ndn::Name& name, const ndn::Interest& interest)
 {
   std::cout << "I received an interest: " << interest.getName().get(-3).toUri() << std::endl;
+  auto details = servicesDetails.find("/printer1")->second;
+  sendData(interest.getName(), details);
+}
 
-  auto abc = servicesDetails.find("/printer1")->second;
+void
+ServiceDiscovery::sendData(const ndn::Name& name, const struct Details& serviceDetail)
+{
+  auto data = std::make_shared<ndn::Data>(name);
+  data->setFreshnessPeriod(1_s);
+  data->setFinalBlock(name[-1]);
+  // // data->setContent("");
+  // // ndn::SignatureSha256WithRsa fakeSignature;
+  // // this->signDatasetReply(*data);
+  try
+  {
+    m_face.put(*data);
+  }
+  catch (const std::exception& ex) {
+    std::cerr << ex.what() << std::endl;
+  }
+  // m_face.put(*data);
 
 }
+
+// Data&
+// signData(Data& data)
+// {
+//   ndn::SignatureSha256WithRsa fakeSignature;
+//   fakeSignature.setValue(ndn::encoding::makeEmptyBlock(tlv::SignatureValue));
+//   data.setSignature(fakeSignature);
+//   data.wireEncode();
+//   return data;
+// }
 
 void
 ServiceDiscovery::registrationFailed(const ndn::Name& name)
