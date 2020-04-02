@@ -140,6 +140,7 @@ private:
 
   ndn::Face m_face;
   ndn::Scheduler m_scheduler;
+  ndn::KeyChain m_keyChain;
   // ndn::security::SigningInfo& m_signingInfo;
 
   ndn::Name m_serviceName;

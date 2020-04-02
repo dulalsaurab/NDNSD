@@ -114,39 +114,33 @@ void
 ServiceDiscovery::processInterest(const ndn::Name& name, const ndn::Interest& interest)
 {
   std::cout << "I received an interest: " << interest.getName().get(-3).toUri() << std::endl;
+  std::cout << "name: " << name << std::endl;
+  std::cout << "interest: " << interest << std::endl;
+  std::cout << "interest: " << interest.getName() << std::endl;
   auto details = servicesDetails.find("/printer1")->second;
-  sendData(interest.getName(), details);
+  // sendData(interest.getName(), details);
 }
 
 void
 ServiceDiscovery::sendData(const ndn::Name& name, const struct Details& serviceDetail)
 {
-  auto data = std::make_shared<ndn::Data>(name);
+
+  uint8_t  *id = (uint8_t *)  0x00004000;
+  std::shared_ptr<ndn::Data> data = std::make_shared<ndn::Data>("/printer1");
   data->setFreshnessPeriod(1_s);
-  data->setFinalBlock(name[-1]);
-  // // data->setContent("");
-  // // ndn::SignatureSha256WithRsa fakeSignature;
-  // // this->signDatasetReply(*data);
-  try
+  data->setContent(reinterpret_cast<const uint8_t*>(&id), sizeof(id));
+
+  m_keyChain.sign(*data);
+  try 
   {
     m_face.put(*data);
   }
   catch (const std::exception& ex) {
+    std::cout << "did i reach here" << std::endl;
     std::cerr << ex.what() << std::endl;
   }
-  // m_face.put(*data);
 
 }
-
-// Data&
-// signData(Data& data)
-// {
-//   ndn::SignatureSha256WithRsa fakeSignature;
-//   fakeSignature.setValue(ndn::encoding::makeEmptyBlock(tlv::SignatureValue));
-//   data.setSignature(fakeSignature);
-//   data.wireEncode();
-//   return data;
-// }
 
 void
 ServiceDiscovery::registrationFailed(const ndn::Name& name)
