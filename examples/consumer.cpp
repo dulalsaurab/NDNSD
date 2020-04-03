@@ -5,43 +5,52 @@
 class Consumer 
 {
 public:
-    Consumer(const ndn::Name& serviceName, const std::map<char, std::string>& pFlags)
-    
-    : m_serviceDiscovery(serviceName, pFlags, ndn::time::system_clock::now())
-    {
-    }
+  Consumer(const ndn::Name& serviceName, const std::map<char, std::string>& pFlags)
+  
+  : m_serviceDiscovery(serviceName, pFlags, ndn::time::system_clock::now(),
+                       std::bind(&Consumer::processCallback, this, _1))
+  {
+  }
 
-void 
-execute ()
-{
-  m_serviceDiscovery.consumerHandler();
-}
+  void 
+  execute ()
+  {
+    m_serviceDiscovery.consumerHandler();
+  }
 
 private:
-    ndnsd::discovery::ServiceDiscovery m_serviceDiscovery;
+
+  void
+  processCallback(const std::string& callback)
+  {
+      std::cout << "callback: " << callback <<  std::endl;
+  }
+
+private:
+  ndnsd::discovery::ServiceDiscovery m_serviceDiscovery;
+
 
 };
-
 
 int
 main(int argc, char* argv[])
 {
-  // if (argc != 4) {
-  //   std::cout << "usage: " << argv[0] << " <service-name> <user-prefix> "
-  //             << " <service-info>"
-  //             << std::endl;
-  //   return 1;
-  // }
+  if (argc != 2) {
+    std::cout << "usage: " << argv[0] << " <service-name> "
+              << std::endl;
+    return 1;
+  }
 
-  // std::map<char, std::string> flags;
-  // flags.insert(std::pair<char, std::string>('p', "sync"));
+  std::map<char, std::string> flags;
+  flags.insert(std::pair<char, std::string>('p', "sync"));
+  flags.insert(std::pair<char, std::string>('t', "c"));
 
-  // try {
-  //   Producer producer(argv[1], argv[2], argv[3], flags);
-  //   producer.execute();
-  // }
-  // catch (const std::exception& e) {
+  try {
+    Consumer consumer(argv[1], flags);
+    consumer.execute();
+  }
+  catch (const std::exception& e) {
 
-  //   // NDN_LOG_ERROR(e.what());
-  // }
+    // NDN_LOG_ERROR(e.what());
+  }
 }

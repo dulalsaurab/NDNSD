@@ -38,11 +38,18 @@ using namespace ndn::time_literals;
 namespace ndnsd {
 namespace discovery {
 
+typedef std::function<void(const std::string& updates)> DiscoveryCallback;
+
 /*
  map: stores data from producer to serve on demand
  first arg: string: prefix name, second arg: parameters (service name, 
   publish timestamps, lifetime, serviceInfo)
 */
+
+enum {
+  PRODUCER = 0,
+  CONSUMER = 1
+};
 
 struct Details
 {
@@ -67,11 +74,12 @@ public:
   // consumer
   ServiceDiscovery(const ndn::Name& serviceName,
                    const std::map<char, std::string>& pFlags,
-                   const ndn::time::system_clock::TimePoint& timeStamp);
+                   const ndn::time::system_clock::TimePoint& timeStamp,
+                   const DiscoveryCallback& discoveryCallback);
 
   /* ctor for Producer 
     serviceName: Service producer is willing to publish. syncPrefix will be 
-    constructed out of service name,
+    constructed out of service name
     e.g. serviceName printer, syncPrefix = /<prefix>/discovery/printer
     userPrefix: Application prefix name
     timeStamp: when the userPrefix was updated the last time. When combine 
@@ -84,10 +92,18 @@ public:
                    const std::map<char, std::string>& pFlags,
                    const std::string &serviceInfo,
                    const ndn::time::system_clock::TimePoint& timeStamp,
-                   ndn::time::milliseconds prefixExpirationTime);
+                   ndn::time::milliseconds prefixExpirationTime,
+                   const DiscoveryCallback& discoveryCallback);
 
   void
   run();
+
+  /*
+    Cancel all pending operations, close connection to forwarder
+    and stop the ioService.
+  */
+  void 
+  stop();
 
   void
   producerHandler();
@@ -120,7 +136,7 @@ private:
   doUpdate(const ndn::Name& prefix);
 
   void
-  processSyncUpdate(const ndn::Name& updateName, uint64_t seqNo);
+  processSyncUpdate(const std::vector<ndnsd::SyncDataInfo>& updates);
 
   void
   processInterest(const ndn::Name& name, const ndn::Interest& interest);
@@ -137,19 +153,31 @@ private:
   void
   onRegistrationSuccess(const ndn::Name& name);
   
+  void
+  onData(const ndn::Interest& interest, const ndn::Data& data);
+
+  void
+  onTimeout(const ndn::Interest& interest);
+
+  void
+  expressInterest(const ndn::Name& interest);
+
+
 
   ndn::Face m_face;
   ndn::Scheduler m_scheduler;
   ndn::KeyChain m_keyChain;
-  // ndn::security::SigningInfo& m_signingInfo;
 
   ndn::Name m_serviceName;
 
   std::string m_userPrefix;
-  std::map<char, std::string> m_producerFlags;
+  std::map<char, std::string> m_Flags;
   std::string m_serviceInfo;
   ndn::time::system_clock::TimePoint m_publishTimeStamp;
   ndn::time::milliseconds m_prefixLifeTime;
+  uint8_t m_appType;
+  uint8_t m_counter;
+  DiscoveryCallback m_discoveryCallback;
 
   uint32_t m_syncProtocol;
   SyncProtocolAdapter m_syncAdapter;

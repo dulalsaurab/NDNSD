@@ -89,21 +89,32 @@ void
 SyncProtocolAdapter::onChronoSyncUpdate(const std::vector<chronosync::MissingDataInfo>& updates)
 {
   std::cout << "Received ChronoSync update event" << std::endl;
+  std::vector<ndnsd::SyncDataInfo> dinfo;
 
   for (const auto& update : updates) {
     // Remove FIXED_SESSION
-    m_syncUpdateCallback(update.session.getPrefix(-1), update.high);
+    SyncDataInfo di;
+    di.prefix = update.session.getPrefix(-1);
+    di.highSeq = update.high;
+    dinfo.insert(dinfo.begin(), di);
   }
+  m_syncUpdateCallback(dinfo);
 }
 
 void
 SyncProtocolAdapter::onPSyncUpdate(const std::vector<psync::MissingDataInfo>& updates)
 {
   std::cout << "Received PSync update event" << std::endl;
+  std::vector<ndnsd::SyncDataInfo> dinfo;
 
   for (const auto& update : updates) {
-    m_syncUpdateCallback(update.prefix, update.highSeq);
+    // Remove FIXED_SESSION
+    SyncDataInfo di;
+    di.prefix = update.prefix;
+    di.highSeq = update.highSeq;
+    dinfo.insert(dinfo.begin(), di);
   }
+  m_syncUpdateCallback(dinfo);
 }
 
 } // namespace ndnsd

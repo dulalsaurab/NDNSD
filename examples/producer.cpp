@@ -5,23 +5,31 @@
 class Producer 
 {
 public:
-    Producer(const ndn::Name& serviceName, const std::string& userPrefix,
-             const std::string &serviceInfo,
-             const std::map<char, std::string>& pFlags)
-    
-    : m_serviceDiscovery(serviceName, userPrefix, pFlags, serviceInfo,
-                        ndn::time::system_clock::now(), 10_s)
-    {
-    }
+  Producer(const ndn::Name& serviceName, const std::string& userPrefix,
+           const std::string &serviceInfo,
+           const std::map<char, std::string>& pFlags)
+  
+  : m_serviceDiscovery(serviceName, userPrefix, pFlags, serviceInfo,
+                      ndn::time::system_clock::now(), 10_s,
+                      std::bind(&Producer::processCallback, this, _1))
+  {
+  }
 
-void 
-execute ()
-{
-  m_serviceDiscovery.producerHandler();
-}
+  void 
+  execute ()
+  {
+    m_serviceDiscovery.producerHandler();
+  }
 
 private:
-    ndnsd::discovery::ServiceDiscovery m_serviceDiscovery;
+  void
+  processCallback(const std::string& callback)
+  {
+      std::cout << callback << std::endl;
+  }
+
+  ndnsd::discovery::ServiceDiscovery m_serviceDiscovery;
+
 };
 
 
@@ -37,6 +45,7 @@ main(int argc, char* argv[])
 
   std::map<char, std::string> flags;
   flags.insert(std::pair<char, std::string>('p', "sync"));
+  flags.insert(std::pair<char, std::string>('t', "p"));
 
   try {
     Producer producer(argv[1], argv[2], argv[3], flags);

@@ -27,8 +27,13 @@
 
 namespace ndnsd {
 
-typedef std::function<void(const ndn::Name& updateName,
-                           uint64_t seqNo)> SyncUpdateCallback;
+struct SyncDataInfo
+{
+  ndn::Name prefix;
+  uint64_t highSeq;
+};
+
+typedef std::function<void(const std::vector<SyncDataInfo>& updates)> SyncUpdateCallback;
 
 enum {
   SYNC_PROTOCOL_CHRONOSYNC = 0,

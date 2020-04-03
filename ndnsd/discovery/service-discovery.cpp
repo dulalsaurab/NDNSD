@@ -30,15 +30,19 @@ namespace discovery {
 // consumer
 ServiceDiscovery::ServiceDiscovery(const ndn::Name& serviceName,
                                    const std::map<char, std::string>& pFlags,
-                                   const ndn::time::system_clock::TimePoint& timeStamp)
+                                   const ndn::time::system_clock::TimePoint& timeStamp,
+                                   const DiscoveryCallback& discoveryCallback)
 : m_scheduler(m_face.getIoService())
 , m_serviceName(serviceName)
-, m_producerFlags(pFlags)
+, m_Flags(pFlags)
 , m_publishTimeStamp(timeStamp)
 , m_syncProtocol(SYNC_PROTOCOL_PSYNC)
 , m_syncAdapter(m_face, getSyncProtocol(), makeSyncPrefix(m_serviceName),
                 "/defaultName", 1600_ms,
-                std::bind(&ServiceDiscovery::processSyncUpdate, this, _1, _2))
+                std::bind(&ServiceDiscovery::processSyncUpdate, this, _1))
+, m_appType(1)
+, m_counter(0)
+, m_discoveryCallback(discoveryCallback)
 {
 }
 
@@ -47,19 +51,21 @@ ServiceDiscovery::ServiceDiscovery(const ndn::Name& serviceName, const std::stri
                                    const std::map<char, std::string>& pFlags,
                                    const std::string& serviceInfo,
                                    const ndn::time::system_clock::TimePoint& timeStamp,
-                                   ndn::time::milliseconds prefixExpirationTime)
+                                   ndn::time::milliseconds prefixExpirationTime,
+                                   const DiscoveryCallback& discoveryCallback)
 : m_scheduler(m_face.getIoService())
 , m_serviceName(serviceName)
 , m_userPrefix(userPrefix)
-, m_producerFlags(pFlags)
+, m_Flags(pFlags)
 , m_serviceInfo(serviceInfo)
 , m_publishTimeStamp(timeStamp)
 , m_prefixLifeTime(prefixExpirationTime)
 , m_syncProtocol(SYNC_PROTOCOL_PSYNC)
 , m_syncAdapter(m_face, getSyncProtocol(), makeSyncPrefix(m_serviceName),
                 m_userPrefix, 1600_ms,
-                std::bind(&ServiceDiscovery::processSyncUpdate, this, _1, _2))
-
+                std::bind(&ServiceDiscovery::processSyncUpdate, this, _1))
+, m_appType(0)
+, m_discoveryCallback(discoveryCallback)
 {
   setInterestFilter(m_userPrefix);
 }
@@ -75,28 +81,43 @@ ServiceDiscovery::makeSyncPrefix(ndn::Name& service)
 void
 ServiceDiscovery::processFalgs()
 {
-   setSyncProtocol(m_producerFlags.find('p')->second);
+   setSyncProtocol(m_Flags.find('p')->second);
 }
 
 void
 ServiceDiscovery::producerHandler()
 {
-  std::cout << "inside run " << m_userPrefix << std::endl;
+  std::cout << "Advertising service under Name: " << m_userPrefix << std::endl;
   processFalgs();
 
   // store service
   Details d = {m_serviceName, m_publishTimeStamp, m_prefixLifeTime, m_serviceInfo};
   servicesDetails.emplace(m_userPrefix, d);
-  
-  doUpdate(m_userPrefix);
 
+  doUpdate(m_userPrefix);
   run();
 }
+
+void
+ServiceDiscovery::consumerHandler()
+{
+  std::cout << "Requesting service: " << m_serviceName << std::endl;
+  processFalgs();
+  run();
+}
+
 
 void
 ServiceDiscovery::run()
 {
   m_face.processEvents();
+}
+
+void 
+ServiceDiscovery::stop()
+{
+  m_face.shutdown();
+  m_face.getIoService().stop();
 }
 
 void
@@ -113,33 +134,62 @@ ServiceDiscovery::setInterestFilter(const ndn::Name& name, const bool loopback)
 void
 ServiceDiscovery::processInterest(const ndn::Name& name, const ndn::Interest& interest)
 {
-  std::cout << "I received an interest: " << interest.getName().get(-3).toUri() << std::endl;
-  std::cout << "name: " << name << std::endl;
-  std::cout << "interest: " << interest << std::endl;
-  std::cout << "interest: " << interest.getName() << std::endl;
+  std::cout << "Interest received: " << interest.getName() << std::endl;
   auto details = servicesDetails.find("/printer1")->second;
-  // sendData(interest.getName(), details);
+  sendData(interest.getName(), details);
 }
 
 void
 ServiceDiscovery::sendData(const ndn::Name& name, const struct Details& serviceDetail)
 {
-
-  uint8_t  *id = (uint8_t *)  0x00004000;
-  std::shared_ptr<ndn::Data> data = std::make_shared<ndn::Data>("/printer1");
+  static const std::string content("Hello, world!");
+  std::shared_ptr<ndn::Data> data = std::make_shared<ndn::Data>(name);
   data->setFreshnessPeriod(1_s);
-  data->setContent(reinterpret_cast<const uint8_t*>(&id), sizeof(id));
+  data->setContent(reinterpret_cast<const uint8_t*>(content.data()), content.size());
 
   m_keyChain.sign(*data);
-  try 
+  try
   {
     m_face.put(*data);
   }
   catch (const std::exception& ex) {
-    std::cout << "did i reach here" << std::endl;
     std::cerr << ex.what() << std::endl;
   }
+}
 
+void
+ServiceDiscovery::expressInterest(const ndn::Name& name)
+{
+  ndn::Interest interest(name);
+  interest.setCanBePrefix(false);
+  interest.setMustBeFresh(true);
+  interest.setInterestLifetime(160_ms);
+
+  m_face.expressInterest(interest,
+                         bind(&ServiceDiscovery::onData, this, _1, _2),
+                         bind(&ServiceDiscovery::onTimeout, this, _1),
+                         bind(&ServiceDiscovery::onTimeout, this, _1));
+
+}
+
+void
+ServiceDiscovery::onData(const ndn::Interest& interest, const ndn::Data& data)
+{
+  std::cout << "Sending data for interest: " << interest << std::endl;
+  // auto content = data.getContent().value();
+  auto content = std::string(reinterpret_cast<const char*>(data.getContent().value()));
+  // std::string temp = content;
+  m_discoveryCallback(content);
+
+  m_counter--;
+  if (m_counter <= 0) { stop(); }
+
+}
+
+void
+ServiceDiscovery::onTimeout(const ndn::Interest& interest)
+{
+  std::cout << "i got something onTimeout" << std::endl;
 }
 
 void
@@ -159,18 +209,26 @@ void
 ServiceDiscovery::doUpdate(const ndn::Name& prefix)
 {
   m_syncAdapter.publishUpdate(m_userPrefix);
-  NDNSD_LOG_INFO("Publish: " << prefix );
+  NDNSD_LOG_INFO("Publish: " << prefix);
 }
 
 void
-ServiceDiscovery::processSyncUpdate(const ndn::Name& updateName, uint64_t seqNo)
+ServiceDiscovery::processSyncUpdate(const std::vector<ndnsd::SyncDataInfo>& updates)
 {
-  std::cout << updateName << seqNo << "hello world" << std::endl;
-  // for (const auto& update : updates) {
-  //   for (uint64_t i = update.lowSeq; i <= update.highSeq; i++) {
-  //     NDN_LOG_INFO("Update " << update.prefix << "/" << i);
-  //   }
-  // }
-}
+  m_counter = updates.size();
+  std::cout << "size: " << updates.size();
+  if (m_appType == CONSUMER)
+  {
+    for (auto item: updates)
+    {
+      std::cout << "Fetching data for prefix:" << item.prefix << std::endl;
+      expressInterest(item.prefix);
+    }
+  }
+  else
+  {
+    m_discoveryCallback("Application prefix updated: ");
+  }
 
+}
 }}
