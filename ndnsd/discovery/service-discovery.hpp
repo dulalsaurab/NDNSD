@@ -1,6 +1,6 @@
 /* -*- Mode:C++; c-file-style:"gnu"; indent-tabs-mode:nil; -*- */
 /*
- * Copyright (c) 2014-2019,  The University of Memphis
+ * Copyright (c) 2014-2020,  The University of Memphis
  *
  * This file is part of NDNSD.
  * See AUTHORS.md for complete list of NDNSD authors and contributors.
@@ -92,7 +92,7 @@ public:
                    const std::map<char, std::string>& pFlags,
                    const std::string &serviceInfo,
                    const ndn::time::system_clock::TimePoint& timeStamp,
-                   ndn::time::milliseconds prefixExpirationTime,
+                   const ndn::time::milliseconds& prefixExpirationTime,
                    const DiscoveryCallback& discoveryCallback);
 
   void

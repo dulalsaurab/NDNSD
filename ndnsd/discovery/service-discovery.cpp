@@ -1,6 +1,6 @@
 /* -*- Mode:C++; c-file-style:"gnu"; indent-tabs-mode:nil; -*- */
 /*
- * Copyright (c) 2014-2019,  The University of Memphis
+ * Copyright (c) 2014-2020,  The University of Memphis
  *
  * This file is part of NDNSD.
  * See AUTHORS.md for complete list of NDNSD authors and contributors.
@@ -51,7 +51,7 @@ ServiceDiscovery::ServiceDiscovery(const ndn::Name& serviceName, const std::stri
                                    const std::map<char, std::string>& pFlags,
                                    const std::string& serviceInfo,
                                    const ndn::time::system_clock::TimePoint& timeStamp,
-                                   ndn::time::milliseconds prefixExpirationTime,
+                                   const ndn::time::milliseconds& prefixExpirationTime,
                                    const DiscoveryCallback& discoveryCallback)
 : m_scheduler(m_face.getIoService())
 , m_serviceName(serviceName)
@@ -67,6 +67,7 @@ ServiceDiscovery::ServiceDiscovery(const ndn::Name& serviceName, const std::stri
 , m_appType(0)
 , m_discoveryCallback(discoveryCallback)
 {
+  std::cout << "time point: " << m_publishTimeStamp << std::endl;
   setInterestFilter(m_userPrefix);
 }
 
@@ -135,22 +136,34 @@ void
 ServiceDiscovery::processInterest(const ndn::Name& name, const ndn::Interest& interest)
 {
   std::cout << "Interest received: " << interest.getName() << std::endl;
-  auto details = servicesDetails.find("/printer1")->second;
+  auto details = servicesDetails.find(interest.getName())->second;
   sendData(interest.getName(), details);
 }
 
 void
 ServiceDiscovery::sendData(const ndn::Name& name, const struct Details& serviceDetail)
 {
-  static const std::string content("Hello, world!");
-  std::shared_ptr<ndn::Data> data = std::make_shared<ndn::Data>(name);
-  data->setFreshnessPeriod(1_s);
-  data->setContent(reinterpret_cast<const uint8_t*>(content.data()), content.size());
+  // std::cout << serviceDetail.serviceName << std::endl;
+  // std::cout << serviceDetail.timeStamp << std::endl;
+  // std::cout << serviceDetail.prefixExpirationTime;
+  // std::cout << ndn::time::system_clock::now() << std::endl;
+  // std::cout << ndn::time::system_clock::now() - serviceDetail.timeStamp << std::endl;
+  // std::cout << serviceDetail.serviceInfo << std::endl;
 
-  m_keyChain.sign(*data);
+  std::stringstream ss;
+  auto timeDiff = (ndn::time::system_clock::now() - serviceDetail.timeStamp); 
+  std::cout << "timediff:" << timeDiff << std::endl;
+
+
+  static const std::string content("Hello, world");
+  std::shared_ptr<ndn::Data> replyData = std::make_shared<ndn::Data>(name);
+  replyData->setFreshnessPeriod(1_s);
+  replyData->setContent(reinterpret_cast<const uint8_t*>(content.c_str()), content.size());
+
+  m_keyChain.sign(*replyData);
   try
   {
-    m_face.put(*data);
+    m_face.put(*replyData);
   }
   catch (const std::exception& ex) {
     std::cerr << ex.what() << std::endl;

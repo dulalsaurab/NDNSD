@@ -36,6 +36,9 @@ private:
 int
 main(int argc, char* argv[])
 {
+
+  std::cout << ndn::time::system_clock::now()<< std::endl;
+
   if (argc != 4) {
     std::cout << "usage: " << argv[0] << " <service-name> <user-prefix> "
               << " <service-info>"
