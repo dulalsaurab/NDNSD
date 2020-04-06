@@ -107,7 +107,6 @@ ServiceDiscovery::consumerHandler()
   run();
 }
 
-
 void
 ServiceDiscovery::run()
 {
@@ -143,22 +142,14 @@ ServiceDiscovery::processInterest(const ndn::Name& name, const ndn::Interest& in
 void
 ServiceDiscovery::sendData(const ndn::Name& name, const struct Details& serviceDetail)
 {
-  // std::cout << serviceDetail.serviceName << std::endl;
-  // std::cout << serviceDetail.timeStamp << std::endl;
-  // std::cout << serviceDetail.prefixExpirationTime;
-  // std::cout << ndn::time::system_clock::now() << std::endl;
-  // std::cout << ndn::time::system_clock::now() - serviceDetail.timeStamp << std::endl;
-  // std::cout << serviceDetail.serviceInfo << std::endl;
 
-  std::stringstream ss;
-  auto timeDiff = (ndn::time::system_clock::now() - serviceDetail.timeStamp); 
-  std::cout << "timediff:" << timeDiff << std::endl;
-
-
-  static const std::string content("Hello, world");
   std::shared_ptr<ndn::Data> replyData = std::make_shared<ndn::Data>(name);
+
+  auto& data = wireEncode("hello world eee", 1);
+  replyData->setContent(data);
   replyData->setFreshnessPeriod(1_s);
-  replyData->setContent(reinterpret_cast<const uint8_t*>(content.c_str()), content.size());
+  
+  // replyData->setContent(reinterpret_cast<const uint8_t*>(content.c_str()), content.size());
 
   m_keyChain.sign(*replyData);
   try
@@ -244,4 +235,90 @@ ServiceDiscovery::processSyncUpdate(const std::vector<ndnsd::SyncDataInfo>& upda
   }
 
 }
+
+template<ndn::encoding::Tag TAG>
+size_t
+ServiceDiscovery::wireEncode(ndn::EncodingImpl<TAG>& encoder,
+                             const std::string& info,
+                             const uint8_t& status) const
+{
+  size_t totalLength = 0;
+  totalLength += prependStringBlock(encoder, tlv::ServiceInfo, info);
+  totalLength += prependNonNegativeIntegerBlock(encoder, tlv::ServiceStatus, status);
+  totalLength += encoder.prependVarNumber(totalLength);
+  totalLength += encoder.prependVarNumber(tlv::DiscoveryData);
+  return totalLength;
+}
+
+const ndn::Block&
+ServiceDiscovery::wireEncode(const std::string& serviceInfo, const uint8_t& status)
+{
+
+  if (m_wire.hasWire()) {
+    return m_wire;
+  }
+
+  ndn::EncodingEstimator estimator;
+  size_t estimatedSize = wireEncode(estimator, serviceInfo, status);
+
+  ndn::EncodingBuffer buffer(estimatedSize, 0);
+  wireEncode(buffer, serviceInfo, status);
+
+  m_wire = buffer.block();
+  return m_wire;
+
+}
+
+// template<encoding::Tag TAG>
+// size_t
+// ChannelStatus::wireEncode(EncodingImpl<TAG>& encoder) const
+// {
+//   size_t totalLength = 0;
+//   totalLength += prependStringBlock(encoder, tlv::nfd::LocalUri, m_localUri);
+//   totalLength += encoder.prependVarNumber(totalLength);
+//   totalLength += encoder.prependVarNumber(tlv::nfd::ChannelStatus);
+//   return totalLength;
+// }
+
+// NDN_CXX_DEFINE_WIRE_ENCODE_INSTANTIATIONS(ChannelStatus);
+
+// const Block&
+// ChannelStatus::wireEncode() const
+// {
+//   if (m_wire.hasWire())
+//     return m_wire;
+
+//   EncodingEstimator estimator;
+//   size_t estimatedSize = wireEncode(estimator);
+
+//   EncodingBuffer buffer(estimatedSize, 0);
+//   wireEncode(buffer);
+
+//   m_wire = buffer.block();
+//   return m_wire;
+// }
+
+
+void
+ServiceDiscovery::wireDecode(const ndn::Block& wire)
+{
+
+}
+
+// Data&
+// Data::setContent(const Block& block)
+// {
+//   resetWire();
+
+//   if (block.type() == tlv::Content) {
+//     m_content = block;
+//   }
+//   else {
+//     m_content = Block(tlv::Content, block);
+//   }
+
+//   return *this;
+// }
+
+
 }}

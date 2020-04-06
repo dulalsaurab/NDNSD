@@ -38,6 +38,15 @@ using namespace ndn::time_literals;
 namespace ndnsd {
 namespace discovery {
 
+namespace tlv {
+
+enum {
+  DiscoveryData = 128,
+  ServiceInfo = 129,
+  ServiceStatus = 130
+};
+
+}
 typedef std::function<void(const std::string& updates)> DiscoveryCallback;
 
 /*
@@ -48,7 +57,7 @@ typedef std::function<void(const std::string& updates)> DiscoveryCallback;
 
 enum {
   PRODUCER = 0,
-  CONSUMER = 1
+  CONSUMER = 1,
 };
 
 struct Details
@@ -162,7 +171,19 @@ private:
   void
   expressInterest(const ndn::Name& interest);
 
+  template<ndn::encoding::Tag TAG>
+  size_t
+  wireEncode(ndn::EncodingImpl<TAG>& block, const std::string& info,
+             const uint8_t& status) const;
 
+  const ndn::Block&
+  wireEncode(const std::string& serviceInfo, const uint8_t& status);
+
+  void
+  wireDecode(const ndn::Block& wire);
+
+  // ndn::Data&
+  // addContent(const ndn::Block& block)
 
   ndn::Face m_face;
   ndn::Scheduler m_scheduler;
@@ -182,6 +203,7 @@ private:
   uint32_t m_syncProtocol;
   SyncProtocolAdapter m_syncAdapter;
   static const ndn::Name DEFAULT_CONSUMER_ONLY_NAME;
+  mutable ndn::Block m_wire;
 };
 }}
 #endif // NDNSD_SERVICE_DISCOVERY_HPP
