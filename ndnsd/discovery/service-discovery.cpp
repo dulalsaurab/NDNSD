@@ -37,7 +37,7 @@ ServiceDiscovery::ServiceDiscovery(const ndn::Name& serviceName,
 , m_Flags(pFlags)
 , m_publishTimeStamp(timeStamp)
 , m_syncProtocol(m_Flags.find('p')->second)
-, m_syncAdapter(m_face, getSyncProtocol(), makeSyncPrefix(m_serviceName),
+, m_syncAdapter(m_face, m_syncProtocol, makeSyncPrefix(m_serviceName),
                 "/defaultName", 1600_ms,
                 std::bind(&ServiceDiscovery::processSyncUpdate, this, _1))
 , m_appType(m_Flags.find('t')->second)
@@ -81,7 +81,7 @@ ServiceDiscovery::makeSyncPrefix(ndn::Name& service)
 void
 ServiceDiscovery::processFalgs()
 {
-   // setSyncProtocol(m_Flags.find('p')->second);
+  // this function will process flags as needed. not used for now.
 }
 
 void

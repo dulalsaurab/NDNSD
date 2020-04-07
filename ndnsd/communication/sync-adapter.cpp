@@ -36,8 +36,7 @@ SyncProtocolAdapter::SyncProtocolAdapter(ndn::Face& face,
  , m_syncUpdateCallback(syncUpdateCallback)
 {
   if (m_syncProtocol == SYNC_PROTOCOL_CHRONOSYNC) {
-    std::cout << "Using ChronoSync" << std::endl;
-    // NDN_LOG_DEBUG("Using ChronoSync");
+    NDNSD_LOG_DEBUG("Using ChronoSync");
     m_chronoSyncLogic = std::make_shared<chronosync::Logic>(face,
                           syncPrefix,
                           userPrefix,
@@ -53,8 +52,7 @@ SyncProtocolAdapter::SyncProtocolAdapter(ndn::Face& face,
                           FIXED_SESSION);
   }
   else {
-    // NDN_LOG_DEBUG("Using PSync");
-    std::cout << "Using PSync" << std::endl;
+    NDNSD_LOG_DEBUG("Using PSync");
     m_psyncLogic = std::make_shared<psync::FullProducer>(80,
                      face,
                      syncPrefix,
@@ -78,9 +76,10 @@ SyncProtocolAdapter::addUserNode(const ndn::Name& userPrefix)
 void
 SyncProtocolAdapter::publishUpdate(const ndn::Name& userPrefix)
 {
-  std::cout << "Publishing update for Sync Prefix" << userPrefix << std::endl;
+  NDNSD_LOG_INFO("Publishing update for Sync Prefix " << userPrefix);
   if (m_syncProtocol == SYNC_PROTOCOL_CHRONOSYNC) {
-    m_chronoSyncLogic->updateSeqNo(m_chronoSyncLogic->getSeqNo(userPrefix), userPrefix);
+    auto seq = m_chronoSyncLogic->getSeqNo(userPrefix);
+    m_chronoSyncLogic->updateSeqNo(seq, userPrefix);
   }
   else {
     m_psyncLogic->publishName(userPrefix);
@@ -90,7 +89,7 @@ SyncProtocolAdapter::publishUpdate(const ndn::Name& userPrefix)
 void
 SyncProtocolAdapter::onChronoSyncUpdate(const std::vector<chronosync::MissingDataInfo>& updates)
 {
-  std::cout << "Received ChronoSync update event" << std::endl;
+  NDNSD_LOG_INFO("Received ChronoSync update event");
   std::vector<ndnsd::SyncDataInfo> dinfo;
 
   for (const auto& update : updates) {
@@ -106,7 +105,7 @@ SyncProtocolAdapter::onChronoSyncUpdate(const std::vector<chronosync::MissingDat
 void
 SyncProtocolAdapter::onPSyncUpdate(const std::vector<psync::MissingDataInfo>& updates)
 {
-  std::cout << "Received PSync update event" << std::endl;
+  NDNSD_LOG_INFO("Received PSync update event");
   std::vector<ndnsd::SyncDataInfo> dinfo;
 
   for (const auto& update : updates) {

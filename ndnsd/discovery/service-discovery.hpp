@@ -132,14 +132,6 @@ public:
     return m_syncProtocol;
   }
 
-  // void
-  // setSyncProtocol(uint8_t syncProtocol)
-  // {
-  //   m_syncProtocol = syn(syncProtocol.compare("psync"))
-  //                    ? SYNC_PROTOCOL_CHRONOSYNC
-  //                    : SYNC_PROTOCOL_PSYNC;
-  // }
-
   void
   processFalgs();
 
