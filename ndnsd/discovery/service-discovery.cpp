@@ -144,14 +144,14 @@ ServiceDiscovery::sendData(const ndn::Name& name, const struct Details& serviceD
 {
 
   std::shared_ptr<ndn::Data> replyData = std::make_shared<ndn::Data>(name);
-
-  auto& data = wireEncode("hello world eee", 1);
+  auto timeDiff = ndn::time::system_clock::now() - serviceDetail.timeStamp;
+  int status = (timeDiff >= serviceDetail.prefixExpirationTime*1000)
+                       ? EXPIRED : ACTIVE ;
+  auto& data = wireEncode(serviceDetail.serviceInfo, status);
   replyData->setContent(data);
   replyData->setFreshnessPeriod(1_s);
-  
-  // replyData->setContent(reinterpret_cast<const uint8_t*>(content.c_str()), content.size());
-
   m_keyChain.sign(*replyData);
+
   try
   {
     m_face.put(*replyData);
@@ -180,9 +180,10 @@ void
 ServiceDiscovery::onData(const ndn::Interest& interest, const ndn::Data& data)
 {
   std::cout << "Sending data for interest: " << interest << std::endl;
-  // auto content = data.getContent().value();
+  auto& abc = data.getContent();
+  wireDecode(abc);
   auto content = std::string(reinterpret_cast<const char*>(data.getContent().value()));
-  // std::string temp = content;
+  
   m_discoveryCallback(content);
 
   m_counter--;
@@ -240,24 +241,30 @@ template<ndn::encoding::Tag TAG>
 size_t
 ServiceDiscovery::wireEncode(ndn::EncodingImpl<TAG>& encoder,
                              const std::string& info,
-                             const uint8_t& status) const
+                             const int status) const
 {
   size_t totalLength = 0;
+  size_t variableLength = 0;
+  
+  variableLength += encoder.prependNonNegativeInteger(status);
+  totalLength += variableLength;
+  totalLength += encoder.prependVarNumber(variableLength);
+  totalLength += encoder.prependVarNumber(tlv::ServiceStatus);
+
   totalLength += prependStringBlock(encoder, tlv::ServiceInfo, info);
-  totalLength += prependNonNegativeIntegerBlock(encoder, tlv::ServiceStatus, status);
   totalLength += encoder.prependVarNumber(totalLength);
   totalLength += encoder.prependVarNumber(tlv::DiscoveryData);
+
   return totalLength;
 }
 
 const ndn::Block&
-ServiceDiscovery::wireEncode(const std::string& serviceInfo, const uint8_t& status)
+ServiceDiscovery::wireEncode(const std::string& serviceInfo, const int status)
 {
 
   if (m_wire.hasWire()) {
     return m_wire;
   }
-
   ndn::EncodingEstimator estimator;
   size_t estimatedSize = wireEncode(estimator, serviceInfo, status);
 
@@ -269,56 +276,23 @@ ServiceDiscovery::wireEncode(const std::string& serviceInfo, const uint8_t& stat
 
 }
 
-// template<encoding::Tag TAG>
-// size_t
-// ChannelStatus::wireEncode(EncodingImpl<TAG>& encoder) const
-// {
-//   size_t totalLength = 0;
-//   totalLength += prependStringBlock(encoder, tlv::nfd::LocalUri, m_localUri);
-//   totalLength += encoder.prependVarNumber(totalLength);
-//   totalLength += encoder.prependVarNumber(tlv::nfd::ChannelStatus);
-//   return totalLength;
-// }
-
-// NDN_CXX_DEFINE_WIRE_ENCODE_INSTANTIATIONS(ChannelStatus);
-
-// const Block&
-// ChannelStatus::wireEncode() const
-// {
-//   if (m_wire.hasWire())
-//     return m_wire;
-
-//   EncodingEstimator estimator;
-//   size_t estimatedSize = wireEncode(estimator);
-
-//   EncodingBuffer buffer(estimatedSize, 0);
-//   wireEncode(buffer);
-
-//   m_wire = buffer.block();
-//   return m_wire;
-// }
-
-
 void
 ServiceDiscovery::wireDecode(const ndn::Block& wire)
 {
+  auto blockType = wire.type();
+  if (wire.type() != tlv::DiscoveryData)
+  {
+    std::cout << "Expected DiscoveryData Block, but Block is of type: #" << ndn::to_string(blockType) << std::endl;
+  }
+  wire.parse();
+  m_wire = wire;
+
+  std::cout << "this is it: " << m_wire << "block type" << blockType << std::endl;
+  for (auto it = m_wire.elements_begin(); it != m_wire.elements_end(); ++it) 
+  {
+    std::cout << "type: " << it->type() << "\n" << "value: " << it-> value() << std::endl;
+  }
 
 }
-
-// Data&
-// Data::setContent(const Block& block)
-// {
-//   resetWire();
-
-//   if (block.type() == tlv::Content) {
-//     m_content = block;
-//   }
-//   else {
-//     m_content = Block(tlv::Content, block);
-//   }
-
-//   return *this;
-// }
-
-
-}}
+}
+}

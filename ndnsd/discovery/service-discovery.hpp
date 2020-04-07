@@ -60,6 +60,12 @@ enum {
   CONSUMER = 1,
 };
 
+// service status
+enum {
+  EXPIRED = 0,
+  ACTIVE = 1,
+};
+
 struct Details
 {
   ndn::Name serviceName;
@@ -174,10 +180,10 @@ private:
   template<ndn::encoding::Tag TAG>
   size_t
   wireEncode(ndn::EncodingImpl<TAG>& block, const std::string& info,
-             const uint8_t& status) const;
+             const int status) const;
 
   const ndn::Block&
-  wireEncode(const std::string& serviceInfo, const uint8_t& status);
+  wireEncode(const std::string& serviceInfo, const int status);
 
   void
   wireDecode(const ndn::Block& wire);

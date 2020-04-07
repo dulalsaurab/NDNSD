@@ -10,7 +10,7 @@ public:
            const std::map<char, std::string>& pFlags)
   
   : m_serviceDiscovery(serviceName, userPrefix, pFlags, serviceInfo,
-                      ndn::time::system_clock::now(), 10_s,
+                      ndn::time::system_clock::now(), 10_ms,
                       std::bind(&Producer::processCallback, this, _1))
   {
   }
@@ -25,7 +25,7 @@ private:
   void
   processCallback(const std::string& callback)
   {
-      std::cout << callback << std::endl;
+      // std::cout << callback << std::endl;
   }
 
   ndnsd::discovery::ServiceDiscovery m_serviceDiscovery;

@@ -23,7 +23,7 @@ private:
   void
   processCallback(const std::string& callback)
   {
-      std::cout << "callback: " << callback.c_str() <<  std::endl;
+      // std::cout << "callback: " << std::endl; //<< callback.c_str() <<  std::endl;
   }
 
 private:
