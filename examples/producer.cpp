@@ -7,7 +7,7 @@ class Producer
 public:
   Producer(const ndn::Name& serviceName, const std::string& userPrefix,
            const std::string &serviceInfo,
-           const std::map<char, std::string>& pFlags)
+           const std::map<char, uint8_t>& pFlags)
   
   : m_serviceDiscovery(serviceName, userPrefix, pFlags, serviceInfo,
                       ndn::time::system_clock::now(), 10_ms,
@@ -15,7 +15,7 @@ public:
   {
   }
 
-  void 
+  void
   execute ()
   {
     m_serviceDiscovery.producerHandler();
@@ -23,13 +23,13 @@ public:
 
 private:
   void
-  processCallback(const std::string& callback)
+  processCallback(const ndnsd::discovery::Details& callback)
   {
-      // std::cout << callback << std::endl;
+    std::cout << callback.serviceInfo << std::endl;
   }
 
+private:
   ndnsd::discovery::ServiceDiscovery m_serviceDiscovery;
-
 };
 
 
@@ -46,9 +46,9 @@ main(int argc, char* argv[])
     return 1;
   }
 
-  std::map<char, std::string> flags;
-  flags.insert(std::pair<char, std::string>('p', "sync"));
-  flags.insert(std::pair<char, std::string>('t', "p"));
+  std::map<char, uint8_t> flags;
+  flags.insert(std::pair<char, uint8_t>('p', ndnsd::SYNC_PROTOCOL_CHRONOSYNC)); //protocol choice
+  flags.insert(std::pair<char, uint8_t>('t', ndnsd::discovery::PRODUCER)); //type producer: 1
 
   try {
     Producer producer(argv[1], argv[2], argv[3], flags);
@@ -56,6 +56,5 @@ main(int argc, char* argv[])
   }
   catch (const std::exception& e) {
 
-    // NDN_LOG_ERROR(e.what());
   }
 }

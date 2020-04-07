@@ -36,6 +36,7 @@ SyncProtocolAdapter::SyncProtocolAdapter(ndn::Face& face,
  , m_syncUpdateCallback(syncUpdateCallback)
 {
   if (m_syncProtocol == SYNC_PROTOCOL_CHRONOSYNC) {
+    std::cout << "Using ChronoSync" << std::endl;
     // NDN_LOG_DEBUG("Using ChronoSync");
     m_chronoSyncLogic = std::make_shared<chronosync::Logic>(face,
                           syncPrefix,
@@ -53,6 +54,7 @@ SyncProtocolAdapter::SyncProtocolAdapter(ndn::Face& face,
   }
   else {
     // NDN_LOG_DEBUG("Using PSync");
+    std::cout << "Using PSync" << std::endl;
     m_psyncLogic = std::make_shared<psync::FullProducer>(80,
                      face,
                      syncPrefix,

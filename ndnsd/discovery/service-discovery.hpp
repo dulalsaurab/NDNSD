@@ -47,8 +47,6 @@ enum {
 };
 
 }
-typedef std::function<void(const std::string& updates)> DiscoveryCallback;
-
 /*
  map: stores data from producer to serve on demand
  first arg: string: prefix name, second arg: parameters (service name, 
@@ -72,10 +70,12 @@ struct Details
   ndn::time::system_clock::TimePoint timeStamp;
   ndn::time::milliseconds prefixExpirationTime;
   std::string serviceInfo;
+  int status;
 };
 
 typedef struct Details Details;
 std::map<ndn::Name, Details> servicesDetails;
+typedef std::function<void(const Details& servoceUpdates)> DiscoveryCallback;
 
 class ServiceDiscovery
 {
@@ -88,7 +88,7 @@ public:
   */
   // consumer
   ServiceDiscovery(const ndn::Name& serviceName,
-                   const std::map<char, std::string>& pFlags,
+                   const std::map<char, uint8_t>& pFlags,
                    const ndn::time::system_clock::TimePoint& timeStamp,
                    const DiscoveryCallback& discoveryCallback);
 
@@ -104,7 +104,7 @@ public:
   */
 
   ServiceDiscovery(const ndn::Name& serviceName, const std::string& userPrefix,
-                   const std::map<char, std::string>& pFlags,
+                   const std::map<char, uint8_t>& pFlags,
                    const std::string &serviceInfo,
                    const ndn::time::system_clock::TimePoint& timeStamp,
                    const ndn::time::milliseconds& prefixExpirationTime,
@@ -132,13 +132,13 @@ public:
     return m_syncProtocol;
   }
 
-  void
-  setSyncProtocol(std::string syncProtocol)
-  {
-    m_syncProtocol = (syncProtocol.compare("psync"))
-                     ? SYNC_PROTOCOL_CHRONOSYNC
-                     : SYNC_PROTOCOL_PSYNC;
-  }
+  // void
+  // setSyncProtocol(uint8_t syncProtocol)
+  // {
+  //   m_syncProtocol = syn(syncProtocol.compare("psync"))
+  //                    ? SYNC_PROTOCOL_CHRONOSYNC
+  //                    : SYNC_PROTOCOL_PSYNC;
+  // }
 
   void
   processFalgs();
@@ -179,11 +179,10 @@ private:
 
   template<ndn::encoding::Tag TAG>
   size_t
-  wireEncode(ndn::EncodingImpl<TAG>& block, const std::string& info,
-             const int status) const;
+  wireEncode(ndn::EncodingImpl<TAG>& block, const std::string& info, int status) const;
 
   const ndn::Block&
-  wireEncode(const std::string& serviceInfo, const int status);
+  wireEncode(const std::string& info, int status);
 
   void
   wireDecode(const ndn::Block& wire);
@@ -196,15 +195,15 @@ private:
   ndn::KeyChain m_keyChain;
 
   ndn::Name m_serviceName;
-
   std::string m_userPrefix;
-  std::map<char, std::string> m_Flags;
+  std::map<char, uint8_t> m_Flags;
   std::string m_serviceInfo;
   ndn::time::system_clock::TimePoint m_publishTimeStamp;
   ndn::time::milliseconds m_prefixLifeTime;
   uint8_t m_appType;
   uint8_t m_counter;
   DiscoveryCallback m_discoveryCallback;
+  Details m_consumerReply;
 
   uint32_t m_syncProtocol;
   SyncProtocolAdapter m_syncAdapter;

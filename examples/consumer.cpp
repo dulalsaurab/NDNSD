@@ -5,7 +5,7 @@
 class Consumer 
 {
 public:
-  Consumer(const ndn::Name& serviceName, const std::map<char, std::string>& pFlags)
+  Consumer(const ndn::Name& serviceName, const std::map<char, uint8_t>& pFlags)
   
   : m_serviceDiscovery(serviceName, pFlags, ndn::time::system_clock::now(),
                        std::bind(&Consumer::processCallback, this, _1))
@@ -21,14 +21,16 @@ public:
 private:
 
   void
-  processCallback(const std::string& callback)
+  processCallback(const ndnsd::discovery::Details& callback)
   {
-      // std::cout << "callback: " << std::endl; //<< callback.c_str() <<  std::endl;
+      auto abc = (callback.status == ndnsd::discovery::ACTIVE)? "ACTIVE": "EXPIRED";
+      std::cout << "Name: " << callback.serviceName << "\n"
+                << "Status: " << abc << "\n"
+                << "Info: " << callback.serviceInfo << "\n" << std::endl;
   }
 
 private:
   ndnsd::discovery::ServiceDiscovery m_serviceDiscovery;
-
 
 };
 
@@ -41,16 +43,14 @@ main(int argc, char* argv[])
     return 1;
   }
 
-  std::map<char, std::string> flags;
-  flags.insert(std::pair<char, std::string>('p', "sync"));
-  flags.insert(std::pair<char, std::string>('t', "c"));
+  std::map<char, uint8_t> flags;
+  flags.insert(std::pair<char, uint8_t>('p', ndnsd::SYNC_PROTOCOL_CHRONOSYNC)); //protocol choice
+  flags.insert(std::pair<char, uint8_t>('t', ndnsd::discovery::CONSUMER)); //c: consumer - 0, p:producer - 1
 
   try {
     Consumer consumer(argv[1], flags);
     consumer.execute();
   }
   catch (const std::exception& e) {
-
-    // NDN_LOG_ERROR(e.what());
   }
 }
