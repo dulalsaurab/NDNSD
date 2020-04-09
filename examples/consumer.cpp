@@ -1,32 +1,49 @@
+/* -*- Mode:C++; c-file-style:"gnu"; indent-tabs-mode:nil; -*- */
+/*
+ * Copyright (c) 2014-2020,  The University of Memphis
+ *
+ * This file is part of NDNSD.
+ * Author: Saurab Dulal (sdulal@memphis.edu)
+ *
+ * NDNSD is free software: you can redistribute it and/or modify it under the terms
+ * of the GNU Lesser General Public License as published by the Free Software Foundation,
+ * either version 3 of the License, or (at your option) any later version.
+ *
+ * NDNSD is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+ * PURPOSE.  See the GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License along with
+ * NDNSD, e.g., in COPYING.md file.  If not, see <http://www.gnu.org/licenses/>.
+ **/
+
 #include<iostream>
 #include "ndnsd/discovery/service-discovery.hpp"
 #include <list>
 
-class Consumer 
+class Consumer
 {
 public:
   Consumer(const ndn::Name& serviceName, const std::map<char, uint8_t>& pFlags)
-  
-  : m_serviceDiscovery(serviceName, pFlags, ndn::time::system_clock::now(),
-                       std::bind(&Consumer::processCallback, this, _1))
+    : m_serviceDiscovery(serviceName, pFlags, ndn::time::system_clock::now(),
+                         std::bind(&Consumer::processCallback, this, _1))
   {
   }
 
-  void 
+  void
   execute ()
   {
     m_serviceDiscovery.consumerHandler();
   }
 
 private:
-
   void
   processCallback(const ndnsd::discovery::Details& callback)
   {
-      auto abc = (callback.status == ndnsd::discovery::ACTIVE)? "ACTIVE": "EXPIRED";
-      std::cout << "Name: " << callback.serviceName << "\n"
-                << "Status: " << abc << "\n"
-                << "Info: " << callback.serviceInfo << "\n" << std::endl;
+    auto abc = (callback.status == ndnsd::discovery::ACTIVE)? "ACTIVE": "EXPIRED";
+    std::cout << "Name: " << callback.serviceName << "\n"
+              << "Status: " << abc << "\n"
+              << "Info: " << callback.serviceInfo << "\n" << std::endl;
   }
 
 private:

@@ -3,7 +3,7 @@
  * Copyright (c) 2014-2020,  The University of Memphis
  *
  * This file is part of NDNSD.
- * See AUTHORS.md for complete list of NDNSD authors and contributors.
+ * Author: Saurab Dulal (sdulal@memphis.edu)
  *
  * NDNSD is free software: you can redistribute it and/or modify it under the terms
  * of the GNU Lesser General Public License as published by the Free Software Foundation,
@@ -32,17 +32,17 @@ ServiceDiscovery::ServiceDiscovery(const ndn::Name& serviceName,
                                    const std::map<char, uint8_t>& pFlags,
                                    const ndn::time::system_clock::TimePoint& timeStamp,
                                    const DiscoveryCallback& discoveryCallback)
-: m_scheduler(m_face.getIoService())
-, m_serviceName(serviceName)
-, m_Flags(pFlags)
-, m_publishTimeStamp(timeStamp)
-, m_syncProtocol(m_Flags.find('p')->second)
-, m_syncAdapter(m_face, m_syncProtocol, makeSyncPrefix(m_serviceName),
-                "/defaultName", 1600_ms,
-                std::bind(&ServiceDiscovery::processSyncUpdate, this, _1))
-, m_appType(m_Flags.find('t')->second)
-, m_counter(0)
-, m_discoveryCallback(discoveryCallback)
+  : m_scheduler(m_face.getIoService())
+  , m_serviceName(serviceName)
+  , m_Flags(pFlags)
+  , m_publishTimeStamp(timeStamp)
+  , m_appType(m_Flags.find('t')->second)
+  , m_counter(0)
+  , m_syncProtocol(m_Flags.find('p')->second)
+  , m_syncAdapter(m_face, m_syncProtocol, makeSyncPrefix(m_serviceName),
+                  "/defaultName", 1600_ms,
+                  std::bind(&ServiceDiscovery::processSyncUpdate, this, _1))
+  , m_discoveryCallback(discoveryCallback)
 {
 }
 
@@ -53,19 +53,19 @@ ServiceDiscovery::ServiceDiscovery(const ndn::Name& serviceName, const std::stri
                                    const ndn::time::system_clock::TimePoint& timeStamp,
                                    const ndn::time::milliseconds& prefixExpirationTime,
                                    const DiscoveryCallback& discoveryCallback)
-: m_scheduler(m_face.getIoService())
-, m_serviceName(serviceName)
-, m_userPrefix(userPrefix)
-, m_Flags(pFlags)
-, m_serviceInfo(serviceInfo)
-, m_publishTimeStamp(timeStamp)
-, m_prefixLifeTime(prefixExpirationTime)
-, m_syncProtocol(m_Flags.find('p')->second)
-, m_syncAdapter(m_face, m_syncProtocol, makeSyncPrefix(m_serviceName),
-                m_userPrefix, 1600_ms,
-                std::bind(&ServiceDiscovery::processSyncUpdate, this, _1))
-, m_appType(m_Flags.find('t')->second)
-, m_discoveryCallback(discoveryCallback)
+  : m_scheduler(m_face.getIoService())
+  , m_serviceName(serviceName)
+  , m_userPrefix(userPrefix)
+  , m_Flags(pFlags)
+  , m_serviceInfo(serviceInfo)
+  , m_publishTimeStamp(timeStamp)
+  , m_prefixLifeTime(prefixExpirationTime)
+  , m_appType(m_Flags.find('t')->second)
+  , m_syncProtocol(m_Flags.find('p')->second)
+  , m_syncAdapter(m_face, m_syncProtocol, makeSyncPrefix(m_serviceName),
+                  m_userPrefix, 1600_ms,
+                  std::bind(&ServiceDiscovery::processSyncUpdate, this, _1))
+  , m_discoveryCallback(discoveryCallback)
 {
   setInterestFilter(m_userPrefix);
 }
@@ -88,10 +88,9 @@ void
 ServiceDiscovery::producerHandler()
 {
   NDNSD_LOG_INFO("Advertising service under Name: " << m_userPrefix);
-  processFalgs();
 
   // store service
-  Details d = {m_serviceName, m_publishTimeStamp, m_prefixLifeTime, m_serviceInfo};
+  Details d = {m_serviceName, m_publishTimeStamp, m_prefixLifeTime, m_serviceInfo, ACTIVE};
   servicesDetails.emplace(m_userPrefix, d);
 
   doUpdate(m_userPrefix);
@@ -102,7 +101,6 @@ void
 ServiceDiscovery::consumerHandler()
 {
   NDNSD_LOG_INFO("Requesting service: " << m_serviceName);
-  processFalgs();
   run();
 }
 
@@ -112,7 +110,7 @@ ServiceDiscovery::run()
   m_face.processEvents();
 }
 
-void 
+void
 ServiceDiscovery::stop()
 {
   m_face.shutdown();
@@ -186,7 +184,8 @@ ServiceDiscovery::onData(const ndn::Interest& interest, const ndn::Data& data)
   m_discoveryCallback(m_consumerReply);
 
   m_counter--;
-  if (m_counter <= 0) { stop(); }
+  if (m_counter <= 0)
+    stop();
 
 }
 
@@ -204,7 +203,6 @@ void
 ServiceDiscovery::registrationFailed(const ndn::Name& name)
 {
   NDNSD_LOG_ERROR("ERROR: Failed to register prefix " << name << " in local hub's daemon");
-  // BOOST_THROW_EXCEPTION(Error("Error: Prefix registration failed"));
 }
 
 void
@@ -234,9 +232,8 @@ ServiceDiscovery::processSyncUpdate(const std::vector<ndnsd::SyncDataInfo>& upda
   }
   else
   {
-      m_consumerReply.serviceInfo = "Application prefix " + m_userPrefix+ " updated";
-      // m_consumerReply.serviceName = m_userPrefix;
-      m_discoveryCallback(m_consumerReply);
+    m_consumerReply.serviceInfo = "Application prefix " + m_userPrefix+ " updated";
+    m_discoveryCallback(m_consumerReply);
   }
 
 }
@@ -260,9 +257,9 @@ const ndn::Block&
 ServiceDiscovery::wireEncode(const std::string& info, int status)
 {
 
-  if (m_wire.hasWire()) {
+  if (m_wire.hasWire())
     return m_wire;
-  }
+
   ndn::EncodingEstimator estimator;
   size_t estimatedSize = wireEncode(estimator, info, status);
 
@@ -277,11 +274,11 @@ void
 ServiceDiscovery::wireDecode(const ndn::Block& wire)
 {
   auto blockType = wire.type();
-  
+
   if (wire.type() != tlv::DiscoveryData)
   {
     NDNSD_LOG_ERROR("Expected DiscoveryData Block, but Block is of type: #"
-              << ndn::to_string(blockType));
+                    << ndn::to_string(blockType));
   }
 
   wire.parse();
@@ -305,5 +302,5 @@ ServiceDiscovery::wireDecode(const ndn::Block& wire)
   }
 
 }
-}
-}
+} // namespace discovery
+} // namespace ndnsd

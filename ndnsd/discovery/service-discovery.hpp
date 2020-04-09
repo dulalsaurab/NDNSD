@@ -3,7 +3,7 @@
  * Copyright (c) 2014-2020,  The University of Memphis
  *
  * This file is part of NDNSD.
- * See AUTHORS.md for complete list of NDNSD authors and contributors.
+ * Author: Saurab Dulal (sdulal@memphis.edu)
  *
  * NDNSD is free software: you can redistribute it and/or modify it under the terms
  * of the GNU Lesser General Public License as published by the Free Software Foundation,
@@ -17,11 +17,11 @@
  * NDNSD, e.g., in COPYING.md file.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-
 #ifndef NDNSD_SERVICE_DISCOVERY_HPP
 #define NDNSD_SERVICE_DISCOVERY_HPP
 
 #include "ndnsd/communication/sync-adapter.hpp"
+// #include "logger.hpp"
 
 #include <ndn-cxx/face.hpp>
 #include <ndn-cxx/util/logger.hpp>
@@ -30,14 +30,10 @@
 #include <ndn-cxx/util/time.hpp>
 #include <ndn-cxx/util/dummy-client-face.hpp>
 
-#include <iostream>
-#include "logger.hpp"
-
 using namespace ndn::time_literals;
 
 namespace ndnsd {
 namespace discovery {
-
 namespace tlv {
 
 enum {
@@ -46,10 +42,10 @@ enum {
   ServiceStatus = 130
 };
 
-}
+} //namespace tlv
 /*
  map: stores data from producer to serve on demand
- first arg: string: prefix name, second arg: parameters (service name, 
+ first arg: string: prefix name, second arg: parameters (service name,
   publish timestamps, lifetime, serviceInfo)
 */
 
@@ -82,7 +78,7 @@ class ServiceDiscovery
 
 public:
 
-  /* ctor for Consumer 
+  /* ctor for Consumer
     serviceName: Service consumer is interested on. e.g. = /<prefix>/discovery/printer
     timeStamp: when was the service requested.
   */
@@ -92,12 +88,12 @@ public:
                    const ndn::time::system_clock::TimePoint& timeStamp,
                    const DiscoveryCallback& discoveryCallback);
 
-  /* ctor for Producer 
-    serviceName: Service producer is willing to publish. syncPrefix will be 
+  /* ctor for Producer
+    serviceName: Service producer is willing to publish. syncPrefix will be
     constructed out of service name
     e.g. serviceName printer, syncPrefix = /<prefix>/discovery/printer
     userPrefix: Application prefix name
-    timeStamp: when the userPrefix was updated the last time. When combine 
+    timeStamp: when the userPrefix was updated the last time. When combine
     with prefixExpTime, the prefix will expire from that time onward.
     The assumption here is that the machines are loosely time synchronized.
     serviceInfo: detail information about the service, this can also be a Json (later)
@@ -105,7 +101,7 @@ public:
 
   ServiceDiscovery(const ndn::Name& serviceName, const std::string& userPrefix,
                    const std::map<char, uint8_t>& pFlags,
-                   const std::string &serviceInfo,
+                   const std::string& serviceInfo,
                    const ndn::time::system_clock::TimePoint& timeStamp,
                    const ndn::time::milliseconds& prefixExpirationTime,
                    const DiscoveryCallback& discoveryCallback);
@@ -117,7 +113,7 @@ public:
     Cancel all pending operations, close connection to forwarder
     and stop the ioService.
   */
-  void 
+  void
   stop();
 
   void
@@ -139,7 +135,7 @@ public:
   makeSyncPrefix(ndn::Name& service);
 
 private:
-  void 
+  void
   doUpdate(const ndn::Name& prefix);
 
   void
@@ -159,7 +155,7 @@ private:
 
   void
   onRegistrationSuccess(const ndn::Name& name);
-  
+
   void
   onData(const ndn::Interest& interest, const ndn::Data& data);
 
@@ -179,9 +175,6 @@ private:
   void
   wireDecode(const ndn::Block& wire);
 
-  // ndn::Data&
-  // addContent(const ndn::Block& block)
-
   ndn::Face m_face;
   ndn::Scheduler m_scheduler;
   ndn::KeyChain m_keyChain;
@@ -194,13 +187,14 @@ private:
   ndn::time::milliseconds m_prefixLifeTime;
   uint8_t m_appType;
   uint8_t m_counter;
-  DiscoveryCallback m_discoveryCallback;
   Details m_consumerReply;
 
   uint32_t m_syncProtocol;
   SyncProtocolAdapter m_syncAdapter;
   static const ndn::Name DEFAULT_CONSUMER_ONLY_NAME;
   mutable ndn::Block m_wire;
+  DiscoveryCallback m_discoveryCallback;
 };
-}}
+} //namespace discovery
+} //namespace ndnsd
 #endif // NDNSD_SERVICE_DISCOVERY_HPP

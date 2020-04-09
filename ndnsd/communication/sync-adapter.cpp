@@ -1,9 +1,9 @@
 /* -*- Mode:C++; c-file-style:"gnu"; indent-tabs-mode:nil; -*- */
 /*
- * Copyright (c) 2014-2019,  The University of Memphis
+ * Copyright (c) 2014-2020,  The University of Memphis
  *
  * This file is part of NDNSD.
- * See AUTHORS.md for complete list of NDNSD authors and contributors.
+ * See NLSR's AUTHORS.md for complete list of NDNSD authors and contributors.
  *
  * NDNSD is free software: you can redistribute it and/or modify it under the terms
  * of the GNU Lesser General Public License as published by the Free Software Foundation,
@@ -15,6 +15,9 @@
  *
  * You should have received a copy of the GNU Lesser General Public License along with
  * NDNSD, e.g., in COPYING.md file.  If not, see <http://www.gnu.org/licenses/>.
+
+  @ most part of sync-adapter code is taken from NLSR/communication/
+
  **/
 
 #include "sync-adapter.hpp"
@@ -27,13 +30,13 @@ namespace ndnsd {
 const auto FIXED_SESSION = ndn::name::Component::fromNumber(0);
 
 SyncProtocolAdapter::SyncProtocolAdapter(ndn::Face& face,
-                                         int32_t syncProtocol,
+                                         uint8_t syncProtocol,
                                          const ndn::Name& syncPrefix,
                                          const ndn::Name& userPrefix,
                                          ndn::time::milliseconds syncInterestLifetime,
                                          const SyncUpdateCallback& syncUpdateCallback)
- : m_syncProtocol(syncProtocol)
- , m_syncUpdateCallback(syncUpdateCallback)
+  : m_syncProtocol(syncProtocol)
+  , m_syncUpdateCallback(syncUpdateCallback)
 {
   if (m_syncProtocol == SYNC_PROTOCOL_CHRONOSYNC) {
     NDNSD_LOG_DEBUG("Using ChronoSync");
@@ -78,7 +81,8 @@ SyncProtocolAdapter::publishUpdate(const ndn::Name& userPrefix)
 {
   NDNSD_LOG_INFO("Publishing update for Sync Prefix " << userPrefix);
   if (m_syncProtocol == SYNC_PROTOCOL_CHRONOSYNC) {
-    auto seq = m_chronoSyncLogic->getSeqNo(userPrefix);
+    auto seq = m_chronoSyncLogic->getSeqNo(userPrefix) + 1;
+    NDNSD_LOG_INFO("SeqNumber :" << seq);
     m_chronoSyncLogic->updateSeqNo(seq, userPrefix);
   }
   else {
