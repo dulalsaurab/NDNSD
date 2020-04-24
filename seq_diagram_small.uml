@@ -1,0 +1,29 @@
+@startuml
+participant "Consumer \n (C)" as C
+participant "ndnsd \n (d1)" as d1
+participant "ndnsd \n (d2)" as d2
+participant "Producer \n (P)" as P
+
+skinparam SequenceMessageAlign center
+skinparam style strictuml
+
+P -> d2: publish service \n (type: printers, \n name: printer1 etc)
+d2 -> P: status code \n (success, failed)
+C -> d1: request service \n (e.g. printers)
+d1 -> d1: Get service names \n (e.g. /printer1) via sync
+
+d1 -> d2: Interest (**I**): /printer1
+
+note over d2
+send NACK if
+service has expired
+end note
+
+d2 -> d1: Application NACK
+note over d2
+else send data
+end note
+
+d2 -> d1: Data (**D**) : name = /printer1 \n content: "HP ledger jet"
+d1 -> C: send response \n (service info/status)
+@enduml
