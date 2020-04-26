@@ -1,0 +1,40 @@
+@startuml
+participant "ndnsd \n (d1)" as d1
+participant "sync \n (s1)" as s1
+participant "sync \n (s2)" as s2
+participant "ndnsd \n (d2)" as d2
+
+
+skinparam SequenceMessageAlign center
+skinparam style strictuml
+
+note over s1,s2
+Send periodic sync interest
+end note
+s1 -> s2: Sync interest: /<sync-prefix>/IBF1
+s2 -> s1: Sync interest: /<sync-prefix>/IBF1
+
+note over d1
+Advertise service:
+/printer1/1
+end note
+d1 -> s1: p: /printer1/1
+
+note over s1
+Publish service: /printer1/1
+insert into IBF1, get IBF2 
+Answer pending interest
+end note
+s1 -> s2: Sync Data: /<sync-prefix>/IBF1/IBF2 \n content: /printer/1
+s1 -> s2: Sync interest: /<sync-prefix>/IBF2
+s1 -> d1: Callback, \n publish status
+
+note over s2
+Insert /printer/1
+to IBF1 and get IBF2
+end note
+s2 -> d2: Update callback \n to ndnsd
+note over s1,s2
+Send periodic sync interest
+end note
+@enduml

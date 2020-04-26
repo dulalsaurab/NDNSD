@@ -32,8 +32,7 @@ ServiceDiscovery::ServiceDiscovery(const ndn::Name& serviceName,
                                    const std::map<char, uint8_t>& pFlags,
                                    const ndn::time::system_clock::TimePoint& timeStamp,
                                    const DiscoveryCallback& discoveryCallback)
-  : m_scheduler(m_face.getIoService())
-  , m_serviceName(serviceName)
+  : m_serviceName(serviceName)
   , m_Flags(pFlags)
   , m_publishTimeStamp(timeStamp)
   , m_appType(m_Flags.find('t')->second)
@@ -53,8 +52,7 @@ ServiceDiscovery::ServiceDiscovery(const ndn::Name& serviceName, const std::stri
                                    const ndn::time::system_clock::TimePoint& timeStamp,
                                    const ndn::time::milliseconds& prefixExpirationTime,
                                    const DiscoveryCallback& discoveryCallback)
-  : m_scheduler(m_face.getIoService())
-  , m_serviceName(serviceName)
+  : m_serviceName(serviceName)
   , m_userPrefix(userPrefix)
   , m_Flags(pFlags)
   , m_serviceInfo(serviceInfo)

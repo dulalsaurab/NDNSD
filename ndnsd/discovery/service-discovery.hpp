@@ -176,7 +176,6 @@ private:
   wireDecode(const ndn::Block& wire);
 
   ndn::Face m_face;
-  ndn::Scheduler m_scheduler;
   ndn::KeyChain m_keyChain;
 
   ndn::Name m_serviceName;
