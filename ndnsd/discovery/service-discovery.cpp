@@ -30,14 +30,11 @@ namespace discovery {
 // consumer
 ServiceDiscovery::ServiceDiscovery(const ndn::Name& serviceName,
                                    const std::map<char, uint8_t>& pFlags,
-                                   const ndn::time::system_clock::TimePoint& timeStamp,
                                    const DiscoveryCallback& discoveryCallback)
   : m_serviceName(serviceName)
-  , m_Flags(pFlags)
-  , m_publishTimeStamp(timeStamp)
-  , m_appType(m_Flags.find('t')->second)
+  , m_appType(processFalgs(pFlags, 't'))
   , m_counter(0)
-  , m_syncProtocol(m_Flags.find('p')->second)
+  , m_syncProtocol(processFalgs(pFlags, 'p'))
   , m_syncAdapter(m_face, m_syncProtocol, makeSyncPrefix(m_serviceName),
                   "/defaultName", 1600_ms,
                   std::bind(&ServiceDiscovery::processSyncUpdate, this, _1))
@@ -54,12 +51,11 @@ ServiceDiscovery::ServiceDiscovery(const ndn::Name& serviceName, const std::stri
                                    const DiscoveryCallback& discoveryCallback)
   : m_serviceName(serviceName)
   , m_userPrefix(userPrefix)
-  , m_Flags(pFlags)
   , m_serviceInfo(serviceInfo)
   , m_publishTimeStamp(timeStamp)
   , m_prefixLifeTime(prefixExpirationTime)
-  , m_appType(m_Flags.find('t')->second)
-  , m_syncProtocol(m_Flags.find('p')->second)
+  , m_appType(processFalgs(pFlags, 't'))
+  , m_syncProtocol(processFalgs(pFlags, 'p'))
   , m_syncAdapter(m_face, m_syncProtocol, makeSyncPrefix(m_serviceName),
                   m_userPrefix, 1600_ms,
                   std::bind(&ServiceDiscovery::processSyncUpdate, this, _1))
@@ -76,10 +72,19 @@ ServiceDiscovery::makeSyncPrefix(ndn::Name& service)
   return sync;
 }
 
-void
-ServiceDiscovery::processFalgs()
+uint8_t
+ServiceDiscovery::processFalgs(const std::map<char, uint8_t>& flags, const char type)
 {
-  // this function will process flags as needed. not used for now.
+  auto key = flags.find(type);
+  if (key != flags.end()) 
+  {
+    return flags.find(type)->second;
+  } 
+  else 
+  {
+    NDN_THROW(Error("Flag type not found!"));
+    NDNSD_LOG_ERROR("Flag type not found!");
+  }
 }
 
 void
@@ -184,7 +189,6 @@ ServiceDiscovery::onData(const ndn::Interest& interest, const ndn::Data& data)
   m_counter--;
   if (m_counter <= 0)
     stop();
-
 }
 
 void

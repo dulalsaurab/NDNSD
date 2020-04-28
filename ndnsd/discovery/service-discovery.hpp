@@ -69,6 +69,12 @@ struct Details
   int status;
 };
 
+class Error : public std::runtime_error
+{
+public:
+  using std::runtime_error::runtime_error;
+};
+
 typedef struct Details Details;
 std::map<ndn::Name, Details> servicesDetails;
 typedef std::function<void(const Details& servoceUpdates)> DiscoveryCallback;
@@ -78,25 +84,39 @@ class ServiceDiscovery
 
 public:
 
-  /* ctor for Consumer
-    serviceName: Service consumer is interested on. e.g. = /<prefix>/discovery/printer
-    timeStamp: when was the service requested.
+  /*
+    For simplicity, producer and consumer have different constructor. This can later 
+    be revised and combine (future work)
   */
-  // consumer
+
+  /**
+    @brief constructor for consumer
+
+    Creates a sync prefix from service type, fetches service name from sync, 
+    iteratively fetches service info for each name, and sends it back to the consumer
+
+    @param serviceName Service consumer is interested on. e.g. = printers
+    @param pFlags List of flags, i.e. sync protocol, application type etc
+    @param discoveryCallback 
+  **/
   ServiceDiscovery(const ndn::Name& serviceName,
                    const std::map<char, uint8_t>& pFlags,
-                   const ndn::time::system_clock::TimePoint& timeStamp,
                    const DiscoveryCallback& discoveryCallback);
 
-  /* ctor for Producer
-    serviceName: Service producer is willing to publish. syncPrefix will be
-    constructed out of service name
-    e.g. serviceName printer, syncPrefix = /<prefix>/discovery/printer
-    userPrefix: Application prefix name
-    timeStamp: when the userPrefix was updated the last time. When combine
-    with prefixExpTime, the prefix will expire from that time onward.
-    The assumption here is that the machines are loosely time synchronized.
-    serviceInfo: detail information about the service, this can also be a Json (later)
+  /**
+    @brief Constructor for producer
+
+    Creates a sync prefix from service type, stores service info, sends publication
+    updates to sync, and listen on user-prefix to serve incoming requests
+
+    @param serviceName: Service producer is willing to publish under. 
+    syncPrefix will be constructed from the service type
+     e.g. serviceType printer, syncPrefix = /<prefix>/discovery/printer
+    @param pFlags List of flags, i.e. sync protocol, application type etc
+    @param serviceInfo Detail information about the service, this can also be a Json (later)
+    @param userPrefix Particular service producer is publishing
+    @param timeStamp When the userPrefix was updated for the last time, default = now()
+    @param prefixExpTime Lifetime of the service
   */
 
   ServiceDiscovery(const ndn::Name& serviceName, const std::string& userPrefix,
@@ -110,15 +130,22 @@ public:
   run();
 
   /*
-    Cancel all pending operations, close connection to forwarder
+    @brief Cancel all pending operations, close connection to forwarder
     and stop the ioService.
   */
   void
   stop();
-
+  /*
+    @brief  Handler exposed to producer application. Used to start the 
+     discovery process
+  */
   void
   producerHandler();
 
+  /*
+  @brief  Handler exposed to producer application. Used to start the 
+     discovery process
+  */
   void
   consumerHandler();
 
@@ -128,8 +155,11 @@ public:
     return m_syncProtocol;
   }
 
-  void
-  processFalgs();
+  /*
+   @brief Process flags send by consumer and producer application.
+  */
+  uint8_t
+  processFalgs(const std::map<char, uint8_t>& flags, const char type);
 
   ndn::Name
   makeSyncPrefix(ndn::Name& service);
