@@ -1,9 +1,15 @@
-<mxfile host="app.diagrams.net" modified="2020-04-30T03:27:35.561Z" agent="5.0 (Macintosh)" etag="CAvSeq14je_wsyzqeqdV" version="13.0.1" type="github">
+<mxfile host="app.diagrams.net" modified="2020-04-30T04:07:54.109Z" agent="5.0 (Macintosh)" etag="WCav6Y2CkBaqW0NOk3x7" version="13.0.1" type="github">
   <diagram id="Ae3CV88c5WvhsWiGwa3m" name="Page-1">
     <mxGraphModel dx="946" dy="567" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="27J3_kE1SquX3wN85o0Z-2" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;NDNSD&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;Application&lt;br&gt;&lt;/b&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;strokeWidth=1;fillColor=none;gradientColor=none;" vertex="1" parent="1">
+          <mxGeometry x="70" y="150" width="120" height="240" as="geometry" />
+        </mxCell>
+        <mxCell id="27J3_kE1SquX3wN85o0Z-3" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;NDNSD&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;Application&lt;br&gt;&lt;/b&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;strokeWidth=1;fillColor=none;gradientColor=none;" vertex="1" parent="1">
+          <mxGeometry x="657.5" y="290" width="120" height="213" as="geometry" />
+        </mxCell>
         <mxCell id="ROEDN-uirQ6L8P9amswr-1" value="&lt;div&gt;(n1)&lt;br&gt;&lt;/div&gt;&lt;div&gt;NFD&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
           <mxGeometry x="275" y="260" width="75" height="50" as="geometry" />
         </mxCell>
@@ -11,13 +17,13 @@
           <mxGeometry x="400" y="261.5" width="75" height="50" as="geometry" />
         </mxCell>
         <mxCell id="ROEDN-uirQ6L8P9amswr-3" value="&lt;div&gt;(n3)&lt;br&gt;&lt;/div&gt;&lt;div&gt;NFD&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
-          <mxGeometry x="490" y="190" width="75" height="50" as="geometry" />
+          <mxGeometry x="486.5" y="190" width="75" height="50" as="geometry" />
         </mxCell>
         <mxCell id="ROEDN-uirQ6L8P9amswr-4" value="(n4)&lt;br&gt;&lt;div&gt;NFD&lt;/div&gt;" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" parent="1" vertex="1">
-          <mxGeometry x="504" y="331.5" width="75" height="50" as="geometry" />
+          <mxGeometry x="491.5" y="314" width="75" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="ROEDN-uirQ6L8P9amswr-6" value="&lt;div&gt;(d1)&lt;br&gt;&lt;/div&gt;&lt;div&gt;SD daemon&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
-          <mxGeometry x="100" y="160" width="80" height="40" as="geometry" />
+        <mxCell id="ROEDN-uirQ6L8P9amswr-6" value="&lt;div&gt;NDNSD&amp;nbsp;&lt;/div&gt;&lt;div&gt;(lib)&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="90" y="160" width="80" height="40" as="geometry" />
         </mxCell>
         <mxCell id="ROEDN-uirQ6L8P9amswr-7" value="(s1)&lt;br&gt;&lt;div&gt;sync&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
           <mxGeometry x="273" y="161" width="80" height="40" as="geometry" />
@@ -73,11 +79,11 @@
             <mxPoint x="554.04" y="209.51999999999998" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="ROEDN-uirQ6L8P9amswr-14" value="&lt;div&gt;(d2)&lt;br&gt;&lt;/div&gt;&lt;div&gt;SD daemon&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
-          <mxGeometry x="487.5" y="121" width="80" height="40" as="geometry" />
+        <mxCell id="ROEDN-uirQ6L8P9amswr-14" value="&lt;div&gt;NDNSD &lt;br&gt;&lt;/div&gt;&lt;div&gt;Application&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="484" y="121" width="80" height="40" as="geometry" />
         </mxCell>
         <mxCell id="ROEDN-uirQ6L8P9amswr-15" value="&lt;div&gt;(s2)&lt;br&gt;&lt;/div&gt;&lt;div&gt;sync&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
-          <mxGeometry x="502.5" y="439.5" width="78" height="39" as="geometry" />
+          <mxGeometry x="490" y="422" width="78" height="39" as="geometry" />
         </mxCell>
         <mxCell id="ROEDN-uirQ6L8P9amswr-16" value="" style="endArrow=classic;startArrow=classic;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" source="ROEDN-uirQ6L8P9amswr-3" target="ROEDN-uirQ6L8P9amswr-14" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
@@ -87,17 +93,17 @@
         </mxCell>
         <mxCell id="ROEDN-uirQ6L8P9amswr-17" value="" style="endArrow=classic;startArrow=classic;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="1" source="ROEDN-uirQ6L8P9amswr-15" target="ROEDN-uirQ6L8P9amswr-4" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="450.81980515339455" y="270.2867965644035" as="sourcePoint" />
-            <mxPoint x="518.04" y="229.51999999999998" as="targetPoint" />
+            <mxPoint x="438.31980515339455" y="252.78679656440352" as="sourcePoint" />
+            <mxPoint x="505.53999999999996" y="212.01999999999998" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="ROEDN-uirQ6L8P9amswr-25" value="Producer" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;strokeWidth=3;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;fontStyle=1" parent="1" vertex="1">
-          <mxGeometry x="100" y="320" width="80" height="40" as="geometry" />
+          <mxGeometry x="90" y="299.5" width="80" height="40" as="geometry" />
         </mxCell>
         <mxCell id="ROEDN-uirQ6L8P9amswr-26" value="" style="endArrow=classic;startArrow=none;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;startFill=0;endFill=1;" parent="1" source="ROEDN-uirQ6L8P9amswr-25" target="ROEDN-uirQ6L8P9amswr-6" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="285" y="190" as="sourcePoint" />
-            <mxPoint x="190" y="190" as="targetPoint" />
+            <mxPoint x="275" y="190" as="sourcePoint" />
+            <mxPoint x="180" y="190" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="ROEDN-uirQ6L8P9amswr-27" value="&lt;div&gt;advertise/update &lt;br&gt;&lt;/div&gt;&lt;div&gt;service&lt;br&gt;&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="ROEDN-uirQ6L8P9amswr-26" vertex="1" connectable="0">
@@ -105,10 +111,10 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="ROEDN-uirQ6L8P9amswr-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;startArrow=none;startFill=0;endArrow=classic;endFill=1;" parent="1" edge="1">
+        <mxCell id="ROEDN-uirQ6L8P9amswr-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;startArrow=none;startFill=0;endArrow=classic;endFill=1;entryX=0.397;entryY=0.038;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" edge="1" target="ROEDN-uirQ6L8P9amswr-31">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="723" y="371.5" as="sourcePoint" />
-            <mxPoint x="723" y="439.5" as="targetPoint" />
+            <mxPoint x="710.5" y="344.5" as="sourcePoint" />
+            <mxPoint x="710.5" y="412.5" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="ROEDN-uirQ6L8P9amswr-36" value="&lt;div&gt;request &lt;br&gt;&lt;/div&gt;&lt;div&gt;service&lt;/div&gt;&lt;div&gt;(1)&lt;br&gt;&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="ROEDN-uirQ6L8P9amswr-34" vertex="1" connectable="0">
@@ -117,15 +123,15 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="ROEDN-uirQ6L8P9amswr-30" value="&lt;div&gt;Consumer&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;strokeWidth=3;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333333;fontStyle=1" parent="1" vertex="1">
-          <mxGeometry x="690" y="331.5" width="80" height="40" as="geometry" />
+          <mxGeometry x="677.5" y="304.5" width="80" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="ROEDN-uirQ6L8P9amswr-31" value="&lt;div&gt;(d3)&lt;br&gt;&lt;/div&gt;&lt;div&gt;SD daemon&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
-          <mxGeometry x="691" y="439.5" width="78" height="39" as="geometry" />
+        <mxCell id="ROEDN-uirQ6L8P9amswr-31" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;NDNSD &lt;br&gt;&lt;/div&gt;&lt;div&gt;(lib)&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;dashed=1;fillColor=#fff2cc;strokeColor=#d6b656;" parent="1" vertex="1">
+          <mxGeometry x="678.5" y="419.5" width="78" height="39" as="geometry" />
         </mxCell>
         <mxCell id="ROEDN-uirQ6L8P9amswr-32" value="" style="endArrow=classic;startArrow=classic;html=1;entryX=1;entryY=1;entryDx=0;entryDy=0;exitX=0;exitY=0;exitDx=0;exitDy=0;" parent="1" source="ROEDN-uirQ6L8P9amswr-31" target="ROEDN-uirQ6L8P9amswr-4" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="551.5" y="442.5" as="sourcePoint" />
-            <mxPoint x="551.5" y="391.5" as="targetPoint" />
+            <mxPoint x="539" y="425" as="sourcePoint" />
+            <mxPoint x="539" y="374" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="ROEDN-uirQ6L8P9amswr-35" value="&lt;div&gt;fetch &lt;br&gt;&lt;/div&gt;&lt;div&gt;service info&lt;/div&gt;&lt;div&gt;(3)&lt;br&gt;&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="ROEDN-uirQ6L8P9amswr-32" vertex="1" connectable="0">
@@ -135,8 +141,8 @@
         </mxCell>
         <mxCell id="ROEDN-uirQ6L8P9amswr-33" value="" style="endArrow=classic;startArrow=classic;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="ROEDN-uirQ6L8P9amswr-15" target="ROEDN-uirQ6L8P9amswr-31" edge="1">
           <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="551.5" y="449.5" as="sourcePoint" />
-            <mxPoint x="551.5" y="398.5" as="targetPoint" />
+            <mxPoint x="539" y="432" as="sourcePoint" />
+            <mxPoint x="539" y="381" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="ROEDN-uirQ6L8P9amswr-37" value="fetch service &lt;br&gt;&lt;div&gt;names&lt;/div&gt;&lt;div&gt;(2)&lt;br&gt;&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="ROEDN-uirQ6L8P9amswr-33" vertex="1" connectable="0">
@@ -146,20 +152,17 @@
         </mxCell>
         <mxCell id="ROEDN-uirQ6L8P9amswr-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;startArrow=none;startFill=0;endArrow=classic;endFill=1;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" parent="1" source="ROEDN-uirQ6L8P9amswr-31" target="ROEDN-uirQ6L8P9amswr-30" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="733" y="381.5" as="sourcePoint" />
-            <mxPoint x="733" y="449.5" as="targetPoint" />
+            <mxPoint x="720.5" y="354.5" as="sourcePoint" />
+            <mxPoint x="720.5" y="422.5" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="ROEDN-uirQ6L8P9amswr-39" value="&lt;div&gt;send &lt;br&gt;&lt;/div&gt;&lt;div&gt;service info&lt;br&gt;&lt;/div&gt;&lt;div&gt;(4)&lt;br&gt;&lt;/div&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="ROEDN-uirQ6L8P9amswr-38" vertex="1" connectable="0">
           <mxGeometry x="-0.1176" relative="1" as="geometry">
-            <mxPoint x="20.5" y="0.5" as="offset" />
+            <mxPoint x="10.5" y="0.5" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="ROEDN-uirQ6L8P9amswr-42" value="Numbering shows the ordering of &lt;br&gt;the service discovery process" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
-          <mxGeometry x="580.5" y="520" width="190" height="30" as="geometry" />
-        </mxCell>
-        <mxCell id="27J3_kE1SquX3wN85o0Z-1" value="" style="rounded=0;whiteSpace=wrap;html=1;dashed=1;strokeWidth=1;fillColor=none;gradientColor=none;strokeColor=none;" vertex="1" parent="1">
-          <mxGeometry x="90" y="110" width="720" height="450" as="geometry" />
+          <mxGeometry x="517.5" y="510" width="190" height="30" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
