@@ -21,7 +21,8 @@
 #define NDNSD_SERVICE_DISCOVERY_HPP
 
 #include "ndnsd/communication/sync-adapter.hpp"
-// #include "logger.hpp"
+
+#include "file-processor.hpp"
 
 #include <ndn-cxx/face.hpp>
 #include <ndn-cxx/util/logger.hpp>
@@ -42,12 +43,7 @@ enum {
   ServiceStatus = 130
 };
 
-} //namespace tlv
-/*
- map: stores data from producer to serve on demand
- first arg: string: prefix name, second arg: parameters (service name,
-  publish timestamps, lifetime, serviceInfo)
-*/
+} // namespace tlv
 
 enum {
   PRODUCER = 0,
@@ -60,12 +56,21 @@ enum {
   ACTIVE = 1,
 };
 
+const char* NDNSD_RELOAD_PREFIX = "/ndnsd/reload";
+
 struct Details
 {
   ndn::Name serviceName;
-  ndn::time::system_clock::TimePoint timeStamp;
-  ndn::time::milliseconds prefixExpirationTime;
-  std::string serviceInfo;
+  ndn::Name applicationPrefix;
+  ndn::time::milliseconds serviceLifetime;
+  ndn::time::system_clock::TimePoint publishTimestamp;
+  std::map<std::string, std::string> serviceMetaInfo;
+  int status;
+};
+
+struct Reply
+{
+  std::string serviceMetaInfo;
   int status;
 };
 
@@ -76,8 +81,16 @@ public:
 };
 
 typedef struct Details Details;
-std::map<ndn::Name, Details> servicesDetails;
-typedef std::function<void(const Details& servoceUpdates)> DiscoveryCallback;
+typedef struct Reply Reply;
+
+/*
+ map: stores data from producer to serve on demand
+  first arg: string: prefix name, second arg: parameters (service name,
+  publish timestamps, lifetime, serviceInfo)
+*/
+std::map<ndn::Name, Details> serviceDetails;
+
+typedef std::function<void(const Reply& serviceUpdates)> DiscoveryCallback;
 
 class ServiceDiscovery
 {
@@ -85,14 +98,14 @@ class ServiceDiscovery
 public:
 
   /*
-    For simplicity, producer and consumer have different constructor. This can later 
+    For simplicity, producer and consumer have different constructor. This can later
     be revised and combine (future work)
   */
 
   /**
     @brief constructor for consumer
 
-    Creates a sync prefix from service type, fetches service name from sync, 
+    Creates a sync prefix from service type, fetches service name from sync,
     iteratively fetches service info for each name, and sends it back to the consumer
 
     @param serviceName Service consumer is interested on. e.g. = printers
@@ -109,21 +122,18 @@ public:
     Creates a sync prefix from service type, stores service info, sends publication
     updates to sync, and listen on user-prefix to serve incoming requests
 
-    @param serviceName: Service producer is willing to publish under. 
+    @param serviceName: Service producer is willing to publish under.
     syncPrefix will be constructed from the service type
      e.g. serviceType printer, syncPrefix = /<prefix>/discovery/printer
     @param pFlags List of flags, i.e. sync protocol, application type etc
-    @param serviceInfo Detail information about the service, this can also be a Json (later)
+    @param serviceInfo Detail information about the service, this can also be a JSON (later)
     @param userPrefix Particular service producer is publishing
     @param timeStamp When the userPrefix was updated for the last time, default = now()
     @param prefixExpTime Lifetime of the service
   */
 
-  ServiceDiscovery(const ndn::Name& serviceName, const std::string& userPrefix,
+  ServiceDiscovery(const std::string& filename,
                    const std::map<char, uint8_t>& pFlags,
-                   const std::string& serviceInfo,
-                   const ndn::time::system_clock::TimePoint& timeStamp,
-                   const ndn::time::milliseconds& prefixExpirationTime,
                    const DiscoveryCallback& discoveryCallback);
 
   void
@@ -136,14 +146,14 @@ public:
   void
   stop();
   /*
-    @brief  Handler exposed to producer application. Used to start the 
+    @brief  Handler exposed to producer application. Used to start the
      discovery process
   */
   void
   producerHandler();
 
   /*
-  @brief  Handler exposed to producer application. Used to start the 
+  @brief  Handler exposed to producer application. Used to start the
      discovery process
   */
   void
@@ -164,9 +174,17 @@ public:
   ndn::Name
   makeSyncPrefix(ndn::Name& service);
 
+  std::string
+  makeDataContent();
+
+  friend class ServiceInfoFileProcessor;
+
 private:
   void
   doUpdate(const ndn::Name& prefix);
+  
+  void
+  setUpdateProducerState(bool update = false);
 
   void
   processSyncUpdate(const std::vector<ndnsd::SyncDataInfo>& updates);
@@ -175,7 +193,7 @@ private:
   processInterest(const ndn::Name& name, const ndn::Interest& interest);
 
   void
-  sendData(const ndn::Name& name, const struct Details& serviceDetail);
+  sendData(const ndn::Name& name);
 
   void
   setInterestFilter(const ndn::Name& prefix, const bool loopback = false);
@@ -205,24 +223,27 @@ private:
   void
   wireDecode(const ndn::Block& wire);
 
+private:
   ndn::Face m_face;
   ndn::KeyChain m_keyChain;
 
+  const std::string m_filename;
+  ServiceInfoFileProcessor m_fileProcessor;
   ndn::Name m_serviceName;
-  std::string m_userPrefix;
+  
   std::map<char, uint8_t> m_Flags;
-  std::string m_serviceInfo;
-  ndn::time::system_clock::TimePoint m_publishTimeStamp;
-  ndn::time::milliseconds m_prefixLifeTime;
+  
+  Details m_producerState;
   uint8_t m_appType;
   uint8_t m_counter;
-  Details m_consumerReply;
+  Reply m_consumerReply;
 
   uint32_t m_syncProtocol;
   SyncProtocolAdapter m_syncAdapter;
   static const ndn::Name DEFAULT_CONSUMER_ONLY_NAME;
   mutable ndn::Block m_wire;
   DiscoveryCallback m_discoveryCallback;
+
 };
 } //namespace discovery
 } //namespace ndnsd

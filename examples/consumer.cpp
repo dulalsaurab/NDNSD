@@ -25,8 +25,7 @@ class Consumer
 {
 public:
   Consumer(const ndn::Name& serviceName, const std::map<char, uint8_t>& pFlags)
-    : m_serviceDiscovery(serviceName, pFlags, ndn::time::system_clock::now(),
-                         std::bind(&Consumer::processCallback, this, _1))
+   : m_serviceDiscovery(serviceName, pFlags, std::bind(&Consumer::processCallback, this, _1))
   {
   }
 
@@ -38,12 +37,13 @@ public:
 
 private:
   void
-  processCallback(const ndnsd::discovery::Details& callback)
+  processCallback(const ndnsd::discovery::Reply& callback)
   {
     auto abc = (callback.status == ndnsd::discovery::ACTIVE)? "ACTIVE": "EXPIRED";
-    std::cout << "Name: " << callback.serviceName << "\n"
-              << "Status: " << abc << "\n"
-              << "Info: " << callback.serviceInfo << "\n" << std::endl;
+    std::cout << "Name: " << callback.serviceMetaInfo << std::endl;
+    // std::cout << "Name: " << callback.serviceName << "\n"
+    //           << "Status: " << abc << "\n"
+    //           << "Info: " << callback.serviceInfo << "\n" << std::endl;
   }
 
 private:
