@@ -18,9 +18,8 @@
  **/
 
 #include "service-discovery.hpp"
+#include <string>
 #include <iostream>
-
-INIT_LOGGER(ServiceDiscovery);
 
 using namespace ndn::time_literals;
 
@@ -43,25 +42,42 @@ ServiceDiscovery::ServiceDiscovery(const ndn::Name& serviceName,
 }
 
 // producer
-ServiceDiscovery::ServiceDiscovery(const ndn::Name& serviceName, const std::string& userPrefix,
+ServiceDiscovery::ServiceDiscovery(const std::string& filename,
                                    const std::map<char, uint8_t>& pFlags,
-                                   const std::string& serviceInfo,
-                                   const ndn::time::system_clock::TimePoint& timeStamp,
-                                   const ndn::time::milliseconds& prefixExpirationTime,
                                    const DiscoveryCallback& discoveryCallback)
-  : m_serviceName(serviceName)
-  , m_userPrefix(userPrefix)
-  , m_serviceInfo(serviceInfo)
-  , m_publishTimeStamp(timeStamp)
-  , m_prefixLifeTime(prefixExpirationTime)
+  : m_filename(filename)
+  , m_fileProcessor(m_filename)
   , m_appType(processFalgs(pFlags, 't'))
   , m_syncProtocol(processFalgs(pFlags, 'p'))
-  , m_syncAdapter(m_face, m_syncProtocol, makeSyncPrefix(m_serviceName),
-                  m_userPrefix, 1600_ms,
+  , m_syncAdapter(m_face, m_syncProtocol, makeSyncPrefix(m_fileProcessor.getServiceName()),
+                  m_fileProcessor.getAppPrefix(), 1600_ms,
                   std::bind(&ServiceDiscovery::processSyncUpdate, this, _1))
   , m_discoveryCallback(discoveryCallback)
 {
-  setInterestFilter(m_userPrefix);
+  setUpdateProducerState();
+  setInterestFilter(m_producerState.applicationPrefix);
+
+  // listen on reload prefix as well.
+  setInterestFilter(ndnsd::discovery::NDNSD_RELOAD_PREFIX);
+}
+
+void
+ServiceDiscovery::setUpdateProducerState(bool update)
+{
+  NDNSD_LOG_INFO("Setting/Updating producers state: ");
+  if (update)
+  {
+    NDNSD_LOG_INFO("reached here");
+    m_fileProcessor.processFile();
+  }
+
+  m_producerState.serviceName = m_fileProcessor.getServiceName();
+  m_producerState.applicationPrefix = m_fileProcessor.getAppPrefix();
+  m_producerState.serviceLifetime = m_fileProcessor.getServiceLifetime();
+  m_producerState.publishTimestamp = ndn::time::system_clock::now();
+  m_producerState.serviceMetaInfo = m_fileProcessor.getServiceMeta();
+  m_producerState.status = ACTIVE;
+
 }
 
 ndn::Name
@@ -90,13 +106,14 @@ ServiceDiscovery::processFalgs(const std::map<char, uint8_t>& flags, const char 
 void
 ServiceDiscovery::producerHandler()
 {
-  NDNSD_LOG_INFO("Advertising service under Name: " << m_userPrefix);
+  auto& prefix = m_producerState.applicationPrefix;
+  NDNSD_LOG_INFO("Advertising service under Name: " << prefix);
 
   // store service
-  Details d = {m_serviceName, m_publishTimeStamp, m_prefixLifeTime, m_serviceInfo, ACTIVE};
-  servicesDetails.emplace(m_userPrefix, d);
+  // Details d = {m_serviceName, m_publishTimeStamp, m_prefixLifeTime, m_serviceInfo, ACTIVE};
+  // serviceDetails.emplace(m_userPrefix, d);
 
-  doUpdate(m_userPrefix);
+  doUpdate(prefix);
   run();
 }
 
@@ -133,24 +150,66 @@ ServiceDiscovery::setInterestFilter(const ndn::Name& name, const bool loopback)
 void
 ServiceDiscovery::processInterest(const ndn::Name& name, const ndn::Interest& interest)
 {
+  
   NDNSD_LOG_INFO("Interest received: " << interest.getName());
-  auto details = servicesDetails.find(interest.getName())->second;
-  sendData(interest.getName(), details);
+  auto interestName = interest.getName();
+
+  // check if the interest is for service detail or to update the service
+  if (interestName == NDNSD_RELOAD_PREFIX)
+  {
+    NDNSD_LOG_INFO("receive request to reload");
+    // reload file.
+    m_fileProcessor.processFile();
+    setUpdateProducerState(true);
+    // send back the response
+    static const std::string content("Update Successful");
+    // Create Data packet
+    auto data = make_shared<ndn::Data>(interest.getName());
+    data->setFreshnessPeriod(10_s);
+    data->setContent(reinterpret_cast<const uint8_t*>(content.data()), content.size());
+
+    m_keyChain.sign(*data);
+    m_face.put(*data);
+  }
+  else
+  {
+    sendData(interest.getName());
+  }
+}
+
+std::string
+ServiceDiscovery::makeDataContent()
+{
+  // |serviceName|applicationPrefix|key|val|key|val|...and so on
+  std::string dataContent = m_producerState.serviceName.toUri();
+  dataContent += "|";
+  dataContent += m_producerState.applicationPrefix.toUri();
+
+  for (auto const& item : m_producerState.serviceMetaInfo)
+  {
+    NDNSD_LOG_INFO("first"<< item.first << "second::"<< item.second);
+    dataContent += "|";
+    dataContent += item.first;
+    dataContent += "|";
+    dataContent += item.second;
+  }
+  NDNSD_LOG_INFO("dataContent::::"<< dataContent);
+  return dataContent;
 }
 
 void
-ServiceDiscovery::sendData(const ndn::Name& name, const struct Details& serviceDetail)
+ServiceDiscovery::sendData(const ndn::Name& name)
 {
-
   NDNSD_LOG_INFO("Sending data for: " << name);
-  auto timeDiff = ndn::time::system_clock::now() - serviceDetail.timeStamp;
-  int status = (timeDiff >= serviceDetail.prefixExpirationTime*1000)
-                ? EXPIRED : ACTIVE;
+  auto timeDiff = ndn::time::system_clock::now() - m_producerState.publishTimestamp;
+  m_producerState.status = (timeDiff >= m_producerState.serviceLifetime*1000)
+                          ? EXPIRED : ACTIVE;
 
   std::shared_ptr<ndn::Data> replyData = std::make_shared<ndn::Data>(name);
   replyData->setFreshnessPeriod(1_s);
 
-  auto& data = wireEncode(serviceDetail.serviceInfo, status);
+  auto dataContent = makeDataContent();
+  auto& data = wireEncode(dataContent, m_producerState.status);
   replyData->setContent(data);
   m_keyChain.sign(*replyData);
 
@@ -182,7 +241,6 @@ void
 ServiceDiscovery::onData(const ndn::Interest& interest, const ndn::Data& data)
 {
   data.getContent().parse();
-  m_consumerReply.serviceName = data.getName();
   wireDecode(data.getContent().get(tlv::DiscoveryData));
   m_discoveryCallback(m_consumerReply);
 
@@ -216,7 +274,7 @@ ServiceDiscovery::onRegistrationSuccess(const ndn::Name& name)
 void
 ServiceDiscovery::doUpdate(const ndn::Name& prefix)
 {
-  m_syncAdapter.publishUpdate(m_userPrefix);
+  m_syncAdapter.publishUpdate(prefix);
   NDNSD_LOG_INFO("Publish: " << prefix);
 }
 
@@ -234,7 +292,7 @@ ServiceDiscovery::processSyncUpdate(const std::vector<ndnsd::SyncDataInfo>& upda
   }
   else
   {
-    m_consumerReply.serviceInfo = "Application prefix " + m_userPrefix+ " updated";
+    m_consumerReply.serviceMetaInfo = "Application prefix " + m_producerState.applicationPrefix.toUri() + " updated";
     m_discoveryCallback(m_consumerReply);
   }
 
@@ -297,7 +355,7 @@ ServiceDiscovery::wireDecode(const ndn::Block& wire)
   }
 
   if (it != m_wire.elements_end() && it->type() == tlv::ServiceInfo) {
-    m_consumerReply.serviceInfo = readString(*it);
+    m_consumerReply.serviceMetaInfo = readString(*it);
   }
   else {
     NDNSD_LOG_DEBUG("Service information not available");

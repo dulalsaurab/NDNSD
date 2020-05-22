@@ -20,19 +20,22 @@
 #include<iostream>
 #include "ndnsd/discovery/service-discovery.hpp"
 #include <list>
+#include <boost/filesystem.hpp>
+
+inline bool
+isFile(const std::string& fileName)
+{
+  return boost::filesystem::exists(fileName);
+}
 
 class Producer
 {
 public:
-  Producer(const ndn::Name& serviceName, const std::string& userPrefix,
-           const std::string& serviceInfo,
-           const std::map<char, uint8_t>& pFlags)
-    : m_serviceDiscovery(serviceName, userPrefix, pFlags, serviceInfo,
-                        ndn::time::system_clock::now(), 10_ms,
-                        std::bind(&Producer::processCallback, this, _1))
+
+  Producer(const std::string& filename, const std::map<char, uint8_t>& pFlags)
+    : m_serviceDiscovery(filename, pFlags, std::bind(&Producer::processCallback, this, _1))
   {
   }
-
   void
   execute ()
   {
@@ -41,35 +44,27 @@ public:
 
 private:
   void
-  processCallback(const ndnsd::discovery::Details& callback)
+  processCallback(const ndnsd::discovery::Reply& callback)
   {
-    std::cout << callback.serviceInfo << std::endl;
+    std::cout << callback.serviceMetaInfo << std::endl;
   }
 
 private:
   ndnsd::discovery::ServiceDiscovery m_serviceDiscovery;
 };
 
-
 int
 main(int argc, char* argv[])
 {
-  if (argc != 4) {
-    std::cout << "usage: " << argv[0] << " <service-name> <user-prefix> "
-              << " <service-info>"
-              << std::endl;
-    return 1;
-  }
-
   std::map<char, uint8_t> flags;
   flags.insert(std::pair<char, uint8_t>('p', ndnsd::SYNC_PROTOCOL_CHRONOSYNC)); //protocol choice
   flags.insert(std::pair<char, uint8_t>('t', ndnsd::discovery::PRODUCER)); //type producer: 1
 
   try {
-    Producer producer(argv[1], argv[2], argv[3], flags);
+    Producer producer(argv[1], flags);
     producer.execute();
   }
   catch (const std::exception& e) {
-
+    std::cout << "Exception: " << e.what() << std::endl;
   }
 }
