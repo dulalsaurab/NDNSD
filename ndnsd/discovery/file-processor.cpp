@@ -67,7 +67,7 @@ ServiceInfoFileProcessor::processFile()
         {
           const auto& key = details.first; //get_value<std::string >();
           const auto& val = details.second.get_value<std::string >();
-          
+
           NDNSD_LOG_INFO("FP: Reading file: "<< val);
 
           m_serviceMetaInfo.insert(std::pair<std::string, std::string>(key, val));
@@ -83,5 +83,5 @@ ServiceInfoFileProcessor::processFile()
   }
 }
 
-} // discovery
-} // ndnsd
+} // namespace discovery
+} // namespace ndnsd

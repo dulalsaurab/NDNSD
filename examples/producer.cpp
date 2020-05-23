@@ -46,7 +46,13 @@ private:
   void
   processCallback(const ndnsd::discovery::Reply& callback)
   {
-    std::cout << callback.serviceMetaInfo << std::endl;
+    auto status = (callback.status == ndnsd::discovery::ACTIVE)? "ACTIVE": "EXPIRED";
+
+    std::cout << "\n Status: " << status << std::endl;
+    for (auto& item : callback.serviceDetails)
+    {
+      std::cout << item.first << ": " << item.second << std::endl;
+    }
   }
 
 private:

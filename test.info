@@ -3,7 +3,7 @@
 required
 {
   serviceName printer
-  appPrefix /printer1/service-info
+  appPrefix /printer2/service-info
   lifetime 100
 }
 
@@ -11,6 +11,6 @@ required
 
 details
 {
-  description "Hp Ledger Jet super jet"
-  make "2013"
+  description "Hp Ledger Jet super xxx"
+  make "2016"
 }

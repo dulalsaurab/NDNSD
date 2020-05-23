@@ -60,17 +60,26 @@ const char* NDNSD_RELOAD_PREFIX = "/ndnsd/reload";
 
 struct Details
 {
+  /**
+    ndn::Name: serviceName: Service producer is willing to publish under.
+      syncPrefix will be constructed from the service type
+      e.g. serviceType printer, syncPrefix = /<prefix>/discovery/printer
+    map: serviceMetaInfo Detail information about the service, key-value map
+    ndn::Name applicationPrefix service provider application name
+    ndn::time timeStamp When the userPrefix was updated for the last time, default = now()
+    ndn::time prefixExpTime Lifetime of the service
+  **/
+
   ndn::Name serviceName;
   ndn::Name applicationPrefix;
   ndn::time::milliseconds serviceLifetime;
   ndn::time::system_clock::TimePoint publishTimestamp;
   std::map<std::string, std::string> serviceMetaInfo;
-  int status;
 };
 
 struct Reply
 {
-  std::string serviceMetaInfo;
+  std::map<std::string, std::string> serviceDetails;
   int status;
 };
 
@@ -83,24 +92,12 @@ public:
 typedef struct Details Details;
 typedef struct Reply Reply;
 
-/*
- map: stores data from producer to serve on demand
-  first arg: string: prefix name, second arg: parameters (service name,
-  publish timestamps, lifetime, serviceInfo)
-*/
-std::map<ndn::Name, Details> serviceDetails;
-
 typedef std::function<void(const Reply& serviceUpdates)> DiscoveryCallback;
 
 class ServiceDiscovery
 {
 
 public:
-
-  /*
-    For simplicity, producer and consumer have different constructor. This can later
-    be revised and combine (future work)
-  */
 
   /**
     @brief constructor for consumer
@@ -110,7 +107,7 @@ public:
 
     @param serviceName Service consumer is interested on. e.g. = printers
     @param pFlags List of flags, i.e. sync protocol, application type etc
-    @param discoveryCallback 
+    @param discoveryCallback
   **/
   ServiceDiscovery(const ndn::Name& serviceName,
                    const std::map<char, uint8_t>& pFlags,
@@ -122,14 +119,23 @@ public:
     Creates a sync prefix from service type, stores service info, sends publication
     updates to sync, and listen on user-prefix to serve incoming requests
 
-    @param serviceName: Service producer is willing to publish under.
-    syncPrefix will be constructed from the service type
-     e.g. serviceType printer, syncPrefix = /<prefix>/discovery/printer
+    @param filename Info file to load service details, sample below
+
+    required
+    {
+      serviceName printer
+      appPrefix /printer1/service-info
+      lifetime 100
+    }
+    details
+    {
+      description "Hp Ledger Jet"
+      make "2016"
+    }
+    ; all the keys in required field needs to have value
+    ; the details can have as many key-values are needed
+
     @param pFlags List of flags, i.e. sync protocol, application type etc
-    @param serviceInfo Detail information about the service, this can also be a JSON (later)
-    @param userPrefix Particular service producer is publishing
-    @param timeStamp When the userPrefix was updated for the last time, default = now()
-    @param prefixExpTime Lifetime of the service
   */
 
   ServiceDiscovery(const std::string& filename,
@@ -177,12 +183,15 @@ public:
   std::string
   makeDataContent();
 
+  std::map<std::string, std::string>
+  processData(std::string reply);
+
   friend class ServiceInfoFileProcessor;
 
 private:
   void
   doUpdate(const ndn::Name& prefix);
-  
+
   void
   setUpdateProducerState(bool update = false);
 
@@ -220,7 +229,7 @@ private:
   const ndn::Block&
   wireEncode(const std::string& info, int status);
 
-  void
+  Reply
   wireDecode(const ndn::Block& wire);
 
 private:
@@ -230,13 +239,13 @@ private:
   const std::string m_filename;
   ServiceInfoFileProcessor m_fileProcessor;
   ndn::Name m_serviceName;
-  
   std::map<char, uint8_t> m_Flags;
-  
+
   Details m_producerState;
+  Reply m_consumerReply;
+
   uint8_t m_appType;
   uint8_t m_counter;
-  Reply m_consumerReply;
 
   uint32_t m_syncProtocol;
   SyncProtocolAdapter m_syncAdapter;

@@ -1,6 +1,6 @@
 /* -*- Mode:C++; c-file-style:"gnu"; indent-tabs-mode:nil; -*- */
 /*
- * Copyright (c) 2014-2019,  The University of Memphis
+ * Copyright (c) 2014-2020,  The University of Memphis
  *
  * This file is part of NDNSD.
  * Author: Saurab Dulal (sdulal@memphis.edu)
@@ -33,7 +33,6 @@ public:
 
   UpdateState(int threshold)
   : m_threshold(threshold)
-  // , m_face(face)
   {
     expressInterest();
   }
@@ -89,8 +88,6 @@ int main (int argv, char* argc[])
 {
 
   int threshold = 2;
-
-  // Face face;
   UpdateState us(threshold);
   us.run();
 

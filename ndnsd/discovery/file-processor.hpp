@@ -25,7 +25,7 @@
 #include <ndn-cxx/util/time.hpp>
 
 #include <boost/filesystem.hpp>
-#include "boost/property_tree/ptree.hpp"
+#include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/info_parser.hpp>
 
 #include <iostream>
@@ -41,19 +41,19 @@ public:
 
   ServiceInfoFileProcessor() = default;
   ServiceInfoFileProcessor(const std::string filename);
-  
-  ndn::Name& 
+
+  ndn::Name&
   getServiceName()
   {
     return m_serviceName;
   }
-  
+
   ndn::Name&
   getAppPrefix()
   {
     return m_applicationPrefix;
   }
-  
+
   ndn::time::milliseconds
   getServiceLifetime()
   {
@@ -75,10 +75,9 @@ private:
   ndn::Name m_applicationPrefix;
   std::map<std::string, std::string> m_serviceMetaInfo;
   ndn::time::milliseconds m_serviceLifeTime;
-
 };
 
-} // discovery
-} // ndnsd
+} // namespace discovery
+} // namespace ndnsd
 
 #endif // NDNSD_FILE_PROCESSOR_HPP
