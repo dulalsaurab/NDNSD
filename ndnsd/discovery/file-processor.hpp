@@ -54,7 +54,7 @@ public:
     return m_applicationPrefix;
   }
 
-  ndn::time::milliseconds
+  ndn::time::seconds
   getServiceLifetime()
   {
     return m_serviceLifeTime;
@@ -74,7 +74,7 @@ private:
   ndn::Name m_serviceName;
   ndn::Name m_applicationPrefix;
   std::map<std::string, std::string> m_serviceMetaInfo;
-  ndn::time::milliseconds m_serviceLifeTime;
+  ndn::time::seconds m_serviceLifeTime;
 };
 
 } // namespace discovery

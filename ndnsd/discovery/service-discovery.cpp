@@ -194,9 +194,11 @@ void
 ServiceDiscovery::sendData(const ndn::Name& name)
 {
   NDNSD_LOG_INFO("Sending data for: " << name);
+
   auto timeDiff = ndn::time::system_clock::now() - m_producerState.publishTimestamp;
-  auto status = (timeDiff >= m_producerState.serviceLifetime*1000)
-                          ? EXPIRED : ACTIVE;
+  auto timeToExpire = ndn::time::duration_cast<ndn::time::seconds>(timeDiff);
+
+  int status = (timeToExpire > m_producerState.serviceLifetime) ? EXPIRED : ACTIVE;
 
   std::shared_ptr<ndn::Data> replyData = std::make_shared<ndn::Data>(name);
   replyData->setFreshnessPeriod(1_ms);

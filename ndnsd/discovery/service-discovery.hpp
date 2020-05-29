@@ -72,7 +72,7 @@ struct Details
 
   ndn::Name serviceName;
   ndn::Name applicationPrefix;
-  ndn::time::milliseconds serviceLifetime;
+  ndn::time::seconds serviceLifetime;
   ndn::time::system_clock::TimePoint publishTimestamp;
   std::map<std::string, std::string> serviceMetaInfo;
 };

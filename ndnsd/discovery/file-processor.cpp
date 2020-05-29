@@ -28,6 +28,9 @@ ServiceInfoFileProcessor::ServiceInfoFileProcessor(const std::string filename)
   processFile();
 }
 
+// need to implement sanity check, 1. correct file is edited, required section is not modified
+// and so on
+
 void
 ServiceInfoFileProcessor::processFile()
 {
