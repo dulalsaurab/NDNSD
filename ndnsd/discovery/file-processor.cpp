@@ -36,7 +36,6 @@ ServiceInfoFileProcessor::ServiceInfoFileProcessor(const std::string filename)
 
 // need to implement sanity check, 1. correct file is edited, required section is not modified
 // and so on
-
 void
 ServiceInfoFileProcessor::processFile()
 {
@@ -78,7 +77,6 @@ ServiceInfoFileProcessor::processFile()
           const auto& val = details.second.get_value<std::string >();
 
           NDN_LOG_INFO("Reading file: "<< val);
-
           m_serviceMetaInfo.insert(std::pair<std::string, std::string>(key, val));
         }
       }

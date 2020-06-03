@@ -255,7 +255,7 @@ private:
   uint8_t m_counter;
 
   uint32_t m_syncProtocol;
-  uint32_t m_contDiscovery;
+  uint32_t m_continuousDiscovery;
   SyncProtocolAdapter m_syncAdapter;
   static const ndn::Name DEFAULT_CONSUMER_ONLY_NAME;
   mutable ndn::Block m_wire;

@@ -131,4 +131,10 @@ main(int argc, char* argv[])
     NDN_LOG_ERROR("Cannot execute consumer, try again later: " << e.what());
   }
 
+  try {
+    Consumer consumer(argv[1], flags);
+    consumer.execute();
+  }
+  catch (const std::exception& e) {
+  }
 }

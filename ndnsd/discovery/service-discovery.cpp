@@ -44,7 +44,7 @@ ServiceDiscovery::ServiceDiscovery(const ndn::Name& serviceName,
   , m_discoveryCallback(discoveryCallback)
 {
   // all the optional flag contDiscovery should be set here TODO:
-  m_contDiscovery = processFalgs(pFlags, 'c', true);
+  m_continuousDiscovery = processFalgs(pFlags, 'c', true);
 }
 
 // producer
@@ -145,7 +145,6 @@ ServiceDiscovery::run()
     std::cerr << ex.what() << std::endl;
     NDN_LOG_ERROR("Face error: " << ex.what());
   }
-
 }
 
 void
@@ -168,7 +167,6 @@ ServiceDiscovery::setInterestFilter(const ndn::Name& name, const bool loopback)
 void
 ServiceDiscovery::processInterest(const ndn::Name& name, const ndn::Interest& interest)
 {
-
   NDN_LOG_INFO("Interest received: " << interest.getName());
   auto interestName = interest.getName();
 
@@ -262,7 +260,7 @@ ServiceDiscovery::onData(const ndn::Interest& interest, const ndn::Data& data)
   m_counter--;
 
   // if continuous discovery is unset (i.e. OPTIONAL) consumer will be stopped
-    if (m_counter <= 0 && m_contDiscovery == OPTIONAL)
+    if (m_counter <= 0 && m_continuousDiscovery == OPTIONAL)
       stop();
 }
 
@@ -317,7 +315,6 @@ ServiceDiscovery::processSyncUpdate(const std::vector<ndnsd::SyncDataInfo>& upda
       consumerReply.status = ACTIVE;
       m_discoveryCallback(consumerReply);
     }
-    
   }
 }
 
