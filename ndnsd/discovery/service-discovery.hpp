@@ -25,7 +25,6 @@
 #include "file-processor.hpp"
 
 #include <ndn-cxx/face.hpp>
-#include <ndn-cxx/util/logger.hpp>
 #include <ndn-cxx/util/random.hpp>
 #include <ndn-cxx/util/scheduler.hpp>
 #include <ndn-cxx/util/time.hpp>
@@ -181,7 +180,7 @@ public:
   }
 
   /*
-   @brief Process flags send by consumer and producer application.
+   @brief Process Type Flags send by consumer and producer application.
   */
   uint8_t
   processFalgs(const std::map<char, uint8_t>& flags,
@@ -195,8 +194,6 @@ public:
 
   std::map<std::string, std::string>
   processData(std::string reply);
-
-  friend class ServiceInfoFileProcessor;
 
 private:
   void
@@ -263,8 +260,6 @@ private:
   static const ndn::Name DEFAULT_CONSUMER_ONLY_NAME;
   mutable ndn::Block m_wire;
   DiscoveryCallback m_discoveryCallback;
-
-  bool syncUpdateFlag;
 
 };
 } //namespace discovery

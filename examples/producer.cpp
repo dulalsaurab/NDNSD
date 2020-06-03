@@ -17,10 +17,13 @@
  * NDNSD, e.g., in COPYING.md file.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-#include<iostream>
 #include "ndnsd/discovery/service-discovery.hpp"
+#include <ndn-cxx/util/logger.hpp>
+
+#include<iostream>
 #include <list>
-#include <boost/filesystem.hpp>
+
+NDN_LOG_INIT(ndnsd.examples.ProducerApp);
 
 inline bool
 isFile(const std::string& fileName)
@@ -46,8 +49,8 @@ private:
   void
   processCallback(const ndnsd::discovery::Reply& callback)
   {
+    NDN_LOG_INFO("Service publish callback received");
     auto status = (callback.status == ndnsd::discovery::ACTIVE)? "ACTIVE": "EXPIRED";
-
     std::cout << "\n Status: " << status << std::endl;
     for (auto& item : callback.serviceDetails)
     {
@@ -67,10 +70,12 @@ main(int argc, char* argv[])
   flags.insert(std::pair<char, uint8_t>('t', ndnsd::discovery::PRODUCER)); //type producer: 1
 
   try {
+    NDN_LOG_INFO("Starting producer application");
     Producer producer(argv[1], flags);
     producer.execute();
   }
   catch (const std::exception& e) {
     std::cout << "Exception: " << e.what() << std::endl;
+    NDN_LOG_ERROR("Cannot execute producer, try again later: " << e.what());
   }
 }

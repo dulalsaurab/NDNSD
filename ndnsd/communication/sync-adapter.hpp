@@ -23,7 +23,6 @@
 #ifndef NDNSD_SYNC_ADAPTER_HPP
 #define NDNSD_SYNC_ADAPTER_HPP
 
-#include "logger.hpp"
 #include <ndn-cxx/face.hpp>
 #include <ChronoSync/logic.hpp>
 #include <PSync/full-producer.hpp>

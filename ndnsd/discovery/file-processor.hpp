@@ -20,17 +20,12 @@
 #ifndef NDNSD_FILE_PROCESSOR_HPP
 #define NDNSD_FILE_PROCESSOR_HPP
 
-#include "logger.hpp"
 #include <ndn-cxx/face.hpp>
 #include <ndn-cxx/util/time.hpp>
 
 #include <boost/filesystem.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/info_parser.hpp>
-
-#include <iostream>
-
-INIT_LOGGER(ServiceDiscovery);
 
 namespace ndnsd {
 namespace discovery {

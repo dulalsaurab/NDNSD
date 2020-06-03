@@ -17,13 +17,17 @@
  * NDNSD, e.g., in COPYING.md file.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-#include<iostream>
 #include "ndnsd/discovery/service-discovery.hpp"
+#include <ndn-cxx/util/logger.hpp>
+
+#include<iostream>
 #include <list>
 
 #include <boost/program_options/options_description.hpp>
 #include <boost/program_options/variables_map.hpp>
 #include <boost/program_options/parsers.hpp>
+
+NDN_LOG_INIT(ndnsd.examples.ConsumerApp);
 
 static void
 usage(const boost::program_options::options_description& options)
@@ -31,11 +35,6 @@ usage(const boost::program_options::options_description& options)
   std::cout << "Usage: ndnsd-consumer [options] e.g. printer \n"
             << options;
    exit(2);
-}
-static ndn::time::milliseconds
-getDefaultPingInterval()
-{
-  return ndn::time::milliseconds(1000);
 }
 
 class Consumer
@@ -57,8 +56,8 @@ private:
   void
   processCallback(const ndnsd::discovery::Reply& callback)
   {
+    NDN_LOG_INFO("Service info received");
     auto status = (callback.status == ndnsd::discovery::ACTIVE)? "ACTIVE": "EXPIRED";
-
     std::cout << "Status: " << status << std::endl;
     for (const auto& item : callback.serviceDetails)
     {
@@ -71,22 +70,17 @@ private:
 
 };
 
-
 int
 main(int argc, char* argv[])
 {
-
   std::string serviceName;
   int contFlag = -1;
-  ndn::time::milliseconds interval;
 
   namespace po = boost::program_options;
   po::options_description visibleOptDesc("Options");
 
   visibleOptDesc.add_options()
     ("help,h",      "print this message and exit")
-    // ("interval,i",  po::value<ndn::time::milliseconds::rep>()->default_value(getDefaultPingInterval().count()),
-    //                 "request interval, in milliseconds")
     ("serviceName,s", po::value<std::string>(&serviceName)->required(), "Service name to fetch service info")
     ("continuous,c", po::value<int>(&contFlag), "continuous discovery, 1 for true 0 for false")
   ;
@@ -128,11 +122,13 @@ main(int argc, char* argv[])
   try
   {
     std::cout << "Fetching service info for: " << serviceName << std::endl;
+    NDN_LOG_INFO("Fetching service info for: " << serviceName);
     Consumer consumer(serviceName, flags);
     consumer.execute();
   }
   catch (const std::exception& e) {
     std::cerr << "ERROR: " << e.what() << std::endl;
+    NDN_LOG_ERROR("Cannot execute consumer, try again later: " << e.what());
   }
 
 }

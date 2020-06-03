@@ -21,13 +21,16 @@
  **/
 
 #include "sync-adapter.hpp"
+
+#include <ndn-cxx/util/logger.hpp>
+
 #include <iostream>
 
-INIT_LOGGER(SyncProtocolAdapter);
+NDN_LOG_INIT(ndnsd.SyncProtocolAdapter);
 
 namespace ndnsd {
 
-const auto FIXED_SESSION = ndn::name::Component::fromNumber(0);
+const auto CHRONOSYNC_FIXED_SESSION = ndn::name::Component::fromNumber(0);
 
 SyncProtocolAdapter::SyncProtocolAdapter(ndn::Face& face,
                                          uint8_t syncProtocol,
@@ -39,7 +42,7 @@ SyncProtocolAdapter::SyncProtocolAdapter(ndn::Face& face,
   , m_syncUpdateCallback(syncUpdateCallback)
 {
   if (m_syncProtocol == SYNC_PROTOCOL_CHRONOSYNC) {
-    NDNSD_LOG_DEBUG("Using ChronoSync");
+    NDN_LOG_DEBUG("Using ChronoSync");
     m_chronoSyncLogic = std::make_shared<chronosync::Logic>(face,
                           syncPrefix,
                           userPrefix,
@@ -52,10 +55,10 @@ SyncProtocolAdapter::SyncProtocolAdapter(ndn::Face& face,
                           syncInterestLifetime,
                           chronosync::Logic::DEFAULT_SYNC_REPLY_FRESHNESS,
                           chronosync::Logic::DEFAULT_RECOVERY_INTEREST_LIFETIME,
-                          FIXED_SESSION);
+                          CHRONOSYNC_FIXED_SESSION);
   }
   else {
-    NDNSD_LOG_DEBUG("Using PSync");
+    NDN_LOG_DEBUG("Using PSync");
     m_psyncLogic = std::make_shared<psync::FullProducer>(80,
                      face,
                      syncPrefix,
@@ -69,7 +72,7 @@ void
 SyncProtocolAdapter::addUserNode(const ndn::Name& userPrefix)
 {
   if (m_syncProtocol == SYNC_PROTOCOL_CHRONOSYNC) {
-    m_chronoSyncLogic->addUserNode(userPrefix, chronosync::Logic::DEFAULT_NAME, FIXED_SESSION);
+    m_chronoSyncLogic->addUserNode(userPrefix, chronosync::Logic::DEFAULT_NAME, CHRONOSYNC_FIXED_SESSION);
   }
   else {
     m_psyncLogic->addUserNode(userPrefix);
@@ -79,10 +82,10 @@ SyncProtocolAdapter::addUserNode(const ndn::Name& userPrefix)
 void
 SyncProtocolAdapter::publishUpdate(const ndn::Name& userPrefix)
 {
-  NDNSD_LOG_INFO("Publishing update for Sync Prefix " << userPrefix);
+  NDN_LOG_INFO("Publishing update for Sync Prefix " << userPrefix);
   if (m_syncProtocol == SYNC_PROTOCOL_CHRONOSYNC) {
     auto seq = m_chronoSyncLogic->getSeqNo(userPrefix) + 1;
-    NDNSD_LOG_INFO("SeqNumber :" << seq);
+    NDN_LOG_INFO("SeqNumber :" << seq);
     m_chronoSyncLogic->updateSeqNo(seq, userPrefix);
   }
   else {
@@ -93,11 +96,11 @@ SyncProtocolAdapter::publishUpdate(const ndn::Name& userPrefix)
 void
 SyncProtocolAdapter::onChronoSyncUpdate(const std::vector<chronosync::MissingDataInfo>& updates)
 {
-  NDNSD_LOG_INFO("Received ChronoSync update event");
+  NDN_LOG_INFO("Received ChronoSync update event");
   std::vector<ndnsd::SyncDataInfo> dinfo;
 
   for (const auto& update : updates) {
-    // Remove FIXED_SESSION
+    // Remove CHRONOSYNC_FIXED_SESSION
     SyncDataInfo di;
     di.prefix = update.session.getPrefix(-1);
     di.highSeq = update.high;
@@ -109,11 +112,10 @@ SyncProtocolAdapter::onChronoSyncUpdate(const std::vector<chronosync::MissingDat
 void
 SyncProtocolAdapter::onPSyncUpdate(const std::vector<psync::MissingDataInfo>& updates)
 {
-  NDNSD_LOG_INFO("Received PSync update event");
+  NDN_LOG_INFO("Received PSync update event");
   std::vector<ndnsd::SyncDataInfo> dinfo;
 
   for (const auto& update : updates) {
-    // Remove FIXED_SESSION
     SyncDataInfo di;
     di.prefix = update.prefix;
     di.highSeq = update.highSeq;

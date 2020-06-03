@@ -19,6 +19,12 @@
 
 #include "file-processor.hpp"
 
+#include<iostream>
+
+#include <ndn-cxx/util/logger.hpp>
+
+NDN_LOG_INIT(ndnsd.FileProcessor);
+
 namespace ndnsd {
 namespace discovery {
 
@@ -36,7 +42,7 @@ ServiceInfoFileProcessor::processFile()
 {
   try
   {
-    NDNSD_LOG_INFO("FP: Reading file: "<< m_filename);
+    NDN_LOG_INFO("Reading file: "<< m_filename);
     boost::property_tree::ptree pt;
     read_info(m_filename, pt);
     for (auto& block: pt)
@@ -71,17 +77,18 @@ ServiceInfoFileProcessor::processFile()
           const auto& key = details.first; //get_value<std::string >();
           const auto& val = details.second.get_value<std::string >();
 
-          NDNSD_LOG_INFO("FP: Reading file: "<< val);
+          NDN_LOG_INFO("Reading file: "<< val);
 
           m_serviceMetaInfo.insert(std::pair<std::string, std::string>(key, val));
         }
       }
     }
-    NDNSD_LOG_INFO("FP: Successfully updated the file content: ");
+    NDN_LOG_INFO("Successfully updated the file content: ");
   }
   catch (std::exception const& e)
   {
     std::cerr << e.what() << std::endl;
+    NDN_LOG_INFO("Error reading file: " << m_filename);
     throw e;
   }
 }
