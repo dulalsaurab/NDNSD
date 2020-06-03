@@ -1,23 +1,4 @@
 # -*- Mode: python; py-indent-offset: 4; indent-tabs-mode: nil; coding: utf-8; -*-
-"""
-Copyright (c) 2014-2019,  The University of Memphis,
-                          Regents of the University of California,
-                          Arizona Board of Regents.
-
-This file is part of NLSR (Named-data Link State Routing).
-See AUTHORS.md for complete list of NLSR authors and contributors.
-
-NLSR is free software: you can redistribute it and/or modify it under the terms
-of the GNU General Public License as published by the Free Software Foundation,
-either version 3 of the License, or (at your option) any later version.
-
-NLSR is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
-without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
-PURPOSE.  See the GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License along with
-NLSR, e.g., in COPYING.md file.  If not, see <http://www.gnu.org/licenses/>.
-"""
 
 from waflib import Context, Logs, Utils
 import os, subprocess
@@ -26,8 +7,9 @@ VERSION = "0.0.1"
 APPNAME = "ndnsd"
 
 def options(opt):
-    opt.load(['compiler_cxx', 'gnu_dirs'])
-    opt.load(['default-compiler-flags', 'coverage', 'sanitizers', 'boost'],
+    opt.load(['compiler_c', 'compiler_cxx', 'gnu_dirs'])
+    opt.load(['default-compiler-flags', 'coverage', 'sanitizers',
+              'boost'],
              tooldir=['.waf-tools'])
 
     optgrp = opt.add_option_group('ndnsd Options')
@@ -35,8 +17,11 @@ def options(opt):
                       help='Build examples')
 
 def configure(conf):
-    conf.load(['compiler_cxx', 'gnu_dirs', 'default-compiler-flags', 'boost'])
+    conf.load(['compiler_c', 'compiler_cxx', 'gnu_dirs',
+               'default-compiler-flags', 'boost'])
 
+    conf.env.WITH_EXAMPLES = conf.options.with_examples
+    
     pkg_config_path = os.environ.get('PKG_CONFIG_PATH', '%s/pkgconfig' % conf.env.LIBDIR)
     conf.check_cfg(package='libndn-cxx', args=['--cflags', '--libs'], uselib_store='NDN_CXX',
                    pkg_config_path=pkg_config_path)
@@ -57,15 +42,18 @@ def configure(conf):
     conf.load('coverage')
     conf.load('sanitizers')
 
-    conf.define_cond('WITH_TESTS', conf.env.WITH_TESTS)
+    conf.env.prepend_value('STLIBPATH', ['.'])
+    # conf.define_cond('WITH_TESTS', conf.env.WITH_TESTS)
     # The config header will contain all defines that were added using conf.define()
     # or conf.define_cond().  Everything that was added directly to conf.env.DEFINES
     # will not appear in the config header, but will instead be passed directly to the
     # compiler on the command line.
-    conf.write_config_header('config.hpp')
+    conf.write_config_header('ndnsd/config.hpp')
+
 
 def build(bld):
-    bld.shlib(target='ndnsd',
+    bld.shlib(features="c cshlib",
+              target='ndnsd',
               vnum=VERSION,
               cnum=VERSION,
               source=bld.path.ant_glob('ndnsd/**/*.cpp'),
@@ -76,10 +64,12 @@ def build(bld):
     if bld.env.WITH_EXAMPLES:
         bld.recurse('examples')
 
+    bld.recurse('tools')
+
     headers = bld.path.ant_glob('ndnsd/**/*.hpp')
     bld.install_files(bld.env.INCLUDEDIR, headers, relative_trick=True)
 
-    bld.install_files('${INCLUDEDIR}/ndnsd',
+    bld.install_files('${INCLUDEDIR}/ndnsd/',
                       bld.path.find_resource('ndnsd/config.hpp'))
 
     bld(features='subst',

@@ -1,0 +1,9 @@
+prefix=@PREFIX@
+libdir=@LIBDIR@
+includedir=@INCLUDEDIR@
+
+Name: ndnsd
+Description: NDN SD library
+Version: @VERSION@
+Libs: -L${libdir} -lndnsd
+Cflags: -I${includedir}abc
