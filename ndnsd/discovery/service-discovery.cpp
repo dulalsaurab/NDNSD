@@ -31,14 +31,17 @@ ServiceDiscovery::ServiceDiscovery(const ndn::Name& serviceName,
                                    const std::map<char, uint8_t>& pFlags,
                                    const DiscoveryCallback& discoveryCallback)
   : m_serviceName(serviceName)
-  , m_appType(processFalgs(pFlags, 't'))
+  , m_appType(processFalgs(pFlags, 't', false))
   , m_counter(0)
-  , m_syncProtocol(processFalgs(pFlags, 'p'))
+  , m_syncProtocol(processFalgs(pFlags, 'p', false))
+  // , m_contDiscovery(processFalgs(pFlags, 'c'))
   , m_syncAdapter(m_face, m_syncProtocol, makeSyncPrefix(m_serviceName),
                   "/defaultName", 1600_ms,
                   std::bind(&ServiceDiscovery::processSyncUpdate, this, _1))
   , m_discoveryCallback(discoveryCallback)
 {
+  // all the optional flag contDiscovery should be set here TODO:
+  m_contDiscovery = processFalgs(pFlags, 'c', true);
 }
 
 // producer
@@ -47,8 +50,8 @@ ServiceDiscovery::ServiceDiscovery(const std::string& filename,
                                    const DiscoveryCallback& discoveryCallback)
   : m_filename(filename)
   , m_fileProcessor(m_filename)
-  , m_appType(processFalgs(pFlags, 't'))
-  , m_syncProtocol(processFalgs(pFlags, 'p'))
+  , m_appType(processFalgs(pFlags, 't', false))
+  , m_syncProtocol(processFalgs(pFlags, 'p', false))
   , m_syncAdapter(m_face, m_syncProtocol, makeSyncPrefix(m_fileProcessor.getServiceName()),
                   m_fileProcessor.getAppPrefix(), 1600_ms,
                   std::bind(&ServiceDiscovery::processSyncUpdate, this, _1))
@@ -68,9 +71,18 @@ ServiceDiscovery::setUpdateProducerState(bool update)
   if (update)
   {
     m_fileProcessor.processFile();
+     // should restrict updating service name and application prefix
+    if (m_producerState.serviceName != m_fileProcessor.getServiceName())
+      NDNSD_LOG_ERROR("Service Name cannot be changed while application is running");
+    if (m_producerState.applicationPrefix != m_fileProcessor.getAppPrefix())
+      NDNSD_LOG_ERROR("Application Prefix cannot be changed while application is running");
   }
-  m_producerState.serviceName = m_fileProcessor.getServiceName();
-  m_producerState.applicationPrefix = m_fileProcessor.getAppPrefix();
+  else
+  {
+    m_producerState.serviceName = m_fileProcessor.getServiceName();
+    m_producerState.applicationPrefix = m_fileProcessor.getAppPrefix();
+  }
+  // update
   m_producerState.serviceLifetime = m_fileProcessor.getServiceLifetime();
   m_producerState.publishTimestamp = ndn::time::system_clock::now();
   m_producerState.serviceMetaInfo = m_fileProcessor.getServiceMeta();
@@ -85,7 +97,8 @@ ServiceDiscovery::makeSyncPrefix(ndn::Name& service)
 }
 
 uint8_t
-ServiceDiscovery::processFalgs(const std::map<char, uint8_t>& flags, const char type)
+ServiceDiscovery::processFalgs(const std::map<char, uint8_t>& flags,
+                               const char type, bool optional)
 {
   auto key = flags.find(type);
   if (key != flags.end())
@@ -94,8 +107,12 @@ ServiceDiscovery::processFalgs(const std::map<char, uint8_t>& flags, const char 
   }
   else
   {
-    NDN_THROW(Error("Flag type not found!"));
-    NDNSD_LOG_ERROR("Flag type not found!");
+    if (!optional)
+    {
+      NDN_THROW(Error("Required flag type not found!"));
+      NDNSD_LOG_ERROR("Required flag type not found!");
+    }
+    return 0;
   }
 }
 
@@ -152,6 +169,9 @@ ServiceDiscovery::processInterest(const ndn::Name& name, const ndn::Interest& in
     // reload file.
     m_fileProcessor.processFile();
     setUpdateProducerState(true);
+
+    // if change is detected, call doUpdate to notify sync about the update
+    doUpdate(m_producerState.applicationPrefix);
     // send back the response
     static const std::string content("Update Successful");
     // Create Data packet
@@ -220,6 +240,7 @@ ServiceDiscovery::sendData(const ndn::Name& name)
 void
 ServiceDiscovery::expressInterest(const ndn::Name& name)
 {
+  NDNSD_LOG_INFO("Sending interest for name: " << name);
   ndn::Interest interest(name);
   interest.setCanBePrefix(false);
   interest.setMustBeFresh(true);
@@ -240,8 +261,9 @@ ServiceDiscovery::onData(const ndn::Interest& interest, const ndn::Data& data)
   m_discoveryCallback(consumerReply);
   m_counter--;
 
-  if (m_counter <= 0)
-    stop();
+  // this will stop consumer after fetching all the data for a service
+    if (m_counter <= 0 && m_contDiscovery == OPTIONAL)
+      stop();
 }
 
 void
@@ -279,6 +301,7 @@ ServiceDiscovery::processSyncUpdate(const std::vector<ndnsd::SyncDataInfo>& upda
   m_counter = updates.size();
   if (m_appType == CONSUMER)
   {
+    NDNSD_LOG_INFO("reached here??? :");
     for (auto item: updates)
     {
       NDNSD_LOG_INFO("Fetching data for prefix:" << item.prefix);
@@ -288,9 +311,14 @@ ServiceDiscovery::processSyncUpdate(const std::vector<ndnsd::SyncDataInfo>& upda
   else
   {
     Reply consumerReply;
-    consumerReply.serviceDetails.insert(std::pair<std::string, std::string>("prefix", m_producerState.applicationPrefix.toUri()));
-    consumerReply.status = ACTIVE;
-    m_discoveryCallback(consumerReply);
+    for (auto item: updates)
+    {
+      consumerReply.serviceDetails.insert(std::pair<std::string, std::string>
+                                          ("prefix", item.prefix.toUri()));
+      consumerReply.status = ACTIVE;
+      m_discoveryCallback(consumerReply);
+    }
+    
   }
 }
 

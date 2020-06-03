@@ -50,20 +50,29 @@ enum {
   CONSUMER = 1,
 };
 
+enum {
+  OPTIONAL = 0,
+  REQUIRED = 1,
+};
+
 // service status
 enum {
   EXPIRED = 0,
   ACTIVE = 1,
 };
 
+/**
+  each node will list on NDNSD_RELOAD_PREFIX, and will update their service once the
+  interest is received.
+**/
 const char* NDNSD_RELOAD_PREFIX = "/ndnsd/reload";
 
 struct Details
 {
   /**
     ndn::Name: serviceName: Service producer is willing to publish under.
-      syncPrefix will be constructed from the service type
-      e.g. serviceType printer, syncPrefix = /<prefix>/discovery/printer
+     syncPrefix will be constructed from the service type
+     e.g. serviceType printer, syncPrefix = /<prefix>/discovery/printer
     map: serviceMetaInfo Detail information about the service, key-value map
     ndn::Name applicationPrefix service provider application name
     ndn::time timeStamp When the userPrefix was updated for the last time, default = now()
@@ -175,7 +184,8 @@ public:
    @brief Process flags send by consumer and producer application.
   */
   uint8_t
-  processFalgs(const std::map<char, uint8_t>& flags, const char type);
+  processFalgs(const std::map<char, uint8_t>& flags,
+               const char type, bool optional);
 
   ndn::Name
   makeSyncPrefix(ndn::Name& service);
@@ -248,10 +258,13 @@ private:
   uint8_t m_counter;
 
   uint32_t m_syncProtocol;
+  uint32_t m_contDiscovery;
   SyncProtocolAdapter m_syncAdapter;
   static const ndn::Name DEFAULT_CONSUMER_ONLY_NAME;
   mutable ndn::Block m_wire;
   DiscoveryCallback m_discoveryCallback;
+
+  bool syncUpdateFlag;
 
 };
 } //namespace discovery

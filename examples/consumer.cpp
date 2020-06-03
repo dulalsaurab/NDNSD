@@ -21,6 +21,23 @@
 #include "ndnsd/discovery/service-discovery.hpp"
 #include <list>
 
+#include <boost/program_options/options_description.hpp>
+#include <boost/program_options/variables_map.hpp>
+#include <boost/program_options/parsers.hpp>
+
+static void
+usage(const boost::program_options::options_description& options)
+{
+  std::cout << "Usage: ndnsd-consumer [options] e.g. printer \n"
+            << options;
+   exit(2);
+}
+static ndn::time::milliseconds
+getDefaultPingInterval()
+{
+  return ndn::time::milliseconds(1000);
+}
+
 class Consumer
 {
 public:
@@ -32,6 +49,7 @@ public:
   void
   execute ()
   {
+    // process and handle request
     m_serviceDiscovery.consumerHandler();
   }
 
@@ -42,7 +60,7 @@ private:
     auto status = (callback.status == ndnsd::discovery::ACTIVE)? "ACTIVE": "EXPIRED";
 
     std::cout << "Status: " << status << std::endl;
-    for (auto& item : callback.serviceDetails)
+    for (const auto& item : callback.serviceDetails)
     {
       std::cout << item.first << ": " << item.second << std::endl;
     }
@@ -53,23 +71,68 @@ private:
 
 };
 
+
 int
 main(int argc, char* argv[])
 {
-  if (argc != 2) {
-    std::cout << "usage: " << argv[0] << " <service-name> "
-              << std::endl;
-    return 1;
+
+  std::string serviceName;
+  int contFlag = -1;
+  ndn::time::milliseconds interval;
+
+  namespace po = boost::program_options;
+  po::options_description visibleOptDesc("Options");
+
+  visibleOptDesc.add_options()
+    ("help,h",      "print this message and exit")
+    // ("interval,i",  po::value<ndn::time::milliseconds::rep>()->default_value(getDefaultPingInterval().count()),
+    //                 "request interval, in milliseconds")
+    ("serviceName,s", po::value<std::string>(&serviceName)->required(), "Service name to fetch service info")
+    ("continuous,c", po::value<int>(&contFlag), "continuous discovery, 1 for true 0 for false")
+  ;
+
+  try
+  {
+    po::variables_map optVm;
+    po::store(po::parse_command_line(argc, argv, visibleOptDesc), optVm);
+    po::notify(optVm);
+
+    if (optVm.count("continuous")) {
+        if (contFlag != ndnsd::discovery::OPTIONAL and contFlag != ndnsd::discovery::REQUIRED) 
+        {
+          std::cout << "'c' must be either '0' or '1', default i.e. '0' will be used" << std::endl;
+        }
+      }
+    else
+      contFlag = 0;
+
+    if (optVm.count("serviceName")) {
+      if (serviceName.empty())
+      {
+        std::cerr << "ERROR: serviceName cannot be empty" << std::endl;
+        usage(visibleOptDesc);
+      }
+    }
+
   }
-
+  catch (const po::error& e) {
+    std::cerr << "ERROR: " << e.what() << std::endl;
+    usage(visibleOptDesc);
+  }
+  // TODO: protocol shouldn't be hard-coded.
   std::map<char, uint8_t> flags;
-  flags.insert(std::pair<char, uint8_t>('p', ndnsd::SYNC_PROTOCOL_CHRONOSYNC)); //protocol choice
-  flags.insert(std::pair<char, uint8_t>('t', ndnsd::discovery::CONSUMER)); //c: consumer - 0, p:producer - 1
+  flags.insert(std::pair<char, uint8_t>('p', ndnsd::SYNC_PROTOCOL_PSYNC)); //protocol choice
+  flags.insert(std::pair<char, uint8_t>('t', ndnsd::discovery::CONSUMER)); //type producer: 1
+  flags.insert(std::pair<char, uint8_t>('c', contFlag));
 
-  try {
-    Consumer consumer(argv[1], flags);
+  try
+  {
+    std::cout << "Fetching service info for: " << serviceName << std::endl;
+    Consumer consumer(serviceName, flags);
     consumer.execute();
   }
   catch (const std::exception& e) {
+    std::cerr << "ERROR: " << e.what() << std::endl;
   }
+
 }

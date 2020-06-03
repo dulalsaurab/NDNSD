@@ -2,8 +2,8 @@
 /*
  * Copyright (c) 2014-2020,  The University of Memphis
  *
- * This file is part of NDNSD.
- * See NLSR's AUTHORS.md for complete list of NDNSD authors and contributors.
+ * This file is originally from NLSR and is modified here per the use.
+ * See NLSR's AUTHORS.md for complete list of NLSR authors and contributors.
  *
  * NDNSD is free software: you can redistribute it and/or modify it under the terms
  * of the GNU Lesser General Public License as published by the Free Software Foundation,

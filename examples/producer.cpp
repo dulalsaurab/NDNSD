@@ -63,7 +63,7 @@ int
 main(int argc, char* argv[])
 {
   std::map<char, uint8_t> flags;
-  flags.insert(std::pair<char, uint8_t>('p', ndnsd::SYNC_PROTOCOL_CHRONOSYNC)); //protocol choice
+  flags.insert(std::pair<char, uint8_t>('p', ndnsd::SYNC_PROTOCOL_PSYNC)); //protocol choice
   flags.insert(std::pair<char, uint8_t>('t', ndnsd::discovery::PRODUCER)); //type producer: 1
 
   try {
