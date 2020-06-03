@@ -220,7 +220,7 @@ ServiceDiscovery::makeDataContent()
 void
 ServiceDiscovery::sendData(const ndn::Name& name)
 {
-  NDN_LOG_INFO("Sending data for: " << name);
+  NDN_LOG_INFO("Prepare to send data for name: " << name);
 
   auto timeDiff = ndn::time::system_clock::now() - m_producerState.publishTimestamp;
   auto timeToExpire = ndn::time::duration_cast<ndn::time::seconds>(timeDiff);
@@ -234,6 +234,7 @@ ServiceDiscovery::sendData(const ndn::Name& name)
   replyData.setContent(wireEncode(dataContent, status));
   m_keyChain.sign(replyData);
   m_face.put(replyData);
+  NDN_LOG_INFO("Data sent for name: " << name);
 }
 
 void
