@@ -20,8 +20,9 @@
 #include "ndnsd/discovery/service-discovery.hpp"
 #include <ndn-cxx/util/logger.hpp>
 
-#include<iostream>
-#include <list>
+#include <iostream>
+
+// #include <list>
 
 NDN_LOG_INIT(ndnsd.examples.ProducerApp);
 
@@ -51,10 +52,10 @@ private:
   {
     NDN_LOG_INFO("Service publish callback received");
     auto status = (callback.status == ndnsd::discovery::ACTIVE)? "ACTIVE": "EXPIRED";
-    std::cout << "\n Status: " << status << std::endl;
+    NDN_LOG_INFO("Status: " << status);
     for (auto& item : callback.serviceDetails)
     {
-      std::cout << item.first << ": " << item.second << std::endl;
+      NDN_LOG_INFO("Callback: " << item.first << ":" << item.second);
     }
   }
 

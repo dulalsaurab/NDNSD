@@ -20,8 +20,7 @@
 #include "ndnsd/discovery/service-discovery.hpp"
 #include <ndn-cxx/util/logger.hpp>
 
-#include<iostream>
-#include <list>
+#include <iostream>
 
 #include <boost/program_options/options_description.hpp>
 #include <boost/program_options/variables_map.hpp>
@@ -58,10 +57,10 @@ private:
   {
     NDN_LOG_INFO("Service info received");
     auto status = (callback.status == ndnsd::discovery::ACTIVE)? "ACTIVE": "EXPIRED";
-    std::cout << "Status: " << status << std::endl;
+    NDN_LOG_INFO("Status: " << status);
     for (const auto& item : callback.serviceDetails)
     {
-      std::cout << item.first << ": " << item.second << std::endl;
+      NDN_LOG_INFO("Callback: " << item.first << ":" << item.second);
     }
   }
 
@@ -121,7 +120,6 @@ main(int argc, char* argv[])
 
   try
   {
-    std::cout << "Fetching service info for: " << serviceName << std::endl;
     NDN_LOG_INFO("Fetching service info for: " << serviceName);
     Consumer consumer(serviceName, flags);
     consumer.execute();
@@ -129,12 +127,5 @@ main(int argc, char* argv[])
   catch (const std::exception& e) {
     std::cerr << "ERROR: " << e.what() << std::endl;
     NDN_LOG_ERROR("Cannot execute consumer, try again later: " << e.what());
-  }
-
-  try {
-    Consumer consumer(argv[1], flags);
-    consumer.execute();
-  }
-  catch (const std::exception& e) {
   }
 }
