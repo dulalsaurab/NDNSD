@@ -265,6 +265,7 @@ private:
   mutable ndn::Block m_wire;
   DiscoveryCallback m_discoveryCallback;
 };
+
 } //namespace discovery
 } //namespace ndnsd
 #endif // NDNSD_SERVICE_DISCOVERY_HPP

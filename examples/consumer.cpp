@@ -21,7 +21,6 @@
 #include <ndn-cxx/util/logger.hpp>
 
 #include <iostream>
-#include <list>
 
 #include <boost/program_options/options_description.hpp>
 #include <boost/program_options/variables_map.hpp>
@@ -129,5 +128,4 @@ main(int argc, char* argv[])
     std::cerr << "ERROR: " << e.what() << std::endl;
     NDN_LOG_ERROR("Cannot execute consumer, try again later: " << e.what());
   }
-
 }

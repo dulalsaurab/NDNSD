@@ -44,7 +44,7 @@ ServiceDiscovery::ServiceDiscovery(const ndn::Name& serviceName,
   , m_discoveryCallback(discoveryCallback)
 {
   // all the optional flag contDiscovery should be set here TODO:
-  m_contDiscovery = processFalgs(pFlags, 'c', true);
+  m_continuousDiscovery = processFalgs(pFlags, 'c', true);
 }
 
 // producer
@@ -174,7 +174,6 @@ ServiceDiscovery::setInterestFilter(const ndn::Name& name, const bool loopback)
 void
 ServiceDiscovery::processInterest(const ndn::Name& name, const ndn::Interest& interest)
 {
-
   NDN_LOG_INFO("Interest received: " << interest.getName());
   auto interestName = interest.getName();
 
@@ -207,7 +206,7 @@ ServiceDiscovery::processInterest(const ndn::Name& name, const ndn::Interest& in
 void
 ServiceDiscovery::sendData(const ndn::Name& name)
 {
-  NDN_LOG_INFO("Sending data for: " << name);
+  NDN_LOG_INFO("Prepare to send data for name: " << name);
 
   auto timeDiff = ndn::time::system_clock::now() - m_producerState.publishTimestamp;
   auto timeToExpire = ndn::time::duration_cast<ndn::time::seconds>(timeDiff);
@@ -219,6 +218,7 @@ ServiceDiscovery::sendData(const ndn::Name& name)
   replyData.setContent(wireEncode());
   m_keyChain.sign(replyData);
   m_face.put(replyData);
+  NDN_LOG_INFO("Data sent for name: " << name);
 }
 
 void
@@ -245,7 +245,7 @@ ServiceDiscovery::onData(const ndn::Interest& interest, const ndn::Data& data)
   m_counter--;
 
   // if continuous discovery is unset (i.e. OPTIONAL) consumer will be stopped
-    if (m_counter <= 0 && m_contDiscovery == OPTIONAL)
+    if (m_counter <= 0 && m_continuousDiscovery == OPTIONAL)
       stop();
 }
 
@@ -301,7 +301,6 @@ ServiceDiscovery::processSyncUpdate(const std::vector<ndnsd::SyncDataInfo>& upda
       consumerReply.status = ACTIVE;
       m_discoveryCallback(consumerReply);
     }
-    
   }
 }
 
