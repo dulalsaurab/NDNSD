@@ -20,7 +20,7 @@
 #include "ndnsd/discovery/service-discovery.hpp"
 #include <ndn-cxx/util/logger.hpp>
 
-#include<iostream>
+#include <iostream>
 #include <list>
 
 #include <boost/program_options/options_description.hpp>
@@ -121,7 +121,6 @@ main(int argc, char* argv[])
 
   try
   {
-    std::cout << "Fetching service info for: " << serviceName << std::endl;
     NDN_LOG_INFO("Fetching service info for: " << serviceName);
     Consumer consumer(serviceName, flags);
     consumer.execute();

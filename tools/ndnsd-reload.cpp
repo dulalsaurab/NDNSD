@@ -36,6 +36,7 @@ NDN_LOG_INIT(ndnsd.Tools.Reload);
 
 const char* NDNSD_RELOAD_PREFIX = "/ndnsd/reload";
 const int DEFAULT_RELOAD_COUNT = -1234;
+const int ONE_TIME_RELOAD = 1;
 
 
 static void
@@ -128,6 +129,13 @@ private:
   ndn::scheduler::ScopedEventId m_nextPingEvent;
 };
 
+void
+raiseError(const std::string& message)
+{
+  std::cerr << message << std::endl;
+  NDN_LOG_ERROR(message);
+}
+
 int
 main (int argc, char* argv[])
 {
@@ -141,7 +149,7 @@ main (int argc, char* argv[])
   visibleOptDesc.add_options()
     ("help,h",      "print this message and exit")
     ("count,c", po::value<int>(&nPings), "number of reload to sent")
-    ("interval,i",  po::value<int>(&interval)->required(), "reload interval, in milliseconds")
+    ("interval,i",  po::value<int>(&interval), "reload interval, in milliseconds")
   ;
 
   try
@@ -150,42 +158,46 @@ main (int argc, char* argv[])
     po::store(po::parse_command_line(argc, argv, visibleOptDesc), optVm);
     po::notify(optVm);
 
-    if (optVm.count("count")) {
-      if (nPings <= 0)
-      {
-        std::cerr << "ERROR: Number of reload must be positive" << std::endl;
-        NDN_LOG_ERROR("ERROR: Number of reload must be positive");
+    if (optVm.count("count") && optVm.count("interval"))
+    {
+      if (nPings <=0 || interval <= 0) {
+          raiseError("ERROR: Reload and interval must be positive");
+          usage(visibleOptDesc);
+        }
+      reloadInterval  = ndn::time::milliseconds(interval);
+    }
+    else if (!optVm.count("count") && optVm.count("interval")) 
+    {
+      if (interval <= 0) {
+        raiseError("ERROR: Interval must be positive");
         usage(visibleOptDesc);
       }
+      nPings = DEFAULT_RELOAD_COUNT;
+      reloadInterval  = ndn::time::milliseconds(interval);
+    }
+    else if (optVm.count("count") && !optVm.count("interval"))
+    {
+      if (nPings > 0) {
+        raiseError("ERROR: Interval is required when 'c' positive");
+        usage(visibleOptDesc);
+      }
+      NDN_LOG_INFO("'c' must positive, processing for one time reload");
+      nPings = ONE_TIME_RELOAD;
+      reloadInterval = ndn::time::milliseconds(1000);
     }
     else
     {
-       nPings = DEFAULT_RELOAD_COUNT;
-    }
-
-    // ping interval must be smaller than service lifetime
-    if (optVm.count("interval"))
-    {
-      if (interval <= 0)
-      {
-        std::cerr << "ERROR: Reload interval must be positive" << std::endl;
-        NDN_LOG_ERROR("ERROR: Reload interval must be positive");
-        usage(visibleOptDesc);
-      }
-      else
-      {
-        reloadInterval  = ndn::time::milliseconds(interval);
-      }
+      nPings = ONE_TIME_RELOAD;
+      //when nPings in 1, this won't reloadInterval doesn't matter
+      // TODO: eliminate reloadInterval when nPings is 1
+      reloadInterval = ndn::time::milliseconds(1000);
     }
   }
   catch (const po::error& e) {
-    NDN_LOG_ERROR("ERROR: " << e.what());
-    std::cerr << "ERROR: " << e.what() << std::endl;
-    usage(visibleOptDesc);
+    raiseError(e.what());
   }
 
   int threshold = 2;
   UpdateState us(threshold, reloadInterval, nPings);
   us.run();
-
 }

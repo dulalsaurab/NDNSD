@@ -20,8 +20,9 @@
 #include "ndnsd/discovery/service-discovery.hpp"
 #include <ndn-cxx/util/logger.hpp>
 
-#include<iostream>
-#include <list>
+#include <iostream>
+
+// #include <list>
 
 NDN_LOG_INIT(ndnsd.examples.ProducerApp);
 

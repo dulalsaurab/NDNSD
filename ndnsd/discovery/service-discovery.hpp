@@ -102,6 +102,12 @@ typedef struct Reply Reply;
 
 typedef std::function<void(const Reply& serviceUpdates)> DiscoveryCallback;
 
+std::map<std::string, std::string>
+processData(std::string reply);
+
+Reply
+wireDecode(const ndn::Block& wire);
+
 class ServiceDiscovery
 {
 
@@ -192,9 +198,6 @@ public:
   std::string
   makeDataContent();
 
-  std::map<std::string, std::string>
-  processData(std::string reply);
-
 private:
   void
   doUpdate(const ndn::Name& prefix);
@@ -231,13 +234,10 @@ private:
 
   template<ndn::encoding::Tag TAG>
   size_t
-  wireEncode(ndn::EncodingImpl<TAG>& block, const std::string& info, int status) const;
+  wireEncode(ndn::EncodingImpl<TAG>& block, const std::string& info) const;
 
   const ndn::Block&
-  wireEncode(const std::string& info, int status);
-
-  Reply
-  wireDecode(const ndn::Block& wire);
+  wireEncode();
 
 private:
   ndn::Face m_face;
@@ -253,14 +253,17 @@ private:
 
   uint8_t m_appType;
   uint8_t m_counter;
+  uint8_t m_serviceStatus;
 
   uint32_t m_syncProtocol;
+
+  // Flag specific to consumer application, if set, will not stop consumer application
+  // but rather keep listening for service updates and send it back to user.
   uint32_t m_contDiscovery;
   SyncProtocolAdapter m_syncAdapter;
   static const ndn::Name DEFAULT_CONSUMER_ONLY_NAME;
   mutable ndn::Block m_wire;
   DiscoveryCallback m_discoveryCallback;
-
 };
 } //namespace discovery
 } //namespace ndnsd

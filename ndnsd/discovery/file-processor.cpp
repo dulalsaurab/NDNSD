@@ -19,7 +19,7 @@
 
 #include "file-processor.hpp"
 
-#include<iostream>
+#include <iostream>
 
 #include <ndn-cxx/util/logger.hpp>
 
