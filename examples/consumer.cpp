@@ -58,10 +58,10 @@ private:
   {
     NDN_LOG_INFO("Service info received");
     auto status = (callback.status == ndnsd::discovery::ACTIVE)? "ACTIVE": "EXPIRED";
-    std::cout << "Status: " << status << std::endl;
+    NDN_LOG_INFO("Status: " << status);
     for (const auto& item : callback.serviceDetails)
     {
-      std::cout << item.first << ": " << item.second << std::endl;
+      NDN_LOG_INFO("Callback: " << item.first << ":" << item.second);
     }
   }
 

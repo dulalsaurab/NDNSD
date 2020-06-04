@@ -4,7 +4,7 @@ required
 {
   serviceName printer
   appPrefix /printer2/service-info
-  lifetime 20
+  lifetime 1 ; in seconds
 }
 
 ; additional service details, user can put as many items as required

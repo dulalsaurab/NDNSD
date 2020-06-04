@@ -77,7 +77,7 @@ ServiceInfoFileProcessor::processFile()
           const auto& key = details.first; //get_value<std::string >();
           const auto& val = details.second.get_value<std::string >();
 
-          NDN_LOG_INFO("Reading file: "<< val);
+          NDN_LOG_DEBUG("Key: " << key << "Value: " << val);
 
           m_serviceMetaInfo.insert(std::pair<std::string, std::string>(key, val));
         }
