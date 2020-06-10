@@ -102,7 +102,7 @@ private:
     else
     {
       m_reloadCount--;
-      if(m_reloadCount <= 0)
+      if(m_reloadCount <= 1)
         exit(0);
       m_nextPingEvent = m_scheduler.schedule(m_reloadInterval, [this] { expressInterest();});
     }

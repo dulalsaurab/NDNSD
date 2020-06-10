@@ -82,7 +82,7 @@ SyncProtocolAdapter::addUserNode(const ndn::Name& userPrefix)
 void
 SyncProtocolAdapter::publishUpdate(const ndn::Name& userPrefix)
 {
-  NDN_LOG_INFO("Publishing update for Sync Prefix " << userPrefix);
+  NDN_LOG_INFO("Publishing update for User Prefix " << userPrefix);
   if (m_syncProtocol == SYNC_PROTOCOL_CHRONOSYNC) {
     auto seq = m_chronoSyncLogic->getSeqNo(userPrefix) + 1;
     NDN_LOG_INFO("SeqNumber :" << seq);

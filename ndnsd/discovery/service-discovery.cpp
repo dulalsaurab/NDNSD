@@ -19,7 +19,6 @@
 
 #include "service-discovery.hpp"
 #include <string>
-#include <iostream>
 
 #include <ndn-cxx/util/logger.hpp>
 
@@ -149,7 +148,7 @@ ServiceDiscovery::run()
   }
   catch (const std::exception& ex)
   {
-    std::cerr << ex.what() << std::endl;
+    NDN_THROW(Error(ex.what()));
     NDN_LOG_ERROR("Face error: " << ex.what());
   }
 }
@@ -182,8 +181,7 @@ ServiceDiscovery::processInterest(const ndn::Name& name, const ndn::Interest& in
   if (interestName == NDNSD_RELOAD_PREFIX)
   {
     NDN_LOG_INFO("Receive request to reload service");
-    // reload file.
-    m_fileProcessor.processFile();
+    // reload file and update state
     setUpdateProducerState(true);
 
     // if change is detected, call doUpdate to notify sync about the update
@@ -215,7 +213,7 @@ ServiceDiscovery::sendData(const ndn::Name& name)
   m_serviceStatus = (timeToExpire > m_producerState.serviceLifetime) ? EXPIRED : ACTIVE;
 
   ndn::Data replyData(name);
-  replyData.setFreshnessPeriod(1_ms);
+  replyData.setFreshnessPeriod(1_s);
   replyData.setContent(wireEncode());
   m_keyChain.sign(replyData);
   m_face.put(replyData);
@@ -227,7 +225,7 @@ ServiceDiscovery::expressInterest(const ndn::Name& name)
   NDN_LOG_INFO("Sending interest for name: " << name);
   ndn::Interest interest(name);
   interest.setCanBePrefix(false);
-  interest.setMustBeFresh(true);
+  interest.setMustBeFresh(true); //set true if want data explicit from producer.
   interest.setInterestLifetime(160_ms);
 
   m_face.expressInterest(interest,

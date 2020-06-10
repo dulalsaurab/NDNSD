@@ -21,7 +21,6 @@
 #include <ndn-cxx/util/logger.hpp>
 
 #include <iostream>
-#include <list>
 
 #include <boost/program_options/options_description.hpp>
 #include <boost/program_options/variables_map.hpp>
@@ -75,6 +74,7 @@ main(int argc, char* argv[])
 {
   std::string serviceName;
   int contFlag = -1;
+  int syncProtocol = ndnsd::SYNC_PROTOCOL_PSYNC; // default psync
 
   namespace po = boost::program_options;
   po::options_description visibleOptDesc("Options");
@@ -83,6 +83,7 @@ main(int argc, char* argv[])
     ("help,h",      "print this message and exit")
     ("serviceName,s", po::value<std::string>(&serviceName)->required(), "Service name to fetch service info")
     ("continuous,c", po::value<int>(&contFlag), "continuous discovery, 1 for true 0 for false")
+    ("sync-protocol,p", po::value<int>(&syncProtocol), "sync protocol choic, 1 psync, 0 chronosync")
   ;
 
   try
@@ -115,7 +116,7 @@ main(int argc, char* argv[])
   }
   // TODO: protocol shouldn't be hard-coded.
   std::map<char, uint8_t> flags;
-  flags.insert(std::pair<char, uint8_t>('p', ndnsd::SYNC_PROTOCOL_PSYNC)); //protocol choice
+  flags.insert(std::pair<char, uint8_t>('p', syncProtocol)); //protocol choice
   flags.insert(std::pair<char, uint8_t>('t', ndnsd::discovery::CONSUMER)); //type producer: 1
   flags.insert(std::pair<char, uint8_t>('c', contFlag));
 

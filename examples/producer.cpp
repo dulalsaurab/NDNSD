@@ -21,6 +21,7 @@
 #include <ndn-cxx/util/logger.hpp>
 
 #include <iostream>
+#include <cstdlib>
 
 // #include <list>
 
@@ -66,8 +67,12 @@ private:
 int
 main(int argc, char* argv[])
 {
+  int syncProtocol = ndnsd::SYNC_PROTOCOL_PSYNC;
+  if (argc > 2)
+    syncProtocol = atoi(argv[2]);
+
   std::map<char, uint8_t> flags;
-  flags.insert(std::pair<char, uint8_t>('p', ndnsd::SYNC_PROTOCOL_PSYNC)); //protocol choice
+  flags.insert(std::pair<char, uint8_t>('p', syncProtocol)); //protocol choice
   flags.insert(std::pair<char, uint8_t>('t', ndnsd::discovery::PRODUCER)); //type producer: 1
 
   try {
