@@ -285,7 +285,7 @@ ServiceDiscovery::processSyncUpdate(const std::vector<ndnsd::SyncDataInfo>& upda
     for (auto item: updates)
     {
       NDN_LOG_INFO("Fetching data for prefix:" << item.prefix);
-      expressInterest(item.prefix);
+      expressInterest(item.prefix.appendNumber(item.highSeq));
     }
   }
   else
