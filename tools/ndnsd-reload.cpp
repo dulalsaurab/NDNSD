@@ -51,11 +51,15 @@ class UpdateState
 {
 public:
 
-  UpdateState(int threshold, ndn::time::milliseconds reloadInterval, int reloadCount)
+  UpdateState(int threshold, ndn::time::milliseconds reloadInterval, int reloadCount,
+              int randomJitter)
   : m_threshold(threshold)
   , m_reloadCount(reloadCount)
   , m_reloadInterval(reloadInterval)
+  , m_randomJitter(randomJitter)
   , m_scheduler(m_face.getIoService())
+  , m_rng(ndn::random::getRandomNumberEngine())
+  , m_rangeUniformRandom(0, randomJitter)
   {
     expressInterest();
   }
@@ -98,16 +102,20 @@ private:
   {
     NDN_LOG_INFO("Update Successful" << data);
     // exit application
+    auto interval = m_reloadInterval + ndn::time::milliseconds(m_rangeUniformRandom(m_rng));
+    NDN_LOG_DEBUG("Tentative next interest schedule in : " << interest);
+    
     if (m_reloadCount == DEFAULT_RELOAD_COUNT)
     {
-      m_nextPingEvent = m_scheduler.schedule(m_reloadInterval, [this] { expressInterest();});
+      
+      m_nextPingEvent = m_scheduler.schedule(interval, [this] { expressInterest();});
     }
     else
     {
       m_reloadCount--;
-      if(m_reloadCount <= 1)
+      if(m_reloadCount <= 0)
         exit(0);
-      m_nextPingEvent = m_scheduler.schedule(m_reloadInterval, [this] { expressInterest();});
+      m_nextPingEvent = m_scheduler.schedule(interval, [this] { expressInterest();});
     }
   }
 
@@ -128,8 +136,11 @@ private:
   ndn::Face m_face;
   int m_reloadCount;
   ndn::time::milliseconds m_reloadInterval;
+  int m_randomJitter;
   ndn::Scheduler m_scheduler;
   ndn::scheduler::ScopedEventId m_nextPingEvent;
+  ndn::random::RandomNumberEngine& m_rng;
+  std::uniform_int_distribution<> m_rangeUniformRandom;
 };
 
 void
@@ -142,6 +153,7 @@ raiseError(const std::string& message)
 int
 main (int argc, char* argv[])
 {
+  int randomJitter = 0;
   int interval;
   int nPings = -1;
   ndn::time::milliseconds reloadInterval(0);
@@ -153,6 +165,7 @@ main (int argc, char* argv[])
     ("help,h",      "print this message and exit")
     ("count,c", po::value<int>(&nPings), "number of reload to sent")
     ("interval,i",  po::value<int>(&interval), "reload interval, in milliseconds")
+    ("random-jitter,r",  po::value<int>(&randomJitter), "positive integer, random(0,r) will be added to reload interval")
   ;
 
   try
@@ -161,6 +174,14 @@ main (int argc, char* argv[])
     po::store(po::parse_command_line(argc, argv, visibleOptDesc), optVm);
     po::notify(optVm);
 
+    if (optVm.count("random-jitter"))
+    {
+      if (randomJitter <= 0)
+      {
+        raiseError("Must be a positive integer");
+        usage(visibleOptDesc);
+      }
+    }
     if (optVm.count("count") && optVm.count("interval"))
     {
       if (nPings <=0 || interval <= 0) {
@@ -201,6 +222,6 @@ main (int argc, char* argv[])
   }
 
   int threshold = 2;
-  UpdateState us(threshold, reloadInterval, nPings);
+  UpdateState us(threshold, reloadInterval, nPings, randomJitter);
   us.run();
 }

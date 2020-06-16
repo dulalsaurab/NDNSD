@@ -33,6 +33,7 @@ struct SyncDataInfo
 {
   ndn::Name prefix;
   uint64_t highSeq;
+  uint64_t lowSeq;
 };
 
 typedef std::function<void(const std::vector<SyncDataInfo>& updates)> SyncUpdateCallback;

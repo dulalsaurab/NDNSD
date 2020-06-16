@@ -156,6 +156,7 @@ ServiceDiscovery::run()
 void
 ServiceDiscovery::stop()
 {
+  NDN_LOG_DEBUG("Shutting down face: ");
   m_face.shutdown();
   m_face.getIoService().stop();
 }
@@ -175,10 +176,9 @@ ServiceDiscovery::processInterest(const ndn::Name& name, const ndn::Interest& in
 {
 
   NDN_LOG_INFO("Interest received: " << interest.getName());
-  auto interestName = interest.getName();
 
   // check if the interest is for service detail or to update the service
-  if (interestName == NDNSD_RELOAD_PREFIX)
+  if (interest.getName().getSubName(0, 2) == NDNSD_RELOAD_PREFIX)
   {
     NDN_LOG_INFO("Receive request to reload service");
     // reload file and update state
@@ -190,11 +190,12 @@ ServiceDiscovery::processInterest(const ndn::Name& name, const ndn::Interest& in
     static const std::string content("Update Successful");
     // Create Data packet
     ndn::Data data(interest.getName());
-    data.setFreshnessPeriod(1_ms);
+    data.setFreshnessPeriod(1_s);
     data.setContent(reinterpret_cast<const uint8_t*>(content.data()), content.size());
 
     m_keyChain.sign(data);
     m_face.put(data);
+    NDN_LOG_DEBUG("Data sent for reload interest :" << interest.getName());
   }
   else
   {
@@ -213,16 +214,17 @@ ServiceDiscovery::sendData(const ndn::Name& name)
   m_serviceStatus = (timeToExpire > m_producerState.serviceLifetime) ? EXPIRED : ACTIVE;
 
   ndn::Data replyData(name);
-  replyData.setFreshnessPeriod(1_s);
+  replyData.setFreshnessPeriod(5_s);
   replyData.setContent(wireEncode());
   m_keyChain.sign(replyData);
   m_face.put(replyData);
+  NDN_LOG_DEBUG("Data sent for :" << name);
 }
 
 void
 ServiceDiscovery::expressInterest(const ndn::Name& name)
 {
-  NDN_LOG_INFO("Sending interest for name: " << name);
+  NDN_LOG_INFO("Sending interest: " << name);
   ndn::Interest interest(name);
   interest.setCanBePrefix(false);
   interest.setMustBeFresh(true); //set true if want data explicit from producer.
@@ -237,6 +239,8 @@ ServiceDiscovery::expressInterest(const ndn::Name& name)
 void
 ServiceDiscovery::onData(const ndn::Interest& interest, const ndn::Data& data)
 {
+  NDN_LOG_INFO("Data received for: " << interest.getName());
+  // modify this section and pass data.getContent to wiredecode
   data.getContent().parse();
   auto consumerReply = wireDecode(data.getContent().get(tlv::DiscoveryData));
   m_discoveryCallback(consumerReply);
@@ -284,8 +288,13 @@ ServiceDiscovery::processSyncUpdate(const std::vector<ndnsd::SyncDataInfo>& upda
   {
     for (auto item: updates)
     {
-      NDN_LOG_INFO("Fetching data for prefix:" << item.prefix);
-      expressInterest(item.prefix.appendNumber(item.highSeq));
+      unsigned int seq;
+      std::stringstream ss;
+      ss << std::hex << item.highSeq;
+      ss >> seq;
+      auto interest = item.prefix.appendNumber(item.highSeq);
+      NDN_LOG_INFO("Fetching data for prefix:" << interest);
+      expressInterest(interest);
     }
   }
   else

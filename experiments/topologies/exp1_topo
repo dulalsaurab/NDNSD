@@ -1,0 +1,14 @@
+[nodes]
+a: _ radius=0.5 angle=2.64159265359
+b: _ radius=1 angle=1.57079632679
+c: _ radius=1 angle=4.71238898038
+d: _ radius=0.8 angle=3.98403796376
+e: _ radius=2 angle=2.12435776543
+p: _ radius=0.7 angle=3.22435678964
+[links]
+a:p delay=10ms
+b:p delay=10ms
+c:p delay=10ms
+d:p delay=10ms
+e:d delay=10ms
+

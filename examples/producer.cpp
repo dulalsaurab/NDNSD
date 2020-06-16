@@ -68,6 +68,7 @@ int
 main(int argc, char* argv[])
 {
   int syncProtocol = ndnsd::SYNC_PROTOCOL_PSYNC;
+  // this is causing seg fault, need to look.
   if (argc > 2)
     syncProtocol = atoi(argv[2]);
 

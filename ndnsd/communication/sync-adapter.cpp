@@ -104,6 +104,7 @@ SyncProtocolAdapter::onChronoSyncUpdate(const std::vector<chronosync::MissingDat
     SyncDataInfo di;
     di.prefix = update.session.getPrefix(-1);
     di.highSeq = update.high;
+    di.lowSeq = update.low;
     dinfo.insert(dinfo.begin(), di);
   }
   m_syncUpdateCallback(dinfo);
@@ -119,6 +120,7 @@ SyncProtocolAdapter::onPSyncUpdate(const std::vector<psync::MissingDataInfo>& up
     SyncDataInfo di;
     di.prefix = update.prefix;
     di.highSeq = update.highSeq;
+    di.lowSeq = update.lowSeq;
     dinfo.insert(dinfo.begin(), di);
   }
   m_syncUpdateCallback(dinfo);
