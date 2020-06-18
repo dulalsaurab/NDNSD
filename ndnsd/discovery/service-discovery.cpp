@@ -288,13 +288,17 @@ ServiceDiscovery::processSyncUpdate(const std::vector<ndnsd::SyncDataInfo>& upda
   {
     for (auto item: updates)
     {
-      unsigned int seq;
-      std::stringstream ss;
-      ss << std::hex << item.highSeq;
-      ss >> seq;
-      auto interest = item.prefix.appendNumber(item.highSeq);
-      NDN_LOG_INFO("Fetching data for prefix:" << interest);
-      expressInterest(interest);
+      // Although application will want latest data, some might be interest
+      // in old data as well, so loop through low to high and fetch the data.
+      for (auto seq = item.lowSeq; seq <= item.highSeq; seq++)
+      {
+        m_counter++;
+        ndn::Name interestName = item.prefix;
+        interestName = interestName.appendNumber(seq);
+        NDN_LOG_INFO("Fetching data for prefix:" << interestName);
+        expressInterest(interestName);
+      }
+      
     }
   }
   else

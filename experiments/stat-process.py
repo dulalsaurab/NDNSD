@@ -58,7 +58,9 @@ if __name__ == '__main__':
     received = processLogFile(file2, ["Data received for: /p1", "Data received for: /p2"])
     r_final = getDiff(send, received)
     for p in prod:
-      hop[topo[i+p]].append([r_final[x] for x in r_final if p in x])
+      c_p = [r_final[x] for x in r_final if p in x]
+      c_p.insert(0, "Delay {} - {}".format(i, p))
+      hop[topo[i+p]].append(c_p)
 
   for i in hop:
     dump(hop[i], str(i)+'.csv')

@@ -58,12 +58,16 @@ public:
   , m_reloadInterval(reloadInterval)
   , m_randomJitter(randomJitter)
   , m_scheduler(m_face.getIoService())
-  , m_rng(ndn::random::getRandomNumberEngine())
-  , m_rangeUniformRandom(0, randomJitter)
   {
     expressInterest();
+    std::srand(100);
   }
 
+  int 
+  getRandom()
+  {
+    return std::rand() % (m_randomJitter + 1 - 0) + 0;
+  }
   void
   expressInterest()
   {
@@ -102,8 +106,8 @@ private:
   {
     NDN_LOG_INFO("Update Successful" << data);
     // exit application
-    auto interval = m_reloadInterval + ndn::time::milliseconds(m_rangeUniformRandom(m_rng));
-    NDN_LOG_DEBUG("Tentative next interest schedule in : " << interest);
+    auto interval = m_reloadInterval + ndn::time::milliseconds(getRandom());
+    NDN_LOG_DEBUG("Tentative next interest schedule in : " << interval);
     
     if (m_reloadCount == DEFAULT_RELOAD_COUNT)
     {
@@ -139,8 +143,6 @@ private:
   int m_randomJitter;
   ndn::Scheduler m_scheduler;
   ndn::scheduler::ScopedEventId m_nextPingEvent;
-  ndn::random::RandomNumberEngine& m_rng;
-  std::uniform_int_distribution<> m_rangeUniformRandom;
 };
 
 void

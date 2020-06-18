@@ -74,10 +74,10 @@ class NDNSDExperiment():
       host.cmd(cmd)
       Nfdc.setStrategy(host, self.producers[hostName][0], Nfdc.STRATEGY_MULTICAST)
 
-      cmd = 'export NDN_LOG=ndnsd.*=DEBUG' #:psync.*=TRACE'
+      cmd = 'export NDN_LOG=ndnsd.*=DEBUG:psync.*=TRACE:sync.*=TRACE'
       host.cmd(cmd)
 
-      cmd = 'ndnsd-producer {} 1 &> {}/{}/producer.log &'.format(hostInfoFile, self.args.workDir, hostName)
+      cmd = 'ndnsd-producer {} 0 &> {}/{}/producer.log &'.format(hostInfoFile, self.args.workDir, hostName)
       host.cmd(cmd)
       time.sleep(10)
 
@@ -86,13 +86,13 @@ class NDNSDExperiment():
     for consumer in self.consumer_nodes:
       cName = consumer.name
 
-      cmd = 'export NDN_LOG=ndnsd.*=DEBUG' #:psync.*=TRACE'
+      cmd = 'export NDN_LOG=ndnsd.*=TRACE:psync.*=TRACE:sync.*=TRACE'
       consumer.cmd(cmd)
 
       # set multi-cast strategy for sync prefix
       Nfdc.setStrategy(consumer, self.consumers[cName], Nfdc.STRATEGY_MULTICAST)
 
-      cmd = 'ndnsd-consumer -s {} &> {}/{}/consumer.log -c 1 -p 1 &'.format(self.consumers[cName],
+      cmd = 'ndnsd-consumer -s {} &> {}/{}/consumer.log -c 1 -p 0 &'.format(self.consumers[cName],
                                                                        self.args.workDir, cName)
       consumer.cmd(cmd)
       time.sleep(2)
@@ -102,8 +102,8 @@ if __name__ == '__main__':
     setLogLevel('info')
     producers = dict()
     consumers = dict()
-    producers['p1'] = ['printer', 1600] #{"<sp-name>": ['service-name', 'lifetime in ms']}
-    producers['p2'] = ['printer', 1600]
+    producers['p1'] = ['printer', 800] #{"<sp-name>": ['service-name', 'lifetime in ms']}
+    producers['p2'] = ['printer', 800]
     # consumers = {'a':'printer', 'b':'printer', 'c':'printer','d':'printer', 'e':'printer'} #['<consumer-name>']
     consumers = {'a':'printer', 'b':'printer'} #['<consumer-name>']
 
@@ -117,8 +117,8 @@ if __name__ == '__main__':
     time.sleep(20)
 
     # need to run reload at producers node
+    print("Staring experiment, i.e. reloading producers, approximate time to complete: {} seconds".format(3*(numberOfUpdates + jitter)))
     for host in exp.producer_nodes:
-      print("Staring experiment, i.e. reloading producer, approximate time to complete: {} seconds".format(numberOfUpdates+jitter))
       cmd = 'ndnsd-reload -c {} -i {} -r {} &> {}/{}/reload.log &'.format(numberOfUpdates,
                                                                     exp.producers[host.name][1]-10,
                                                                     300, ndn.args.workDir,
