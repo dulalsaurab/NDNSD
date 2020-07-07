@@ -65,6 +65,7 @@ enum {
   interest is received.
 **/
 const char* NDNSD_RELOAD_PREFIX = "/ndnsd/reload";
+uint32_t RETRANSMISSION_COUNT = 3;
 
 struct Details
 {
@@ -199,6 +200,9 @@ public:
   makeDataContent();
 
 private:
+  uint32_t
+  getInterestRetransmissionCount(ndn::Name& interestName);
+
   void
   doUpdate(const ndn::Name& prefix);
 
@@ -246,13 +250,16 @@ private:
   const std::string m_filename;
   ServiceInfoFileProcessor m_fileProcessor;
   ndn::Name m_serviceName;
-  std::map<char, uint8_t> m_Flags;
+  // std::map<char, uint8_t> m_Flags; //used??
 
   Details m_producerState;
   Reply m_consumerReply;
 
   uint8_t m_appType;
   uint8_t m_counter;
+  // Map to store interest and its retransmission count
+  std::map <ndn::Name, uint32_t> m_interestRetransmission;
+
   uint8_t m_serviceStatus;
 
   uint32_t m_syncProtocol;

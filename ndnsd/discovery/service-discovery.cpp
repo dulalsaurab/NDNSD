@@ -107,6 +107,13 @@ ServiceDiscovery::makeSyncPrefix(ndn::Name& service)
   return sync;
 }
 
+uint32_t
+ServiceDiscovery::getInterestRetransmissionCount(ndn::Name& interestName)
+{
+  auto it = m_interestRetransmission.find(interestName);
+  return it->second;
+}
+
 uint8_t
 ServiceDiscovery::processFalgs(const std::map<char, uint8_t>& flags,
                                const char type, bool optional)
@@ -224,7 +231,7 @@ ServiceDiscovery::sendData(const ndn::Name& name)
 void
 ServiceDiscovery::expressInterest(const ndn::Name& name)
 {
-  NDN_LOG_INFO("Sending interest: " << name);
+  NDN_LOG_INFO("Sending interest: "  << name);
   ndn::Interest interest(name);
   interest.setCanBePrefix(false);
   interest.setMustBeFresh(true); //set true if want data explicit from producer.
@@ -247,8 +254,8 @@ ServiceDiscovery::onData(const ndn::Interest& interest, const ndn::Data& data)
   m_counter--;
 
   // if continuous discovery is unset (i.e. OPTIONAL) consumer will be stopped
-    if (m_counter <= 0 && m_contDiscovery == OPTIONAL)
-      stop();
+  if (m_counter <= 0 && m_contDiscovery == OPTIONAL)
+    stop();
 }
 
 void
@@ -256,9 +263,27 @@ ServiceDiscovery::onTimeout(const ndn::Interest& interest)
 {
   if (m_appType == CONSUMER)
   {
-    m_counter--;
+    auto name = interest.getName();
+    auto it = m_interestRetransmission.find(name);
+    if (it != m_interestRetransmission.end())
+    {
+      if (it->second < RETRANSMISSION_COUNT)
+      {
+        it->second++;
+        NDN_LOG_DEBUG("Transmission count: " << getInterestRetransmissionCount(name)
+                                             << " - Sending interest: "  << name);
+        expressInterest(interest.getName());
+      }
+      else
+      {
+        NDN_LOG_INFO("Interest: " << interest.getName() << " timeout " << RETRANSMISSION_COUNT << " times");
+        m_interestRetransmission.erase (it);
+        m_counter--;
+      }
+    }
   }
-  NDN_LOG_INFO("Interest: " << interest.getName() << "timed out");
+  else
+    NDN_LOG_INFO("Interest: " << interest.getName() << " timed out ");
 }
 
 void
@@ -296,6 +321,9 @@ ServiceDiscovery::processSyncUpdate(const std::vector<ndnsd::SyncDataInfo>& upda
         ndn::Name interestName = item.prefix;
         interestName = interestName.appendNumber(seq);
         NDN_LOG_INFO("Fetching data for prefix:" << interestName);
+        m_interestRetransmission.insert(std::pair<ndn::Name, uint32_t> (interestName, 1));
+        NDN_LOG_DEBUG("Transmission count: " << getInterestRetransmissionCount(interestName)
+                                             << " - Sending interest: "  << interestName);
         expressInterest(interestName);
       }
       
@@ -307,7 +335,7 @@ ServiceDiscovery::processSyncUpdate(const std::vector<ndnsd::SyncDataInfo>& upda
     for (auto item: updates)
     {
       consumerReply.serviceDetails.insert(std::pair<std::string, std::string>
-                                          ("prefix", item.prefix.toUri()));
+                                         ("prefix", item.prefix.toUri()));
       // Service is just published, so the status returned to producer will be active
       consumerReply.status = ACTIVE;
       m_discoveryCallback(consumerReply);
