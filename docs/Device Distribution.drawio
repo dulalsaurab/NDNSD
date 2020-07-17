@@ -1,1 +1,877 @@
-<mxfile host="app.diagrams.net" modified="2020-07-15T23:22:13.044Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36" etag="c5FJQB69BZQA8PE_rrOp" version="13.4.4" type="github"><diagram id="qq4VDmRDbKSAf7BhO7Rs" name="Page-1">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</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2020-07-17T19:03:27.545Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36" etag="mBlxZdn5rH0rz276zKHB" version="13.4.4" type="github">
+  <diagram id="qq4VDmRDbKSAf7BhO7Rs" name="Page-1">
+    <mxGraphModel dx="679" dy="1500" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-127" value="" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;dashed=1;labelBackgroundColor=#ffffff;sketch=0;strokeColor=#000000;gradientColor=none;fontColor=#000000;fillColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="150" y="-50" width="520" height="1980" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-27" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="209" y="-30" width="432" height="501.5" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-16" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;" parent="GaNuckgpKVysz68EfYAr-27" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-9" as="sourcePoint" />
+            <mxPoint x="410" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-17" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;exitX=1;exitY=0;exitDx=0;exitDy=0;" parent="GaNuckgpKVysz68EfYAr-27" source="GaNuckgpKVysz68EfYAr-29" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="415" y="400" as="sourcePoint" />
+            <mxPoint x="415" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-20" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;" parent="GaNuckgpKVysz68EfYAr-27" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-12" y="381" as="sourcePoint" />
+            <mxPoint x="-11.88888888888889" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-28" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;opacity=60;" parent="GaNuckgpKVysz68EfYAr-27" vertex="1">
+          <mxGeometry x="130" width="40" height="380" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-29" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;opacity=60;rotation=90;" parent="GaNuckgpKVysz68EfYAr-27" vertex="1">
+          <mxGeometry x="271.5" y="239" width="40" height="242" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-31" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;opacity=60;rotation=90;" parent="GaNuckgpKVysz68EfYAr-27" vertex="1">
+          <mxGeometry x="202" y="29" width="40" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-33" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;opacity=60;" parent="GaNuckgpKVysz68EfYAr-27" vertex="1">
+          <mxGeometry x="-10" y="160" width="140" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-36" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;opacity=60;" parent="GaNuckgpKVysz68EfYAr-27" vertex="1">
+          <mxGeometry x="274" y="1" width="140" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-38" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/272_Raspberry_Pi_logo-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" parent="GaNuckgpKVysz68EfYAr-27" vertex="1">
+          <mxGeometry x="108" y="191" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-40" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/272_Raspberry_Pi_logo-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" parent="GaNuckgpKVysz68EfYAr-27" vertex="1">
+          <mxGeometry x="53" y="224" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-43" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/272_Raspberry_Pi-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" parent="GaNuckgpKVysz68EfYAr-27" vertex="1">
+          <mxGeometry x="150" y="281" width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-44" value="" style="image;html=1;image=img/lib/clip_art/networking/Wireless_Router_128x128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" parent="GaNuckgpKVysz68EfYAr-27" vertex="1">
+          <mxGeometry x="51" y="166" width="21" height="21" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-46" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/272_Raspberry_Pi-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" parent="GaNuckgpKVysz68EfYAr-27" vertex="1">
+          <mxGeometry x="153" y="111" width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-47" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/272_Raspberry_Pi-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" parent="GaNuckgpKVysz68EfYAr-27" vertex="1">
+          <mxGeometry x="176" y="84" width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-48" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/272_Raspberry_Pi-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" parent="GaNuckgpKVysz68EfYAr-27" vertex="1">
+          <mxGeometry x="6" y="187" width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-54" value="&lt;font style=&quot;font-size: 8px&quot;&gt;C1&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;dashed=1;sketch=0;" parent="GaNuckgpKVysz68EfYAr-27" vertex="1">
+          <mxGeometry x="-5" y="197" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-55" value="&lt;font style=&quot;font-size: 8px&quot;&gt;P1&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;dashed=1;sketch=0;" parent="GaNuckgpKVysz68EfYAr-27" vertex="1">
+          <mxGeometry x="99" y="202" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-56" value="&lt;font style=&quot;font-size: 8px&quot;&gt;P2&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;dashed=1;sketch=0;" parent="GaNuckgpKVysz68EfYAr-27" vertex="1">
+          <mxGeometry x="47.5" y="235.5" width="30" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-57" value="&lt;font style=&quot;font-size: 8px&quot;&gt;C2&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;dashed=1;sketch=0;" parent="GaNuckgpKVysz68EfYAr-27" vertex="1">
+          <mxGeometry x="142" y="121" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-58" value="&lt;font style=&quot;font-size: 8px&quot;&gt;C3&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;dashed=1;sketch=0;" parent="GaNuckgpKVysz68EfYAr-27" vertex="1">
+          <mxGeometry x="178" y="83" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-59" value="&lt;font style=&quot;font-size: 8px&quot;&gt;C4&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;dashed=1;sketch=0;" parent="GaNuckgpKVysz68EfYAr-27" vertex="1">
+          <mxGeometry x="139" y="291" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-63" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="GaNuckgpKVysz68EfYAr-27" source="GaNuckgpKVysz68EfYAr-40" target="GaNuckgpKVysz68EfYAr-44" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="20" y="240" as="sourcePoint" />
+            <mxPoint x="70" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-192" value="&lt;font style=&quot;font-size: 7px&quot;&gt;4.32&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="GaNuckgpKVysz68EfYAr-63" vertex="1" connectable="0">
+          <mxGeometry x="-0.1368" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-66" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=1;entryX=1;entryY=0.75;entryDx=0;entryDy=0;exitX=0;exitY=0.25;exitDx=0;exitDy=0;" parent="GaNuckgpKVysz68EfYAr-27" source="GaNuckgpKVysz68EfYAr-38" target="GaNuckgpKVysz68EfYAr-44" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="51" y="240" as="sourcePoint" />
+            <mxPoint x="50.499999999999886" y="201.0000000000001" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-193" value="&lt;font style=&quot;font-size: 7px&quot;&gt;4.32&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=#ffffff;labelBorderColor=none;" parent="GaNuckgpKVysz68EfYAr-66" vertex="1" connectable="0">
+          <mxGeometry x="0.1705" y="1" relative="1" as="geometry">
+            <mxPoint x="1.36" y="-1.62" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-67" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=1;entryX=0.75;entryY=0;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="GaNuckgpKVysz68EfYAr-27" source="GaNuckgpKVysz68EfYAr-58" target="GaNuckgpKVysz68EfYAr-44" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="100" y="212" as="sourcePoint" />
+            <mxPoint x="61" y="195.7499999999999" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-68" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=1;entryX=1;entryY=0.25;entryDx=0;entryDy=0;exitX=0.25;exitY=0;exitDx=0;exitDy=0;" parent="GaNuckgpKVysz68EfYAr-27" source="GaNuckgpKVysz68EfYAr-57" target="GaNuckgpKVysz68EfYAr-44" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="188" y="93.00000000000006" as="sourcePoint" />
+            <mxPoint x="55.750000000000114" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-69" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=1;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" parent="GaNuckgpKVysz68EfYAr-27" source="GaNuckgpKVysz68EfYAr-43" target="GaNuckgpKVysz68EfYAr-44" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="100" y="212" as="sourcePoint" />
+            <mxPoint x="61" y="195.7499999999999" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-70" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;exitX=1;exitY=0.25;exitDx=0;exitDy=0;" parent="GaNuckgpKVysz68EfYAr-27" source="GaNuckgpKVysz68EfYAr-48" target="GaNuckgpKVysz68EfYAr-44" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="20" y="230" as="sourcePoint" />
+            <mxPoint x="70" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-169" value="" style="endArrow=classic;startArrow=classic;html=1;strokeWidth=1;opacity=40;" parent="GaNuckgpKVysz68EfYAr-27" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-25" y="270" as="sourcePoint" />
+            <mxPoint x="-25" y="160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-170" value="6 m" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="GaNuckgpKVysz68EfYAr-169" vertex="1" connectable="0">
+          <mxGeometry x="0.3136" relative="1" as="geometry">
+            <mxPoint x="-4" y="12.5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-171" value="" style="endArrow=classic;startArrow=classic;html=1;strokeWidth=1;opacity=40;" parent="GaNuckgpKVysz68EfYAr-27" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="120" y="270" as="sourcePoint" />
+            <mxPoint x="-20" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-172" value="6 m" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="GaNuckgpKVysz68EfYAr-171" vertex="1" connectable="0">
+          <mxGeometry x="0.3136" relative="1" as="geometry">
+            <mxPoint x="25" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-197" value="&lt;font style=&quot;font-size: 7px&quot;&gt;8.9&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=#ffffff;labelBorderColor=none;" parent="GaNuckgpKVysz68EfYAr-27" vertex="1" connectable="0">
+          <mxGeometry x="127.9992289645063" y="120.9972705900453" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-198" value="&lt;font style=&quot;font-size: 7px&quot;&gt;7.6&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=#ffffff;labelBorderColor=none;" parent="GaNuckgpKVysz68EfYAr-27" vertex="1" connectable="0">
+          <mxGeometry x="118.9992289645063" y="140.9972705900453" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-199" value="&lt;font style=&quot;font-size: 7px&quot;&gt;7.6&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=#ffffff;labelBorderColor=none;" parent="GaNuckgpKVysz68EfYAr-27" vertex="1" connectable="0">
+          <mxGeometry x="117.9992289645063" y="243.9972705900453" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-200" value="&lt;font style=&quot;font-size: 7px&quot;&gt;0.76&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=#ffffff;labelBorderColor=none;" parent="GaNuckgpKVysz68EfYAr-27" vertex="1" connectable="0">
+          <mxGeometry x="34.9992289645063" y="186.9972705900453" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-263" value="" style="group" parent="GaNuckgpKVysz68EfYAr-27" vertex="1" connectable="0">
+          <mxGeometry x="336" y="277.89" width="78" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-262" value="" style="group" parent="GaNuckgpKVysz68EfYAr-263" vertex="1" connectable="0">
+          <mxGeometry width="78" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-259" value="" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;dashed=1;labelBackgroundColor=#ffffff;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;fontColor=#000000;" parent="GaNuckgpKVysz68EfYAr-262" vertex="1">
+          <mxGeometry x="-4" y="13" width="60" height="26.076747720364743" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-256" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/272_Raspberry_Pi_logo-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" parent="GaNuckgpKVysz68EfYAr-262" vertex="1">
+          <mxGeometry x="3.9772727272727275" y="17.134118541033434" width="6.360182370820669" height="6.360182370820669" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-257" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/272_Raspberry_Pi-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" parent="GaNuckgpKVysz68EfYAr-262" vertex="1">
+          <mxGeometry x="3.9772727272727275" y="26.356382978723406" width="6.360182370820669" height="6.360182370820669" as="geometry" />
+        </mxCell>
+        <mxCell id="2" value="&lt;font style=&quot;font-size: 8px&quot;&gt;Producer&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontColor=#000000;" parent="GaNuckgpKVysz68EfYAr-262" vertex="1">
+          <mxGeometry x="4.00090909090909" y="10.22080547112462" width="50" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-258" value="&lt;font style=&quot;font-size: 8px&quot;&gt;Consumer&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontColor=#000000;" parent="GaNuckgpKVysz68EfYAr-262" vertex="1">
+          <mxGeometry x="5.99909090909091" y="18.886246200607914" width="50" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-165" value="" style="endArrow=classic;startArrow=classic;html=1;strokeWidth=1;opacity=40;" parent="GaNuckgpKVysz68EfYAr-27" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="411" y="110" as="sourcePoint" />
+            <mxPoint x="271" y="110" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-166" value="6 m" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="GaNuckgpKVysz68EfYAr-165" vertex="1" connectable="0">
+          <mxGeometry x="0.3136" relative="1" as="geometry">
+            <mxPoint x="25" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-163" value="" style="endArrow=classic;startArrow=classic;html=1;strokeWidth=1;opacity=40;" parent="GaNuckgpKVysz68EfYAr-27" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="431" y="100" as="sourcePoint" />
+            <mxPoint x="431" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-164" value="6.5 cm" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="GaNuckgpKVysz68EfYAr-163" vertex="1" connectable="0">
+          <mxGeometry x="0.3136" relative="1" as="geometry">
+            <mxPoint y="16.83" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-71" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="200" y="210" width="10" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-21" value="" style="endArrow=none;html=1;" parent="GaNuckgpKVysz68EfYAr-71" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="10" as="sourcePoint" />
+            <mxPoint x="10" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-60" value="" style="endArrow=none;dashed=1;html=1;entryX=1;entryY=0;entryDx=0;entryDy=0;" parent="GaNuckgpKVysz68EfYAr-71" target="GaNuckgpKVysz68EfYAr-29" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint y="140" as="sourcePoint" />
+            <mxPoint x="50" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-72" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="200" y="460" width="420" height="501.5" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-108" value="" style="group" parent="GaNuckgpKVysz68EfYAr-72" vertex="1" connectable="0">
+          <mxGeometry x="-19" width="434" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-73" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;" parent="GaNuckgpKVysz68EfYAr-108" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="19" as="sourcePoint" />
+            <mxPoint x="429" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-74" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;" parent="GaNuckgpKVysz68EfYAr-108" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="434" y="380" as="sourcePoint" />
+            <mxPoint x="434" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-75" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;" parent="GaNuckgpKVysz68EfYAr-108" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="7" y="380" as="sourcePoint" />
+            <mxPoint x="7.111111111111111" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-76" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;opacity=60;" parent="GaNuckgpKVysz68EfYAr-108" vertex="1">
+          <mxGeometry x="149" width="40" height="380" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-77" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;opacity=60;rotation=90;" parent="GaNuckgpKVysz68EfYAr-108" vertex="1">
+          <mxGeometry x="290.5" y="238" width="40" height="243" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-78" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;opacity=60;rotation=90;" parent="GaNuckgpKVysz68EfYAr-108" vertex="1">
+          <mxGeometry x="221" y="29" width="40" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-79" value="&lt;span style=&quot;color: rgba(0 , 0 , 0 , 0) ; font-family: monospace ; font-size: 0px&quot;&gt;%3CmxGraphModel%3E%3Croot%3E%3CmxCell%20id%3D%220%22%2F%3E%3CmxCell%20id%3D%221%22%20parent%3D%220%22%2F%3E%3CmxCell%20id%3D%222%22%20value%3D%22%22%20style%3D%22rounded%3D0%3BwhiteSpace%3Dwrap%3Bhtml%3D1%3BfillColor%3D%23d5e8d4%3Bopacity%3D60%3B%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22189%22%20y%3D%221090%22%20width%3D%22140%22%20height%3D%22100%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%223%22%20value%3D%22%22%20style%3D%22shape%3Dimage%3Bhtml%3D1%3BverticalAlign%3Dtop%3BverticalLabelPosition%3Dbottom%3BlabelBackgroundColor%3D%23ffffff%3BimageAspect%3D0%3Baspect%3Dfixed%3Bimage%3Dhttps%3A%2F%2Fcdn4.iconfinder.com%2Fdata%2Ficons%2Flogos-and-brands%2F512%2F272_Raspberry_Pi_logo-128.png%3Bshadow%3D0%3Bdashed%3D1%3Bsketch%3D0%3BstrokeColor%3D%23000000%3BfillColor%3D%23FFF2CC%3BgradientColor%3Dnone%3B%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22309%22%20y%3D%221120%22%20width%3D%2220%22%20height%3D%2220%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%224%22%20value%3D%22%22%20style%3D%22shape%3Dimage%3Bhtml%3D1%3BverticalAlign%3Dtop%3BverticalLabelPosition%3Dbottom%3BlabelBackgroundColor%3D%23ffffff%3BimageAspect%3D0%3Baspect%3Dfixed%3Bimage%3Dhttps%3A%2F%2Fcdn4.iconfinder.com%2Fdata%2Ficons%2Flogos-and-brands%2F512%2F272_Raspberry_Pi_logo-128.png%3Bshadow%3D0%3Bdashed%3D1%3Bsketch%3D0%3BstrokeColor%3D%23000000%3BfillColor%3D%23FFF2CC%3BgradientColor%3Dnone%3B%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22249%22%20y%3D%221156.75%22%20width%3D%2220%22%20height%3D%2220%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%225%22%20value%3D%22%22%20style%3D%22image%3Bhtml%3D1%3Bimage%3Dimg%2Flib%2Fclip_art%2Fnetworking%2FWireless_Router_128x128.png%3Bshadow%3D0%3Bdashed%3D1%3Bsketch%3D0%3BstrokeColor%3D%23000000%3BfillColor%3D%23FFF2CC%3BgradientColor%3Dnone%3B%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22248.5%22%20y%3D%221090%22%20width%3D%2221%22%20height%3D%2221%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%226%22%20value%3D%22%26lt%3Bfont%20style%3D%26quot%3Bfont-size%3A%208px%26quot%3B%26gt%3BP1%26lt%3B%2Ffont%26gt%3B%22%20style%3D%22text%3Bhtml%3D1%3BstrokeColor%3Dnone%3BfillColor%3Dnone%3Balign%3Dcenter%3BverticalAlign%3Dmiddle%3BwhiteSpace%3Dwrap%3Brounded%3D0%3Bshadow%3D0%3Bdashed%3D1%3Bsketch%3D0%3B%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22279%22%20y%3D%221132%22%20width%3D%2240%22%20height%3D%2220%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%227%22%20value%3D%22%26lt%3Bfont%20style%3D%26quot%3Bfont-size%3A%208px%26quot%3B%26gt%3BP2%26lt%3B%2Ffont%26gt%3B%22%20style%3D%22text%3Bhtml%3D1%3BstrokeColor%3Dnone%3BfillColor%3Dnone%3Balign%3Dcenter%3BverticalAlign%3Dmiddle%3BwhiteSpace%3Dwrap%3Brounded%3D0%3Bshadow%3D0%3Bdashed%3D1%3Bsketch%3D0%3B%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22239%22%20y%3D%221168.5%22%20width%3D%2240%22%20height%3D%2220%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%228%22%20value%3D%22%22%20style%3D%22pointerEvents%3D1%3Bshadow%3D0%3Bdashed%3D0%3Bhtml%3D1%3BstrokeColor%3Dnone%3BfillColor%3D%23434445%3Baspect%3Dfixed%3BlabelPosition%3Dcenter%3BverticalLabelPosition%3Dbottom%3BverticalAlign%3Dtop%3Balign%3Dcenter%3BoutlineConnect%3D0%3Bshape%3Dmxgraph.vvd.wi_fi%3Bsketch%3D0%3Brotation%3D-40%3B%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22234.3%22%20y%3D%221082.3%22%20width%3D%2215.7%22%20height%3D%2215.7%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%229%22%20value%3D%22%22%20style%3D%22endArrow%3Dnone%3Bdashed%3D1%3Bhtml%3D1%3BdashPattern%3D1%203%3BstrokeWidth%3D1%3BentryX%3D0.5%3BentryY%3D1%3BentryDx%3D0%3BentryDy%3D0%3BexitX%3D0.5%3BexitY%3D0%3BexitDx%3D0%3BexitDy%3D0%3B%22%20edge%3D%221%22%20source%3D%224%22%20target%3D%225%22%20parent%3D%221%22%3E%3CmxGeometry%20width%3D%2250%22%20height%3D%2250%22%20relative%3D%221%22%20as%3D%22geometry%22%3E%3CmxPoint%20x%3D%2239%22%20y%3D%22240%22%20as%3D%22sourcePoint%22%2F%3E%3CmxPoint%20x%3D%2289%22%20y%3D%22190%22%20as%3D%22targetPoint%22%2F%3E%3C%2FmxGeometry%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2210%22%20value%3D%22%22%20style%3D%22endArrow%3Dnone%3Bdashed%3D1%3Bhtml%3D1%3BdashPattern%3D1%203%3BstrokeWidth%3D1%3BentryX%3D1%3BentryY%3D0.75%3BentryDx%3D0%3BentryDy%3D0%3BexitX%3D0%3BexitY%3D0.25%3BexitDx%3D0%3BexitDy%3D0%3B%22%20edge%3D%221%22%20source%3D%223%22%20target%3D%225%22%20parent%3D%221%22%3E%3CmxGeometry%20width%3D%2250%22%20height%3D%2250%22%20relative%3D%221%22%20as%3D%22geometry%22%3E%3CmxPoint%20x%3D%2270%22%20y%3D%22240%22%20as%3D%22sourcePoint%22%2F%3E%3CmxPoint%20x%3D%2269.49999999999989%22%20y%3D%22201.0000000000001%22%20as%3D%22targetPoint%22%2F%3E%3C%2FmxGeometry%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2211%22%20value%3D%22%22%20style%3D%22endArrow%3Dnone%3Bdashed%3D1%3Bhtml%3D1%3BdashPattern%3D1%203%3BstrokeWidth%3D1%3BentryX%3D0%3BentryY%3D1%3BentryDx%3D0%3BentryDy%3D0%3BexitX%3D0.75%3BexitY%3D0%3BexitDx%3D0%3BexitDy%3D0%3B%22%20edge%3D%221%22%20source%3D%2212%22%20target%3D%225%22%20parent%3D%221%22%3E%3CmxGeometry%20width%3D%2250%22%20height%3D%2250%22%20relative%3D%221%22%20as%3D%22geometry%22%3E%3CmxPoint%20x%3D%2239%22%20y%3D%22230%22%20as%3D%22sourcePoint%22%2F%3E%3CmxPoint%20x%3D%2289%22%20y%3D%22180%22%20as%3D%22targetPoint%22%2F%3E%3C%2FmxGeometry%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2212%22%20value%3D%22%22%20style%3D%22shape%3Dimage%3Bhtml%3D1%3BverticalAlign%3Dtop%3BverticalLabelPosition%3Dbottom%3BlabelBackgroundColor%3D%23ffffff%3BimageAspect%3D0%3Baspect%3Dfixed%3Bimage%3Dhttps%3A%2F%2Fcdn3.iconfinder.com%2Fdata%2Ficons%2Flogos-and-brands-adobe%2F512%2F272_Raspberry_Pi-128.png%3Bshadow%3D0%3Bdashed%3D1%3Bsketch%3D0%3BstrokeColor%3D%23000000%3BfillColor%3D%23FFF2CC%3BgradientColor%3Dnone%3B%22%20vertex%3D%221%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22189%22%20y%3D%221172%22%20width%3D%2218%22%20height%3D%2218%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2213%22%20value%3D%22%22%20style%3D%22group%22%20vertex%3D%221%22%20connectable%3D%220%22%20parent%3D%221%22%3E%3CmxGeometry%20x%3D%22202%22%20y%3D%221161.5%22%20width%3D%2219%22%20height%3D%2227%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3CmxCell%20id%3D%2214%22%20value%3D%22%26lt%3Bfont%20style%3D%26quot%3Bfont-size%3A%208px%26quot%3B%26gt%3BC1%26lt%3B%2Ffont%26gt%3B%22%20style%3D%22text%3Bhtml%3D1%3BstrokeColor%3Dnone%3BfillColor%3Dnone%3Balign%3Dcenter%3BverticalAlign%3Dmiddle%3BwhiteSpace%3Dwrap%3Brounded%3D0%3Bshadow%3D0%3Bdashed%3D1%3Bsketch%3D0%3B%22%20vertex%3D%221%22%20parent%3D%2213%22%3E%3CmxGeometry%20y%3D%229.9%22%20width%3D%2219%22%20height%3D%2217.999999999999996%22%20as%3D%22geometry%22%2F%3E%3C%2FmxCell%3E%3C%2Froot%3E%3C%2FmxGraphModel%3E&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;opacity=60;" parent="GaNuckgpKVysz68EfYAr-108" vertex="1">
+          <mxGeometry x="9" y="160" width="140" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-80" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;opacity=60;" parent="GaNuckgpKVysz68EfYAr-108" vertex="1">
+          <mxGeometry x="293" y="1" width="140" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-81" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/272_Raspberry_Pi_logo-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" parent="GaNuckgpKVysz68EfYAr-108" vertex="1">
+          <mxGeometry x="127" y="188" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-82" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/272_Raspberry_Pi_logo-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" parent="GaNuckgpKVysz68EfYAr-108" vertex="1">
+          <mxGeometry x="71" y="226.5" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-84" value="" style="image;html=1;image=img/lib/clip_art/networking/Wireless_Router_128x128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" parent="GaNuckgpKVysz68EfYAr-108" vertex="1">
+          <mxGeometry x="70" y="160" width="21" height="21" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-89" value="&lt;font style=&quot;font-size: 8px&quot;&gt;P1&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;dashed=1;sketch=0;" parent="GaNuckgpKVysz68EfYAr-108" vertex="1">
+          <mxGeometry x="117" y="200" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-90" value="&lt;font style=&quot;font-size: 8px&quot;&gt;P2&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;dashed=1;sketch=0;" parent="GaNuckgpKVysz68EfYAr-108" vertex="1">
+          <mxGeometry x="61" y="238" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-95" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="GaNuckgpKVysz68EfYAr-108" source="GaNuckgpKVysz68EfYAr-82" target="GaNuckgpKVysz68EfYAr-84" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="39" y="240" as="sourcePoint" />
+            <mxPoint x="89" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-96" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=1;entryX=1;entryY=0.75;entryDx=0;entryDy=0;exitX=0;exitY=0.25;exitDx=0;exitDy=0;" parent="GaNuckgpKVysz68EfYAr-108" source="GaNuckgpKVysz68EfYAr-81" target="GaNuckgpKVysz68EfYAr-84" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="70" y="240" as="sourcePoint" />
+            <mxPoint x="69.49999999999989" y="201.0000000000001" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-97" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="GaNuckgpKVysz68EfYAr-108" source="GaNuckgpKVysz68EfYAr-92" target="GaNuckgpKVysz68EfYAr-84" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="119" y="212" as="sourcePoint" />
+            <mxPoint x="80" y="195.7499999999999" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-244" value="&lt;font style=&quot;font-size: 7px&quot;&gt;13.2&lt;br&gt;&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;" parent="GaNuckgpKVysz68EfYAr-97" vertex="1" connectable="0">
+          <mxGeometry x="0.1017" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-98" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=1;" parent="GaNuckgpKVysz68EfYAr-108" source="GaNuckgpKVysz68EfYAr-85" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="207" y="93.00000000000006" as="sourcePoint" />
+            <mxPoint x="70" y="175" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-99" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=1;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" parent="GaNuckgpKVysz68EfYAr-108" source="GaNuckgpKVysz68EfYAr-83" target="GaNuckgpKVysz68EfYAr-84" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="119" y="212" as="sourcePoint" />
+            <mxPoint x="80" y="195.7499999999999" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-100" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=1;entryX=0;entryY=1;entryDx=0;entryDy=0;exitX=0.75;exitY=0;exitDx=0;exitDy=0;" parent="GaNuckgpKVysz68EfYAr-108" source="GaNuckgpKVysz68EfYAr-87" target="GaNuckgpKVysz68EfYAr-84" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="39" y="230" as="sourcePoint" />
+            <mxPoint x="89" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-86" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/272_Raspberry_Pi-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" parent="GaNuckgpKVysz68EfYAr-108" vertex="1">
+          <mxGeometry x="272.5" y="72" width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-92" value="&lt;font style=&quot;font-size: 8px&quot;&gt;C2&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;dashed=1;sketch=0;" parent="GaNuckgpKVysz68EfYAr-108" vertex="1">
+          <mxGeometry x="272.5" y="81" width="18" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-91" value="&lt;font style=&quot;font-size: 8px&quot;&gt;C3&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;dashed=1;sketch=0;" parent="GaNuckgpKVysz68EfYAr-108" vertex="1">
+          <mxGeometry x="205" y="79" width="18" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-87" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/272_Raspberry_Pi-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" parent="GaNuckgpKVysz68EfYAr-108" vertex="1">
+          <mxGeometry x="36.3" y="208" width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-104" value="" style="group" parent="GaNuckgpKVysz68EfYAr-108" vertex="1" connectable="0">
+          <mxGeometry x="25.3" y="208" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-88" value="&lt;font style=&quot;font-size: 8px&quot;&gt;C1&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;dashed=1;sketch=0;" parent="GaNuckgpKVysz68EfYAr-104" vertex="1">
+          <mxGeometry y="10" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-173" value="" style="endArrow=classic;startArrow=classic;html=1;strokeWidth=1;opacity=40;" parent="GaNuckgpKVysz68EfYAr-108" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="452.58000000000004" y="101.16999999999996" as="sourcePoint" />
+            <mxPoint x="452.58000000000004" y="1.169999999999959" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-174" value="6.5 m" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="GaNuckgpKVysz68EfYAr-173" vertex="1" connectable="0">
+          <mxGeometry x="0.3136" relative="1" as="geometry">
+            <mxPoint y="16.83" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-175" value="" style="endArrow=classic;startArrow=classic;html=1;strokeWidth=1;opacity=40;" parent="GaNuckgpKVysz68EfYAr-108" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="432.58000000000004" y="111.16999999999996" as="sourcePoint" />
+            <mxPoint x="292.58" y="111.16999999999996" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-176" value="6 m" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="GaNuckgpKVysz68EfYAr-175" vertex="1" connectable="0">
+          <mxGeometry x="0.3136" relative="1" as="geometry">
+            <mxPoint x="25" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-177" value="" style="endArrow=classic;startArrow=classic;html=1;strokeWidth=1;opacity=40;" parent="GaNuckgpKVysz68EfYAr-108" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="-1" y="270" as="sourcePoint" />
+            <mxPoint x="-1" y="159.99999999999997" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-178" value="6 m" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="GaNuckgpKVysz68EfYAr-177" vertex="1" connectable="0">
+          <mxGeometry x="0.3136" relative="1" as="geometry">
+            <mxPoint x="-4" y="12.5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-179" value="" style="endArrow=classic;startArrow=classic;html=1;strokeWidth=1;opacity=40;" parent="GaNuckgpKVysz68EfYAr-108" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="144" y="270" as="sourcePoint" />
+            <mxPoint x="4" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-180" value="6 m" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="GaNuckgpKVysz68EfYAr-179" vertex="1" connectable="0">
+          <mxGeometry x="0.3136" relative="1" as="geometry">
+            <mxPoint x="25" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-201" value="&lt;font style=&quot;font-size: 7px&quot;&gt;8.9&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];labelBackgroundColor=#ffffff;labelBorderColor=none;" parent="GaNuckgpKVysz68EfYAr-108" vertex="1" connectable="0">
+          <mxGeometry x="136.9992289645063" y="129.99727059004533" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-245" value="&lt;font style=&quot;font-size: 7px&quot;&gt;4.32&lt;br&gt;&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;" parent="GaNuckgpKVysz68EfYAr-108" vertex="1" connectable="0">
+          <mxGeometry x="108.99901348323755" y="180.99851845888134" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-246" value="&lt;font style=&quot;font-size: 7px&quot;&gt;10.6&lt;br&gt;&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;" parent="GaNuckgpKVysz68EfYAr-108" vertex="1" connectable="0">
+          <mxGeometry x="108.99901348323755" y="237.99851845888134" as="geometry">
+            <mxPoint x="12" y="4" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-247" value="&lt;font style=&quot;font-size: 7px&quot;&gt;4.32&lt;br&gt;&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;" parent="GaNuckgpKVysz68EfYAr-108" vertex="1" connectable="0">
+          <mxGeometry x="78.99901348323755" y="207.99851845888134" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-248" value="&lt;font style=&quot;font-size: 7px&quot;&gt;2.9&lt;br&gt;&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;" parent="GaNuckgpKVysz68EfYAr-108" vertex="1" connectable="0">
+          <mxGeometry x="60.99901348323755" y="192.99851845888134" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-101" value="" style="group" parent="GaNuckgpKVysz68EfYAr-108" vertex="1" connectable="0">
+          <mxGeometry x="157" y="330" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-83" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/272_Raspberry_Pi-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" parent="GaNuckgpKVysz68EfYAr-101" vertex="1">
+          <mxGeometry x="11" width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-93" value="&lt;font style=&quot;font-size: 8px&quot;&gt;C4&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;dashed=1;sketch=0;" parent="GaNuckgpKVysz68EfYAr-101" vertex="1">
+          <mxGeometry y="10" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-107" value="" style="group" parent="GaNuckgpKVysz68EfYAr-108" vertex="1" connectable="0">
+          <mxGeometry x="182" y="81" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-85" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/272_Raspberry_Pi-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" parent="GaNuckgpKVysz68EfYAr-107" vertex="1">
+          <mxGeometry x="11" width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-260" value="" style="endArrow=none;dashed=1;html=1;entryX=1;entryY=0;entryDx=0;entryDy=0;" parent="GaNuckgpKVysz68EfYAr-108" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="12.5" y="380" as="sourcePoint" />
+            <mxPoint x="433.9999999999998" y="379.99999999999955" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-264" value="" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;dashed=1;labelBackgroundColor=#ffffff;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;fontColor=#000000;" parent="GaNuckgpKVysz68EfYAr-108" vertex="1">
+          <mxGeometry x="359" y="292.78" width="60" height="26.076747720364743" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-265" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/272_Raspberry_Pi_logo-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" parent="GaNuckgpKVysz68EfYAr-108" vertex="1">
+          <mxGeometry x="366.97727272727275" y="296.9141185410334" width="6.360182370820669" height="6.360182370820669" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-266" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/272_Raspberry_Pi-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" parent="GaNuckgpKVysz68EfYAr-108" vertex="1">
+          <mxGeometry x="366.97727272727275" y="306.1363829787234" width="6.360182370820669" height="6.360182370820669" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-267" value="&lt;font style=&quot;font-size: 8px&quot;&gt;Producer&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontColor=#000000;" parent="GaNuckgpKVysz68EfYAr-108" vertex="1">
+          <mxGeometry x="367.0009090909091" y="290.00080547112464" width="50" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-268" value="&lt;font style=&quot;font-size: 8px&quot;&gt;Consumer&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontColor=#000000;" parent="GaNuckgpKVysz68EfYAr-108" vertex="1">
+          <mxGeometry x="368.9990909090909" y="298.6662462006078" width="50" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-109" value="" style="group" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="180" y="930" width="434" height="400" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-110" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;" parent="GaNuckgpKVysz68EfYAr-109" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="10" as="sourcePoint" />
+            <mxPoint x="429" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-111" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;" parent="GaNuckgpKVysz68EfYAr-109" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="434" y="390" as="sourcePoint" />
+            <mxPoint x="434" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-112" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;" parent="GaNuckgpKVysz68EfYAr-109" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="7" y="390" as="sourcePoint" />
+            <mxPoint x="7.111111111111111" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-113" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;opacity=60;" parent="GaNuckgpKVysz68EfYAr-109" vertex="1">
+          <mxGeometry x="149" width="40" height="390" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-114" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;opacity=60;rotation=90;" parent="GaNuckgpKVysz68EfYAr-109" vertex="1">
+          <mxGeometry x="290.5" y="248.75" width="40" height="243" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-115" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;opacity=60;rotation=90;" parent="GaNuckgpKVysz68EfYAr-109" vertex="1">
+          <mxGeometry x="221" y="29" width="40" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-116" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;opacity=60;" parent="GaNuckgpKVysz68EfYAr-109" vertex="1">
+          <mxGeometry x="9" y="160" width="140" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-117" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;opacity=60;" parent="GaNuckgpKVysz68EfYAr-109" vertex="1">
+          <mxGeometry x="293" y="1" width="140" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-118" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/272_Raspberry_Pi_logo-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" parent="GaNuckgpKVysz68EfYAr-109" vertex="1">
+          <mxGeometry x="129" y="190" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-119" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/272_Raspberry_Pi_logo-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" parent="GaNuckgpKVysz68EfYAr-109" vertex="1">
+          <mxGeometry x="69" y="226.75" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-120" value="" style="image;html=1;image=img/lib/clip_art/networking/Wireless_Router_128x128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" parent="GaNuckgpKVysz68EfYAr-109" vertex="1">
+          <mxGeometry x="68.5" y="160" width="21" height="21" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-121" value="&lt;font style=&quot;font-size: 8px&quot;&gt;P1&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;dashed=1;sketch=0;" parent="GaNuckgpKVysz68EfYAr-109" vertex="1">
+          <mxGeometry x="119" y="202" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-122" value="&lt;font style=&quot;font-size: 8px&quot;&gt;P2&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;dashed=1;sketch=0;" parent="GaNuckgpKVysz68EfYAr-109" vertex="1">
+          <mxGeometry x="59" y="238.5" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-124" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="GaNuckgpKVysz68EfYAr-109" source="GaNuckgpKVysz68EfYAr-119" target="GaNuckgpKVysz68EfYAr-120" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="39" y="240" as="sourcePoint" />
+            <mxPoint x="89" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-125" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=1;entryX=1;entryY=0.75;entryDx=0;entryDy=0;exitX=0;exitY=0.25;exitDx=0;exitDy=0;" parent="GaNuckgpKVysz68EfYAr-109" source="GaNuckgpKVysz68EfYAr-118" target="GaNuckgpKVysz68EfYAr-120" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="70" y="240" as="sourcePoint" />
+            <mxPoint x="69.49999999999989" y="201.0000000000001" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-126" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=1;entryX=1;entryY=0.25;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="GaNuckgpKVysz68EfYAr-109" source="GaNuckgpKVysz68EfYAr-137" target="GaNuckgpKVysz68EfYAr-120" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="119" y="212" as="sourcePoint" />
+            <mxPoint x="80" y="195.7499999999999" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-127" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="GaNuckgpKVysz68EfYAr-109" source="GaNuckgpKVysz68EfYAr-139" target="GaNuckgpKVysz68EfYAr-120" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="207" y="93.00000000000006" as="sourcePoint" />
+            <mxPoint x="70" y="186" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-128" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" parent="GaNuckgpKVysz68EfYAr-109" source="GaNuckgpKVysz68EfYAr-132" target="GaNuckgpKVysz68EfYAr-120" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="119" y="212" as="sourcePoint" />
+            <mxPoint x="80" y="195.7499999999999" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-129" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=1;entryX=0;entryY=1;entryDx=0;entryDy=0;exitX=0.75;exitY=0;exitDx=0;exitDy=0;" parent="GaNuckgpKVysz68EfYAr-109" source="GaNuckgpKVysz68EfYAr-134" target="GaNuckgpKVysz68EfYAr-120" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="39" y="230" as="sourcePoint" />
+            <mxPoint x="89" y="180" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-142" value="" style="group" parent="GaNuckgpKVysz68EfYAr-109" vertex="1" connectable="0">
+          <mxGeometry x="390" y="1" width="18" height="29" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-136" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/272_Raspberry_Pi-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" parent="GaNuckgpKVysz68EfYAr-142" vertex="1">
+          <mxGeometry width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-137" value="&lt;font style=&quot;font-size: 8px&quot;&gt;C3&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;dashed=1;sketch=0;" parent="GaNuckgpKVysz68EfYAr-142" vertex="1">
+          <mxGeometry y="9" width="18" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-144" value="" style="group" parent="GaNuckgpKVysz68EfYAr-109" vertex="1" connectable="0">
+          <mxGeometry x="330.5" y="60" width="42" height="31" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-138" value="" style="group" parent="GaNuckgpKVysz68EfYAr-144" vertex="1" connectable="0">
+          <mxGeometry y="1" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-139" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/272_Raspberry_Pi-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" parent="GaNuckgpKVysz68EfYAr-138" vertex="1">
+          <mxGeometry x="11" width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-140" value="&lt;font style=&quot;font-size: 8px&quot;&gt;C3&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;dashed=1;sketch=0;" parent="GaNuckgpKVysz68EfYAr-144" vertex="1">
+          <mxGeometry x="24" width="18" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-130" value="" style="group" parent="GaNuckgpKVysz68EfYAr-109" vertex="1" connectable="0">
+          <mxGeometry x="220" y="360" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-131" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/272_Raspberry_Pi-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" parent="GaNuckgpKVysz68EfYAr-130" vertex="1">
+          <mxGeometry x="11" width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-134" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/272_Raspberry_Pi-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" parent="GaNuckgpKVysz68EfYAr-109" vertex="1">
+          <mxGeometry x="9" y="242" width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-145" value="" style="group" parent="GaNuckgpKVysz68EfYAr-109" vertex="1" connectable="0">
+          <mxGeometry x="22" y="231.5" width="19" height="27" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-135" value="&lt;font style=&quot;font-size: 8px&quot;&gt;C1&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;dashed=1;sketch=0;" parent="GaNuckgpKVysz68EfYAr-145" vertex="1">
+          <mxGeometry y="9.9" width="19" height="17.999999999999996" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-132" value="&lt;font style=&quot;font-size: 8px&quot;&gt;C4&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;dashed=1;sketch=0;" parent="GaNuckgpKVysz68EfYAr-109" vertex="1">
+          <mxGeometry x="232" y="358" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-181" value="" style="endArrow=classic;startArrow=classic;html=1;strokeWidth=1;opacity=40;" parent="GaNuckgpKVysz68EfYAr-109" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint y="270" as="sourcePoint" />
+            <mxPoint y="160" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-182" value="6 m" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="GaNuckgpKVysz68EfYAr-181" vertex="1" connectable="0">
+          <mxGeometry x="0.3136" relative="1" as="geometry">
+            <mxPoint x="-4" y="12.5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-183" value="" style="endArrow=classic;startArrow=classic;html=1;strokeWidth=1;opacity=40;" parent="GaNuckgpKVysz68EfYAr-109" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="145" y="270" as="sourcePoint" />
+            <mxPoint x="5" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-184" value="6 m" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="GaNuckgpKVysz68EfYAr-183" vertex="1" connectable="0">
+          <mxGeometry x="0.3136" relative="1" as="geometry">
+            <mxPoint x="25" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-185" value="" style="endArrow=classic;startArrow=classic;html=1;strokeWidth=1;opacity=40;" parent="GaNuckgpKVysz68EfYAr-109" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="449.9999999999999" y="101" as="sourcePoint" />
+            <mxPoint x="449.9999999999999" y="1" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-186" value="6.5 m" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="GaNuckgpKVysz68EfYAr-185" vertex="1" connectable="0">
+          <mxGeometry x="0.3136" relative="1" as="geometry">
+            <mxPoint y="16.83" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-187" value="" style="endArrow=classic;startArrow=classic;html=1;strokeWidth=1;opacity=40;" parent="GaNuckgpKVysz68EfYAr-109" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="429.9999999999999" y="111" as="sourcePoint" />
+            <mxPoint x="289.99999999999994" y="111" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-188" value="6 m" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="GaNuckgpKVysz68EfYAr-187" vertex="1" connectable="0">
+          <mxGeometry x="0.3136" relative="1" as="geometry">
+            <mxPoint x="25" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-249" value="&lt;font style=&quot;font-size: 7px&quot;&gt;17.8&lt;br&gt;&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;" parent="GaNuckgpKVysz68EfYAr-109" vertex="1" connectable="0">
+          <mxGeometry x="199.99901348323755" y="109.99851845888134" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-250" value="&lt;font style=&quot;font-size: 7px&quot;&gt;14.99&lt;br&gt;&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;" parent="GaNuckgpKVysz68EfYAr-109" vertex="1" connectable="0">
+          <mxGeometry x="244.99901348323755" y="109.99851845888134" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-251" value="&lt;font style=&quot;font-size: 7px&quot;&gt;4.32&lt;br&gt;&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;" parent="GaNuckgpKVysz68EfYAr-109" vertex="1" connectable="0">
+          <mxGeometry x="109.99901348323755" y="180.99851845888134" as="geometry">
+            <mxPoint x="-2" y="3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-252" value="&lt;font style=&quot;font-size: 7px&quot;&gt;4.32&lt;br&gt;&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;" parent="GaNuckgpKVysz68EfYAr-109" vertex="1" connectable="0">
+          <mxGeometry x="78.99901348323755" y="201.99851845888134" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-254" value="&lt;font style=&quot;font-size: 7px&quot;&gt;6.3&lt;br&gt;&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;" parent="GaNuckgpKVysz68EfYAr-109" vertex="1" connectable="0">
+          <mxGeometry x="44.99901348323755" y="209.99851845888134" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-261" value="" style="endArrow=none;dashed=1;html=1;entryX=1;entryY=0;entryDx=0;entryDy=0;" parent="GaNuckgpKVysz68EfYAr-109" edge="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="9" y="390" as="sourcePoint" />
+            <mxPoint x="430.4999999999998" y="389.99999999999955" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-269" value="" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;dashed=1;labelBackgroundColor=#ffffff;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;fontColor=#000000;" parent="GaNuckgpKVysz68EfYAr-109" vertex="1">
+          <mxGeometry x="360" y="301.78" width="60" height="26.076747720364743" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-270" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/272_Raspberry_Pi_logo-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" parent="GaNuckgpKVysz68EfYAr-109" vertex="1">
+          <mxGeometry x="367.97727272727275" y="305.91411854103353" width="6.360182370820669" height="6.360182370820669" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-271" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/272_Raspberry_Pi-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" parent="GaNuckgpKVysz68EfYAr-109" vertex="1">
+          <mxGeometry x="367.97727272727275" y="315.1363829787233" width="6.360182370820669" height="6.360182370820669" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-272" value="&lt;font style=&quot;font-size: 8px&quot;&gt;Producer&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontColor=#000000;" parent="GaNuckgpKVysz68EfYAr-109" vertex="1">
+          <mxGeometry x="368.0009090909091" y="299.0008054711245" width="50" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-273" value="&lt;font style=&quot;font-size: 8px&quot;&gt;Consumer&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontColor=#000000;" parent="GaNuckgpKVysz68EfYAr-109" vertex="1">
+          <mxGeometry x="369.9990909090909" y="307.66624620060793" width="50" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="GaNuckgpKVysz68EfYAr-255" value="&lt;font style=&quot;font-size: 7px&quot;&gt;12.19&lt;br&gt;&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;" parent="1" vertex="1" connectable="0">
+          <mxGeometry x="338.99901348323755" y="1199.9985184588813" as="geometry">
+            <mxPoint x="8" y="9" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-55" value="" style="group" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="190" y="1480" width="434" height="440" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-57" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;" edge="1" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="459" y="380" as="sourcePoint" />
+            <mxPoint x="459" y="-50" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-58" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;" edge="1" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="7" y="380" as="sourcePoint" />
+            <mxPoint x="7" y="-50" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-59" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;opacity=60;" vertex="1" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry x="149" y="-50" width="40" height="430" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-60" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;opacity=60;rotation=90;" vertex="1" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry x="303" y="225.995" width="40" height="267.3" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-61" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF2CC;opacity=60;rotation=90;" vertex="1" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry x="211.68" y="47.53" width="40" height="83.15" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-62" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;opacity=60;" vertex="1" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry x="9" y="176" width="140" height="110.00000000000001" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-63" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;opacity=60;" vertex="1" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry x="273" y="-0.8999999999999999" width="140" height="110.00000000000001" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-64" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/272_Raspberry_Pi_logo-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" vertex="1" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry x="129" y="209.00000000000003" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-66" value="" style="image;html=1;image=img/lib/clip_art/networking/Wireless_Router_128x128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" vertex="1" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry x="68.5" y="176" width="21" height="23.1" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-67" value="&lt;font style=&quot;font-size: 8px&quot;&gt;P1&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;dashed=1;sketch=0;" vertex="1" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry x="119" y="222.20000000000002" width="40" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-70" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=1;entryX=1;entryY=0.75;entryDx=0;entryDy=0;exitX=0;exitY=0.25;exitDx=0;exitDy=0;" edge="1" parent="4sDzL2CfUfmo0A_nm6CZ-55" source="4sDzL2CfUfmo0A_nm6CZ-64" target="4sDzL2CfUfmo0A_nm6CZ-66">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="70" y="264" as="sourcePoint" />
+            <mxPoint x="69.49999999999989" y="221.10000000000014" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-71" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=1;entryX=1;entryY=0.25;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="4sDzL2CfUfmo0A_nm6CZ-55" source="4sDzL2CfUfmo0A_nm6CZ-77" target="4sDzL2CfUfmo0A_nm6CZ-66">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="119" y="233.20000000000002" as="sourcePoint" />
+            <mxPoint x="80" y="215.3249999999999" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-72" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="4sDzL2CfUfmo0A_nm6CZ-55" source="4sDzL2CfUfmo0A_nm6CZ-80" target="4sDzL2CfUfmo0A_nm6CZ-66">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="207" y="102.30000000000007" as="sourcePoint" />
+            <mxPoint x="70" y="204.60000000000002" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-73" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="4sDzL2CfUfmo0A_nm6CZ-55" source="4sDzL2CfUfmo0A_nm6CZ-87" target="4sDzL2CfUfmo0A_nm6CZ-66">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="119" y="233.20000000000002" as="sourcePoint" />
+            <mxPoint x="80" y="215.3249999999999" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-78" value="" style="group" vertex="1" connectable="0" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry x="323" y="54.00000000000001" width="50" height="34.1" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-79" value="" style="group" vertex="1" connectable="0" parent="4sDzL2CfUfmo0A_nm6CZ-78">
+          <mxGeometry y="1.1" width="40" height="33" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-80" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/272_Raspberry_Pi-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" vertex="1" parent="4sDzL2CfUfmo0A_nm6CZ-79">
+          <mxGeometry x="11" width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-81" value="&lt;font style=&quot;font-size: 8px&quot;&gt;C - 5&amp;nbsp;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;dashed=1;sketch=0;" vertex="1" parent="4sDzL2CfUfmo0A_nm6CZ-78">
+          <mxGeometry x="24" y="-2" width="26" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-87" value="&lt;font style=&quot;font-size: 8px&quot;&gt;C - 3&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;dashed=1;sketch=0;" vertex="1" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry x="220" y="338.83000000000004" width="40" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-88" value="" style="endArrow=classic;startArrow=classic;html=1;strokeWidth=1;opacity=40;" edge="1" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint y="297" as="sourcePoint" />
+            <mxPoint y="176" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-89" value="6 m" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="4sDzL2CfUfmo0A_nm6CZ-88">
+          <mxGeometry x="0.3136" relative="1" as="geometry">
+            <mxPoint x="-4" y="12.5" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-90" value="" style="endArrow=classic;startArrow=classic;html=1;strokeWidth=1;opacity=40;" edge="1" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="145" y="297" as="sourcePoint" />
+            <mxPoint x="5" y="297" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-91" value="6 m" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="4sDzL2CfUfmo0A_nm6CZ-90">
+          <mxGeometry x="0.3136" relative="1" as="geometry">
+            <mxPoint x="25" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-92" value="" style="endArrow=classic;startArrow=classic;html=1;strokeWidth=1;opacity=40;" edge="1" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="430.9999999999999" y="110.10000000000001" as="sourcePoint" />
+            <mxPoint x="430.9999999999999" y="0.10000000000000009" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-93" value="6.5 m" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="4sDzL2CfUfmo0A_nm6CZ-92">
+          <mxGeometry x="0.3136" relative="1" as="geometry">
+            <mxPoint y="16.83" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-94" value="" style="endArrow=classic;startArrow=classic;html=1;strokeWidth=1;opacity=40;" edge="1" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="410.9999999999999" y="121.10000000000001" as="sourcePoint" />
+            <mxPoint x="270.99999999999994" y="121.10000000000001" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-95" value="6 m" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="4sDzL2CfUfmo0A_nm6CZ-94">
+          <mxGeometry x="0.3136" relative="1" as="geometry">
+            <mxPoint x="25" y="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-96" value="&lt;font style=&quot;font-size: 7px&quot;&gt;17.8&lt;br&gt;&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;" vertex="1" connectable="0" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry x="199.99901348323755" y="120.99837030476948" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-97" value="&lt;font style=&quot;font-size: 7px&quot;&gt;14.99&lt;br&gt;&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;" vertex="1" connectable="0" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry x="244.99901348323755" y="120.99837030476948" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-98" value="&lt;font style=&quot;font-size: 7px&quot;&gt;4.32&lt;br&gt;&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;" vertex="1" connectable="0" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry x="109.99901348323755" y="199.09837030476947" as="geometry">
+            <mxPoint x="-2" y="3" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-101" value="" style="endArrow=none;dashed=1;html=1;entryX=1;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="4sDzL2CfUfmo0A_nm6CZ-55" target="4sDzL2CfUfmo0A_nm6CZ-60">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="9" y="380" as="sourcePoint" />
+            <mxPoint x="430.4999999999998" y="428.99999999999955" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-102" value="" style="rounded=0;whiteSpace=wrap;html=1;shadow=0;dashed=1;labelBackgroundColor=#ffffff;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;fontColor=#000000;" vertex="1" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry x="360" y="331.95799999999997" width="60" height="28.684422492401218" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-103" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/272_Raspberry_Pi_logo-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" vertex="1" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry x="367.97727272727275" y="336.50553039513693" width="6.360182370820669" height="6.360182370820669" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-104" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/272_Raspberry_Pi-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" vertex="1" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry x="367.97727272727275" y="346.6500212765957" width="6.360182370820669" height="6.360182370820669" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-105" value="&lt;font style=&quot;font-size: 8px&quot;&gt;Producer&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontColor=#000000;" vertex="1" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry x="368.0009090909091" y="328.900886018237" width="50" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-106" value="&lt;font style=&quot;font-size: 8px&quot;&gt;Consumer&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;fontColor=#000000;" vertex="1" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry x="369.9990909090909" y="338.43287082066877" width="50" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-108" value="" style="group" vertex="1" connectable="0" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry x="159" y="121.00000000000001" width="50" height="34.1" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-109" value="" style="group" vertex="1" connectable="0" parent="4sDzL2CfUfmo0A_nm6CZ-108">
+          <mxGeometry y="1.1" width="50" height="33" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-110" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/272_Raspberry_Pi-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" vertex="1" parent="4sDzL2CfUfmo0A_nm6CZ-109">
+          <mxGeometry x="11" width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-113" value="" style="group" vertex="1" connectable="0" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry x="230" y="84.7" width="50" height="34.1" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-114" value="" style="group" vertex="1" connectable="0" parent="4sDzL2CfUfmo0A_nm6CZ-113">
+          <mxGeometry y="1.1" width="40" height="33" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-115" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/272_Raspberry_Pi-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" vertex="1" parent="4sDzL2CfUfmo0A_nm6CZ-114">
+          <mxGeometry x="11" width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-117" value="" style="group" vertex="1" connectable="0" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry x="280" y="39.6" width="42" height="34.1" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-118" value="" style="group" vertex="1" connectable="0" parent="4sDzL2CfUfmo0A_nm6CZ-117">
+          <mxGeometry y="1.1" width="40" height="33" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-119" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/272_Raspberry_Pi-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" vertex="1" parent="4sDzL2CfUfmo0A_nm6CZ-118">
+          <mxGeometry x="-8" y="-1" width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-75" value="" style="group" vertex="1" connectable="0" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry x="383" y="0.10000000000000009" width="20" height="31.900000000000002" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-76" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/272_Raspberry_Pi-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" vertex="1" parent="4sDzL2CfUfmo0A_nm6CZ-75">
+          <mxGeometry width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-77" value="&lt;font style=&quot;font-size: 8px&quot;&gt;C - 6&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;dashed=1;sketch=0;" vertex="1" parent="4sDzL2CfUfmo0A_nm6CZ-75">
+          <mxGeometry x="-1" y="7" width="20" height="20.9" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-82" value="" style="group" vertex="1" connectable="0" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry x="203" y="342.65000000000003" width="40" height="33" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-83" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/272_Raspberry_Pi-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" vertex="1" parent="4sDzL2CfUfmo0A_nm6CZ-82">
+          <mxGeometry x="11" width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-123" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/272_Raspberry_Pi-128.png;shadow=0;dashed=1;sketch=0;strokeColor=#000000;fillColor=#FFF2CC;gradientColor=none;" vertex="1" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry x="172" y="-48.90000000000009" width="18" height="18" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-125" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=1;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="4sDzL2CfUfmo0A_nm6CZ-55" source="4sDzL2CfUfmo0A_nm6CZ-123" target="4sDzL2CfUfmo0A_nm6CZ-66">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="412" y="32.55000000000018" as="sourcePoint" />
+            <mxPoint x="99.50000000000011" y="191.77499999999964" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-111" value="&lt;font style=&quot;font-size: 8px&quot;&gt;C - 1&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;dashed=1;sketch=0;" vertex="1" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry x="166" y="106.67999999999991" width="26" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-116" value="&lt;font style=&quot;font-size: 8px&quot;&gt;C - 2&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;dashed=1;sketch=0;" vertex="1" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry x="237" y="69.10000000000005" width="26" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-120" value="&lt;font style=&quot;font-size: 8px&quot;&gt;C - 4&amp;nbsp;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;dashed=1;sketch=0;" vertex="1" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry x="285.5" y="35.99999999999991" width="25" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-126" value="&lt;font style=&quot;font-size: 8px&quot;&gt;C - 7&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;shadow=0;dashed=1;sketch=0;" vertex="1" parent="4sDzL2CfUfmo0A_nm6CZ-55">
+          <mxGeometry x="153" y="-51.90000000000032" width="26" height="22" as="geometry" />
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-107" value="&lt;font style=&quot;font-size: 7px&quot;&gt;12.19&lt;br&gt;&lt;/font&gt;" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];fontColor=#000000;" vertex="1" connectable="0" parent="1">
+          <mxGeometry x="348.99901348323755" y="1789.9985184588813" as="geometry">
+            <mxPoint x="8" y="9" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="4sDzL2CfUfmo0A_nm6CZ-56" value="" style="endArrow=none;dashed=1;html=1;dashPattern=1 3;strokeWidth=2;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="200" y="1430" as="sourcePoint" />
+            <mxPoint x="650" y="1430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
