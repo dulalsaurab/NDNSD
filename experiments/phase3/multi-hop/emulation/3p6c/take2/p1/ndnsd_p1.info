@@ -1,0 +1,11 @@
+required
+{
+    serviceName printer
+    appPrefix /ndnsd/p1/service-info
+    lifetime 100
+}
+details
+{
+    description "Hp Ledger Jet super xxx"
+    make 2016
+}
