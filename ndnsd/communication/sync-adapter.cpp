@@ -82,14 +82,18 @@ SyncProtocolAdapter::addUserNode(const ndn::Name& userPrefix)
 void
 SyncProtocolAdapter::publishUpdate(const ndn::Name& userPrefix)
 {
-  NDN_LOG_INFO("Publishing update for User Prefix " << userPrefix);
+  NDN_LOG_TRACE("Publish sync update for prefix: " << userPrefix);
   if (m_syncProtocol == SYNC_PROTOCOL_CHRONOSYNC) {
     auto seq = m_chronoSyncLogic->getSeqNo(userPrefix) + 1;
-    NDN_LOG_INFO("SeqNumber :" << seq);
+    NDN_LOG_DEBUG("SeqNumber :" << seq);
+    NDN_LOG_INFO("Publishing update for:  " << userPrefix << "/" << seq);
     m_chronoSyncLogic->updateSeqNo(seq, userPrefix);
   }
   else {
     m_psyncLogic->publishName(userPrefix);
+    auto seq_p = m_psyncLogic->getSeqNo(userPrefix);
+    auto abc = ndn::Name(userPrefix).appendNumber(seq_p.value());
+    NDN_LOG_INFO("Publishing update for User Prefix " << abc);
   }
 }
 
@@ -107,6 +111,8 @@ SyncProtocolAdapter::onChronoSyncUpdate(const std::vector<chronosync::MissingDat
     di.lowSeq = update.low;
     dinfo.insert(dinfo.begin(), di);
   }
+  // For debug: print all the received updates
+  ndnsd::printSyncUPdate(dinfo);
   m_syncUpdateCallback(dinfo);
 }
 
@@ -123,7 +129,22 @@ SyncProtocolAdapter::onPSyncUpdate(const std::vector<psync::MissingDataInfo>& up
     di.lowSeq = update.lowSeq;
     dinfo.insert(dinfo.begin(), di);
   }
+  // For debug: print all the received updates
+  ndnsd::printSyncUPdate(dinfo);
   m_syncUpdateCallback(dinfo);
+}
+
+void 
+printSyncUPdate(const std::vector<ndnsd::SyncDataInfo> updates)
+{
+  for (auto item: updates)
+    {
+      for (auto seq = item.lowSeq; seq <= item.highSeq; seq++)
+      {
+        ndn::Name prefix = item.prefix.appendNumber(seq);
+        NDN_LOG_DEBUG("Sync update received for prefix: " << prefix);
+      }
+    }
 }
 
 } // namespace ndnsd

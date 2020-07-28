@@ -43,6 +43,9 @@ enum {
   SYNC_PROTOCOL_PSYNC = 1
 };
 
+void 
+printSyncUPdate(const std::vector<ndnsd::SyncDataInfo> updates);
+
 class SyncProtocolAdapter
 {
 public:

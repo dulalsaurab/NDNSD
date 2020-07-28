@@ -326,7 +326,6 @@ ServiceDiscovery::processSyncUpdate(const std::vector<ndnsd::SyncDataInfo>& upda
                                              << " - Sending interest: "  << interestName);
         expressInterest(interestName);
       }
-      
     }
   }
   else
@@ -340,7 +339,6 @@ ServiceDiscovery::processSyncUpdate(const std::vector<ndnsd::SyncDataInfo>& upda
       consumerReply.status = ACTIVE;
       m_discoveryCallback(consumerReply);
     }
-    
   }
 }
 
