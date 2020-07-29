@@ -90,10 +90,9 @@ SyncProtocolAdapter::publishUpdate(const ndn::Name& userPrefix)
     m_chronoSyncLogic->updateSeqNo(seq, userPrefix);
   }
   else {
-    m_psyncLogic->publishName(userPrefix);
     auto seq_p = m_psyncLogic->getSeqNo(userPrefix);
-    auto abc = ndn::Name(userPrefix).appendNumber(seq_p.value());
-    NDN_LOG_INFO("Publishing update for User Prefix " << abc);
+    NDN_LOG_INFO("Publishing update for: " << userPrefix << "/" << seq_p.value()+1);
+    m_psyncLogic->publishName(userPrefix);
   }
 }
 
@@ -141,8 +140,8 @@ printSyncUPdate(const std::vector<ndnsd::SyncDataInfo> updates)
     {
       for (auto seq = item.lowSeq; seq <= item.highSeq; seq++)
       {
-        ndn::Name prefix = item.prefix.appendNumber(seq);
-        NDN_LOG_DEBUG("Sync update received for prefix: " << prefix);
+        ndn::Name prefix = item.prefix;
+        NDN_LOG_DEBUG("Sync update received for prefix: " << prefix << "/" << seq);
       }
     }
 }
