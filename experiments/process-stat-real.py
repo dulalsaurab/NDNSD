@@ -6,7 +6,8 @@ from matplotlib import pyplot as plt
 import csv 
 import numpy as np
 
-rootDir = "real-exp/after_timesync/distance/1p1c-1/take1"
+rootDir = "emulation/1p1c-1/take2"
+rootDir = "real-exp/after_timesync/distance/1p1c-1/1500ms"
 topo = {'c1p1':1}
 prod = ['p1']
 cons = ['c1']
@@ -43,18 +44,25 @@ def drawGraph(r_final):
   pass
 
 def computeSyncDelay():
+  hop = defaultdict(list)
   for p in prod:
     file1 = "{}/{}/producer.log".format(rootDir, p)
     prefixPublishTS = processLogFile(file1,
-                                    ["Publishing update for: /ndnsd/p1/"])
+                                    ["Publishing update for: /ndnsd/{}/".format(p)])
 
     for c in cons:
       file2 = "{}/{}/consumer.log".format(rootDir, c)
       prefixUpdateTS = processLogFile(file2, 
-                                      ["Sync update received for prefix: /ndnsd/p1/"])
+                                      ["Sync update received for prefix: /ndnsd/{}/".format(p)])
 
       r_final = getDiff(prefixPublishTS, prefixUpdateTS)
-      print(r_final)
+      c_p_sync = [r_final[x] for x in r_final]
+      header = "{} - {} sync".format(p, c)
+      c_p_sync.insert(0, header)
+      hop[topo[c+p]].append(c_p_sync)
+
+  return hop
+
 
 def computeServiceInfoFetchDelay():
   hop = defaultdict(list)
@@ -75,15 +83,15 @@ def computeServiceInfoFetchDelay():
 
   return hop
 
-
-
 if __name__ == '__main__':
 
   # hop = computeServiceInfoFetchDelay()
-  computeSyncDelay()
-
-
-
+  sync_d = computeSyncDelay()
+  info_d = computeServiceInfoFetchDelay()
+  for idx in sync_d:
+    sync_d[idx] = sync_d[idx] + info_d[idx]
+    dump(sync_d[idx], str(idx)+'.csv')
+  
   # for i in hop:
   #   print(hop[i])
     # dump(hop[i], str(i)+'.csv')

@@ -88,7 +88,7 @@ class NDNSDExperiment():
       Nfdc.setStrategy(host, self.producers[hostName][0], Nfdc.STRATEGY_MULTICAST)
 
       # uncomment to enable sync log
-      cmd = 'export NDN_LOG=ndnsd.*=TRACE' # :psync.*=TRACE:sync.*=TRACE'
+      cmd = 'export NDN_LOG=ndnsd.*=TRACE:psync.*=TRACE:sync.*=TRACE'
       host.cmd(cmd)
 
       cmd = 'ndnsd-producer {} 1 &> {}/{}/producer.log &'.format(hostInfoFile, self.args.workDir, hostName)
@@ -101,7 +101,7 @@ class NDNSDExperiment():
       cName = consumer.name
 
       # uncomment to enable sync log
-      cmd = 'export NDN_LOG=ndnsd.*=TRACE' #:psync.*=TRACE:sync.*=TRACE'
+      cmd = 'export NDN_LOG=ndnsd.*=TRACE:psync.*=TRACE:sync.*=TRACE'
       consumer.cmd(cmd)
 
       # set multi-cast strategy for sync prefix
@@ -120,11 +120,11 @@ if __name__ == '__main__':
 
     producers = dict()
     consumers = dict()
-    producers['p1'] = ['printer', 900] #{"<sp-name>": ['service-name', 'lifetime in ms']}
-    producers['p2'] = ['printer', 900]
-    producers['p3'] = ['printer', 900]
-    consumers = {'a':'printer', 'b':'printer', 'c':'printer','d':'printer', 'e':'printer', 'f':'printer'} #['<consumer-name>']
-    # consumers = {'a':'printer', 'b':'printer'} #['<consumer-name>']
+    producers['p1'] = ['printer', 500] #{"<sp-name>": ['service-name', 'lifetime in ms']}
+    # producers['p2'] = ['printer', 900]
+    # producers['p3'] = ['printer', 900]
+    # consumers = {'a':'printer', 'b':'printer', 'c':'printer','d':'printer', 'e':'printer', 'f':'printer'} #['<consumer-name>']
+    consumers = {'c1':'printer'} #['<consumer-name>']
 
     ndn = Minindn()
     exp = NDNSDExperiment(ndn.args, producers, consumers)
@@ -135,7 +135,7 @@ if __name__ == '__main__':
 
     for host in exp.producer_nodes:
       hostName = host.name
-      appPrefix = '/ndnsd'+hostName+'/service-info'
+      appPrefix = '/ndnsd/'+hostName+'/service-info'
       discoveryPrefix = '/discovery/{}'.format(exp.producers[hostName][0])
       grh.addOrigin([host], [appPrefix, discoveryPrefix])
 
@@ -145,10 +145,10 @@ if __name__ == '__main__':
     exp.startConsumer()
 
     # need to give some time for sync convergence
-    time.sleep(20)
+    time.sleep(10)
 
     # need to run reload at producers node
-    print("Staring experiment, i.e. reloading producers, approximate time to complete: {} seconds".format(3*(numberOfUpdates + jitter)))
+    print("Staring experiment, i.e. reloading producers, approximate time to complete: {} seconds".format(2*(numberOfUpdates + jitter)))
     for host in exp.producer_nodes:
       cmd = 'ndnsd-reload -c {} -i {} -r {} &> {}/{}/reload.log &'.format(numberOfUpdates,
                                                                     exp.producers[host.name][1]-10,
@@ -157,8 +157,8 @@ if __name__ == '__main__':
       host.cmd(cmd)
 
     # approximate time to complete the experiment
-    print("sleep approximately {} seconds to complete the experiment".format(2*(numberOfUpdates + jitter)))
-    time.sleep(2*(numberOfUpdates + jitter))
+    print("Sleep approximately {} seconds to complete the experiment".format(2*(numberOfUpdates + jitter)))
+    time.sleep(numberOfUpdates + jitter)
     print("Experiment completed")
 
     ndn.stop()
