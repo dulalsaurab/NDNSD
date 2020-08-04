@@ -65,7 +65,7 @@ enum {
   interest is received.
 **/
 const char* NDNSD_RELOAD_PREFIX = "/ndnsd/reload";
-uint32_t RETRANSMISSION_COUNT = 3;
+uint32_t RETRANSMISSION_COUNT = 5;
 
 struct Details
 {
