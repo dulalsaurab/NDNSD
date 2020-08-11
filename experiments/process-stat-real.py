@@ -6,11 +6,20 @@ from matplotlib import pyplot as plt
 import csv 
 import numpy as np
 
-rootDir = "emulation/1p1c-1/take2"
-rootDir = "real-exp/after_timesync/distance/1p1c-1/1500ms"
-topo = {'c1p1':1}
-prod = ['p1']
-cons = ['c1']
+# rootDir = "emulation/1p1c-1/take3"
+rootDir = "real-exp/after_timesync/congestion/producer++/3c4p-500ms"
+
+topo = {
+        'c1p1':1, 'c1p2':1, 'c1p3':1, 'c1p5':1,
+        'c2p1':1, 'c2p2':1, 'c2p3':1, 'c2p5':1,
+        'c3p1':1, 'c3p2':1, 'c3p3':1, 'c3p5':1,
+        # 'c4p1':1, 'c4p2':1, 'c4p3':1,
+        # 'c5p1':1, 'c5p2':1, 'c5p3':1,
+        # 'c6p1':1, 'c6p2':1, 'c6p3':1,
+        # 'c8p1':1, 'c8p2':1,
+        }
+prod = ['p1', 'p2', 'p3', 'p5']
+cons = ['c1','c2', 'c3']
 
 def processLogFile(filename, searchStrings):
   res_dict = {}
@@ -56,6 +65,7 @@ def computeSyncDelay():
                                       ["Sync update received for prefix: /ndnsd/{}/".format(p)])
 
       r_final = getDiff(prefixPublishTS, prefixUpdateTS)
+
       c_p_sync = [r_final[x] for x in r_final]
       header = "{} - {} sync".format(p, c)
       c_p_sync.insert(0, header)
@@ -70,8 +80,16 @@ def computeServiceInfoFetchDelay():
     file1 = "{}/{}/consumer.log".format(rootDir, i)
     file2 = "{}/{}/consumer.log".format(rootDir, i)
     
-    send = processLogFile(file1, ["Transmission count: 1 - Sending interest: /ndnsd/p1"])
-    received = processLogFile(file2, ["Data received for: /ndnsd/p1/"])
+    send = processLogFile(file1, ["Transmission count: 1 - Sending interest: /ndnsd/p1",
+                                  "Transmission count: 1 - Sending interest: /ndnsd/p2",
+                                  "Transmission count: 1 - Sending interest: /ndnsd/p3",
+                                  "Transmission count: 1 - Sending interest: /ndnsd/p5"])
+
+    
+    received = processLogFile(file2, ["Data received for: /ndnsd/p1/",
+                                      "Data received for: /ndnsd/p2/",
+                                      "Data received for: /ndnsd/p3/",
+                                      "Data received for: /ndnsd/p5/"])
 
     r_final = getDiff(send, received)
 
@@ -90,6 +108,8 @@ if __name__ == '__main__':
   info_d = computeServiceInfoFetchDelay()
   for idx in sync_d:
     sync_d[idx] = sync_d[idx] + info_d[idx]
+    # print(sync_d)
+    # exit()
     dump(sync_d[idx], str(idx)+'.csv')
   
   # for i in hop:
