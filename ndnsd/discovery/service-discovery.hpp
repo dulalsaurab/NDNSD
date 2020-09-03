@@ -64,7 +64,7 @@ enum {
   each node will list on NDNSD_RELOAD_PREFIX, and will update their service once the
   interest is received.
 **/
-const char* NDNSD_RELOAD_PREFIX = "/ndnsd/reload";
+// const char* NDNSD_RELOAD_PREFIX; = "/ndnsd/reload";
 uint32_t RETRANSMISSION_COUNT = 5;
 
 struct Details
@@ -271,6 +271,7 @@ private:
   static const ndn::Name DEFAULT_CONSUMER_ONLY_NAME;
   mutable ndn::Block m_wire;
   DiscoveryCallback m_discoveryCallback;
+  ndn::Name m_reloadPrefix;
 };
 } //namespace discovery
 } //namespace ndnsd

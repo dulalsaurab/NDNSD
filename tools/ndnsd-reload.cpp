@@ -52,9 +52,10 @@ class UpdateState
 public:
 
   UpdateState(int threshold, ndn::time::milliseconds reloadInterval, int reloadCount,
-              int randomJitter)
+              int randomJitter, ndn::Name appPrefix)
   : m_threshold(threshold)
   , m_reloadCount(reloadCount)
+  , m_appPrefix(appPrefix)
   , m_reloadInterval(reloadInterval)
   , m_randomJitter(randomJitter)
   , m_scheduler(m_face.getIoService())
@@ -71,13 +72,13 @@ public:
   void
   expressInterest()
   {
-    ndn::Name reloadPrefix(NDNSD_RELOAD_PREFIX);
+    ndn::Name reloadPrefix(m_appPrefix);
+    reloadPrefix.append("reload");
     // append timestamp
     reloadPrefix.append(boost::lexical_cast<std::string>(ndn::time::system_clock::now()));
     ndn::Interest interest(reloadPrefix);
     interest.setCanBePrefix(false);
     interest.setMustBeFresh(true);
-    
     NDN_LOG_INFO("Sending reload interest: "<< interest);
     m_face.expressInterest(interest,
                            ndn::bind(&UpdateState::onData, this, _1, _2),
@@ -139,6 +140,7 @@ private:
   int m_threshold;
   ndn::Face m_face;
   int m_reloadCount;
+  ndn::Name m_appPrefix;
   ndn::time::milliseconds m_reloadInterval;
   int m_randomJitter;
   ndn::Scheduler m_scheduler;
@@ -159,6 +161,7 @@ main (int argc, char* argv[])
   int interval;
   int nPings = -1;
   ndn::time::milliseconds reloadInterval(0);
+  std::string appPrefix;
 
   namespace po = boost::program_options;
   po::options_description visibleOptDesc("Options");
@@ -168,6 +171,7 @@ main (int argc, char* argv[])
     ("count,c", po::value<int>(&nPings), "number of reload to sent")
     ("interval,i",  po::value<int>(&interval), "reload interval, in milliseconds")
     ("random-jitter,r",  po::value<int>(&randomJitter), "positive integer, random(0,r) will be added to reload interval")
+    ("appPrefix,p",  po::value<std::string>(&appPrefix), "specify application name prefix to reload the service")
   ;
 
   try
@@ -175,6 +179,19 @@ main (int argc, char* argv[])
     po::variables_map optVm;
     po::store(po::parse_command_line(argc, argv, visibleOptDesc), optVm);
     po::notify(optVm);
+
+
+    if (optVm.count("help") > 0) {
+      usage(visibleOptDesc);
+    }
+
+    if (optVm.count("appPrefix") > 0) {
+      appPrefix = std::string(optVm["appPrefix"].as<std::string>());
+    }
+    else {
+      std::cerr << "ERROR: Application name prefix is required" << std::endl;
+      usage(visibleOptDesc);
+    }
 
     if (optVm.count("random-jitter"))
     {
@@ -224,6 +241,6 @@ main (int argc, char* argv[])
   }
 
   int threshold = 2;
-  UpdateState us(threshold, reloadInterval, nPings, randomJitter);
+  UpdateState us(threshold, reloadInterval, nPings, randomJitter, appPrefix);
   us.run();
 }

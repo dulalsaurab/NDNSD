@@ -19,7 +19,7 @@
 
 #include "service-discovery.hpp"
 #include <string>
-
+#include <iostream>
 #include <ndn-cxx/util/logger.hpp>
 
 using namespace ndn::time_literals;
@@ -59,15 +59,19 @@ ServiceDiscovery::ServiceDiscovery(const std::string& filename,
                   std::bind(&ServiceDiscovery::processSyncUpdate, this, _1))
   , m_discoveryCallback(discoveryCallback)
 {
-
   setUpdateProducerState();
   // service is ACTIVE at this point
   m_serviceStatus = ACTIVE;
 
   setInterestFilter(m_producerState.applicationPrefix);
 
-  // listen on reload prefix as well.
-  setInterestFilter(ndnsd::discovery::NDNSD_RELOAD_PREFIX);
+  /**
+    each node will list on m_reloadPrefix, and will update their service once the
+    interest is received.
+  **/
+  m_reloadPrefix = m_fileProcessor.getAppPrefix();
+  m_reloadPrefix.append("reload");
+  setInterestFilter(m_reloadPrefix);
 }
 
 void
@@ -185,7 +189,7 @@ ServiceDiscovery::processInterest(const ndn::Name& name, const ndn::Interest& in
   NDN_LOG_INFO("Interest received: " << interest.getName());
 
   // check if the interest is for service detail or to update the service
-  if (interest.getName().getSubName(0, 2) == NDNSD_RELOAD_PREFIX)
+  if (interest.getName().getSubName(0, interest.getName().size() - 1) == m_reloadPrefix)
   {
     NDN_LOG_INFO("Receive request to reload service");
     // reload file and update state
