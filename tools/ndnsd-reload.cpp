@@ -19,7 +19,8 @@
 
 // #define _GNU_SOURCE
 
-#include<iostream>
+#include <iostream>
+#include <ctime>
 
 #include <ndn-cxx/util/logger.hpp>
 #include <ndn-cxx/interest.hpp>
@@ -59,12 +60,14 @@ public:
   , m_reloadInterval(reloadInterval)
   , m_randomJitter(randomJitter)
   , m_scheduler(m_face.getIoService())
+  , m_rng(ndn::random::getRandomNumberEngine())
+  , m_rangeUniformRandom(0, randomJitter)
   {
     expressInterest();
-    std::srand(100);
+    std::srand(time(NULL));
   }
 
-  int 
+  int
   getRandom()
   {
     return std::rand() % (m_randomJitter + 1 - 0) + 0;
@@ -79,6 +82,7 @@ public:
     ndn::Interest interest(reloadPrefix);
     interest.setCanBePrefix(false);
     interest.setMustBeFresh(true);
+    
     NDN_LOG_INFO("Sending reload interest: "<< interest);
     m_face.expressInterest(interest,
                            ndn::bind(&UpdateState::onData, this, _1, _2),
@@ -107,12 +111,12 @@ private:
   {
     NDN_LOG_INFO("Update Successful" << data);
     // exit application
-    auto interval = m_reloadInterval + ndn::time::milliseconds(getRandom());
+    auto interval = m_reloadInterval + ndn::time::milliseconds(m_rangeUniformRandom(m_rng));  // ndn::time::milliseconds(getRandom());
     NDN_LOG_DEBUG("Tentative next interest schedule in : " << interval);
-    
+
     if (m_reloadCount == DEFAULT_RELOAD_COUNT)
     {
-      
+
       m_nextPingEvent = m_scheduler.schedule(interval, [this] { expressInterest();});
     }
     else
@@ -145,6 +149,9 @@ private:
   int m_randomJitter;
   ndn::Scheduler m_scheduler;
   ndn::scheduler::ScopedEventId m_nextPingEvent;
+
+  ndn::random::RandomNumberEngine& m_rng;
+  std::uniform_int_distribution<int> m_rangeUniformRandom;
 };
 
 void

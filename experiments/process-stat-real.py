@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 import csv 
 import numpy as np
 
-rootDir = "emulation/5p3c"
+rootDir = "/tmp/minindn"
 # rootDir = "real-exp/after_timesync/congestion/producer++/3c4p-500ms"
 
 topo = {
@@ -20,6 +20,10 @@ topo = {
         }
 prod = ['p1', 'p2', 'p3', 'p4', 'p5']
 cons = ['c1','c2', 'c3']
+# topo = {'c1p1' : 1}
+# prod = ['p1']
+# cons = ['c1']
+
 
 def processLogFile(filename, searchStrings):
   res_dict = {}
@@ -78,21 +82,31 @@ def computeServiceInfoFetchDelay():
   for i in cons:
     file1 = "{}/{}/consumer.log".format(rootDir, i)
     file2 = "{}/{}/consumer.log".format(rootDir, i)
+# <<<<<<< HEAD
     
-    send = processLogFile(file1, ["Transmission count: 1 - Sending interest: /ndnsd/p1",
-                                  "Transmission count: 1 - Sending interest: /ndnsd/p2",
-                                  "Transmission count: 1 - Sending interest: /ndnsd/p3",
-                                  "Transmission count: 1 - Sending interest: /ndnsd/p4",
-                                  "Transmission count: 1 - Sending interest: /ndnsd/p5"
-                                  ])
+#     send = processLogFile(file1, ["Transmission count: 1 - Sending interest: /ndnsd/p1",
+#                                   "Transmission count: 1 - Sending interest: /ndnsd/p2",
+#                                   "Transmission count: 1 - Sending interest: /ndnsd/p3",
+#                                   "Transmission count: 1 - Sending interest: /ndnsd/p4",
+#                                   "Transmission count: 1 - Sending interest: /ndnsd/p5"
+#                                   ])
 
     
-    received = processLogFile(file2, ["Data received for: /ndnsd/p1/",
-                                      "Data received for: /ndnsd/p2/",
-                                      "Data received for: /ndnsd/p3/",
-                                      "Data received for: /ndnsd/p4/",
-                                      "Data received for: /ndnsd/p5/"
-                                      ])
+#     received = processLogFile(file2, ["Data received for: /ndnsd/p1/",
+#                                       "Data received for: /ndnsd/p2/",
+#                                       "Data received for: /ndnsd/p3/",
+#                                       "Data received for: /ndnsd/p4/",
+#                                       "Data received for: /ndnsd/p5/"
+#                                       ])
+# =======
+    grep_string_send = ["Transmission count: 1 - Sending interest: /ndnsd/{}".format(x) for x in prod]
+    grep_string_receive = ["Data received for: /ndnsd/{}".format(x) for x in prod]
+
+    send = processLogFile(file1, grep_string_send)
+
+    
+    received = processLogFile(file2, grep_string_receive)
+# >>>>>>> 3a759e457ca3dc604c94d8c99a57f950a61d9118
 
     r_final = getDiff(send, received)
 
