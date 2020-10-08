@@ -7,9 +7,6 @@ class Repo(object):
     """
     docstring
     """
-    def __init__(self, ):
-        pass
-
     def startRepo(self, node, repoName):
         cmd  = "ndn-python-repo -r /repo/{} >> repo.log 2>&1 &".format(node.name)
         node.cmd(cmd)
@@ -24,5 +21,5 @@ class Repo(object):
         cmd = 'putfile.py -r {} -f data.file -n {} --client_prefix {} >> repo.log 2>&1 &'.format(repoName, nameAtRepo, nameAtRepo)
         node.cmd(cmd)
     
-    def deleteDataFromRepo(self):
-        pass
+    # def deleteDataFromRepo(self):
+    #     pass
