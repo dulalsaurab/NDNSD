@@ -1,13 +1,13 @@
 @startuml
-participant "UserA " as C
-participant "ndnsd-locator \n (d1)" as SL
+participant "AppA " as C
+participant "ndnsd-finder \n (d1)" as SL
 participant "ndnsd-publisher \n (d2)" as SP
-participant "UserB " as P
+participant "AppB " as P
 
 skinparam SequenceMessageAlign center
 skinparam style strictuml
 
-P -> SP: publish service \n (type: printers, \n name: \n /printer1/service-info)
+P -> SP: publish service \n (type: printers, \n name: \n /printer1)
 SP -> P: status code \n (success \n or failed callback)
 
 note over SP, SL #white
@@ -15,12 +15,17 @@ nodes sync with each
 other in the background
 end note
 
-C -> SL: request service \n (e.g. printers)
-SL -> SL: Get service names \n {/printer1/service-info} via sync
-
-SL -> SP: Interest (**I**): /printer1/service-info
+C -> SL: find service \n (e.g. printers)
+SL -> SL: Get service names \n {/printer1/NDNSD/service-info, \n /printer2/NDNSD/service-info} via sync
 
 
-SP -> SL: Data (**D**) : \n name = /printer1/service-info \n content: "HP ledger jet"
-SL -> C: send response \n (service info/status)
+loop for all names 
+            SL -> SP: Interest (**I**): /printer1/NDNSD/service-info 
+            note over SL: interests are sent \ntowards respective publisher
+        end
+
+SP -> SL: Data (**D1**) : \n name = /printer1/NDNSD/service-info \n content: "HP ledger jet"
+
+P --> SL: Data (**D2**)                                 : \n name = /printer2/NDNSD/service-info                                                 \n content: "Acer pro"                                  \n                                                                                                                                                
+SL -> C: response callback \n (service-info/status)
 @enduml
