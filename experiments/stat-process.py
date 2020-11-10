@@ -80,5 +80,3 @@ if __name__ == '__main__':
 
   for i in hop:
     dump(hop[i], str(i)+'.csv')
-
-

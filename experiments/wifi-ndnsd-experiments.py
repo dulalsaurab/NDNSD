@@ -40,7 +40,7 @@ class NDNSDExperiment():
 
   def __init__(self, ndnwifi, producers, consumers):
     self.ndn = ndnwifi
-    self.args = ndnwifi.args    
+    self.args = ndnwifi.args
     self.producers = producers
     self.consumers = consumers
     self.producer_nodes = [host for host in ndnwifi.net.stations if host.name in self.producers]
@@ -83,7 +83,7 @@ class NDNSDExperiment():
 
       host.cmd('infoedit -f {} -s required.appPrefix -v {}'.format(hostInfoFile,
                                                                    appPrefix))
-      
+
       # routes registration to udp multicast face/ip
       # cmd = "nfdc face | grep '224.0.23.170' | awk '{split ($1, a, \"=\"); print a[2]}'"
       # face_id = host.cmd(cmd)
@@ -129,9 +129,9 @@ class NDNSDExperiment():
 
       # sleep for a while to let consumer boot up properly
       time.sleep(2)
-    
+
 if __name__ == '__main__':
-    
+
     subprocess.call(['rm','-r','/tmp/minindn/'])
 
 
@@ -173,9 +173,9 @@ if __name__ == '__main__':
     # need to run reload at producers node
     print("Staring experiment, i.e. reloading producers, approximate time to complete: {} seconds".format(2*(numberOfUpdates + jitter)))
     for host in exp.producer_nodes:
-      cmd = 'ndnsd-reload -c {} -i {} -r {} &> {}/{}/reload.log &'.format(numberOfUpdates,
-                                                                    exp.producers[host.name][1]-10,
-                                                                    100, ndn.args.workDir,
+      appPrefix = '/ndnsd/{}/service-info'.format(host.name)
+      cmd = 'ndnsd-reload -c {} -i {} -r {} -p {} &> {}/{}/reload.log &'.format(numberOfUpdates,
+                                                                    exp.producers[host.name][1]-10, 100, appPrefix, ndn.args.workDir,
                                                                     host.name)
       host.cmd(cmd)
 
