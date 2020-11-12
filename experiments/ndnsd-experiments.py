@@ -14,7 +14,7 @@ from minindn.helpers.nfdc import Nfdc
 from minindn.apps.nlsr import Nlsr
 from minindn.helpers.ndn_routing_helper import NdnRoutingHelper
 
-numberOfUpdates = 100
+numberOfUpdates = 300
 jitter = 100
 
 def cleanUp():
@@ -40,8 +40,8 @@ class NDNSDExperiment():
   def start(self):
     self.ndn.start()
     time.sleep(2)
-    AppManager(self.ndn, self.ndn.net.hosts, Nfd, logLevel='NONE')
-    AppManager(self.ndn, self.ndn.net.hosts, Nlsr, logLevel='NONE')
+    AppManager(self.ndn, self.ndn.net.hosts, Nfd, logLevel='DEBUG')
+    AppManager(self.ndn, self.ndn.net.hosts, Nlsr, logLevel='DEBUG')
     time.sleep(100)
     # for host in self.ndn.net.hosts:
     #   host.cmd('tshark -o ip.defragment:TRUE -o ip.check_checksum:FALSE -ni any -f "udp port 6363" -w {}.pcap &> /dev/null &'
@@ -108,7 +108,7 @@ if __name__ == '__main__':
     exp.startProducer()
     exp.startConsumer()
 
-    # set /discovery/printers to multicast on all the nodes. 
+    # set /discovery/printers to multicast on all the nodes.
     for host in ndn.net.hosts:
       Nfdc.setStrategy(host, '/discovery/printer', Nfdc.STRATEGY_MULTICAST)
       time.sleep(2)

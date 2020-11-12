@@ -3,16 +3,17 @@ import time
 import subprocess
 from collections import defaultdict
 # from matplotlib import pyplot as plt
-import csv 
+import csv
 import numpy as np
 
-rootDir = "/home/vagrant/mini-ndn/ndn-src/ndnsd/experiments/result/loss-experiment/10_percent"
+#rootDir = "/home/vagrant/mini-ndn/ndn-src/ndnsd/experiments/result/loss-experiment/10_percent"
+rootDir = "/home/mini-ndn/europa_bkp/mini-ndn/sdulal/mini-ndn/ndn-src/NDNSD/experiments/result/loss-experiment/10_percent"
 # rootDir = "real-exp/after_timesync/congestion/producer++/3c4p-500ms"
 
-topo = { 
+topo = {
         'c1p1':3, 'c1p2':4,
         'c2p1':2, 'c2p2':3,
-        'c3p1':1, 
+        'c3p1':1,
         'c4p1':3, 'c4p2':2,
         'c5p1':4, 'c5p2':3
         }
