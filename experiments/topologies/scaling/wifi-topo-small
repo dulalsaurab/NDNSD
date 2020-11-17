@@ -1,0 +1,23 @@
+[stations]
+c1: range=10
+c2: range=10
+c3: range=10
+p1: range=10
+
+[cars]
+
+[accessPoints]
+ap1: position=50,50,50 range=50
+ap2: position=50,50,50 range=50
+ap3: position=50,50,50 range=50
+ap4: position=50,50,50 range=50
+
+[links]
+ap1:ap2 delay=10ms
+ap2:ap3 delay=10ms
+ap3:ap4 delay=10ms
+ap1:ap4 delay=10ms
+p1:ap1 delay=5ms
+c1:ap3 delay=5ms
+c2:ap3 delay=5ms
+c3:ap3 delay=5ms

@@ -1,0 +1,139 @@
+[nodes]
+r1: _ radius=0.5 angle=2.64159265359
+r2: _ radius=0.4 angle=1.47079632679
+r3: _ radius=0.6 angle=1.67079632679
+r4: _ radius=0.7 angle=1.77079632679
+c1: _ radius=0.8 angle=1.87079632679
+c2: _ radius=0.9 angle=1.97079632679
+c3: _ radius=3 angle=3.22435678964
+c4: _ radius=10.3354428445 angle=1.12640207075
+c5: _ radius=14.3378634978 angle=2.99956859362
+c6: _ radius=16.2305391314 angle=2.97033285094
+c7: _ radius=11.5531281288 angle=2.98403796376
+c8: _ radius=29.2553552716 angle=2.62295081967
+c9: _ radius=15.264773513 angle=2.98360655738
+c10: _ radius=17.7738038607 angle=2.98018269082
+c11: _ radius=16.206035855 angle=2.62083
+c12: _ radius=19.6533436173 angle=3.64135462555
+c13: _ radius=19.9001283692 angle=2.13894230769
+c14: _ radius=13.4257788269 angle=2.97670405522
+c15: _ radius=12.0281644432 angle=3.11561691113
+c16: _ radius=19.3573834399 angle=3.53687143598
+c17: _ radius=13.5903793307 angle=1.1393442623
+c18: _ radius=11.1495655496 angle=2.87016
+c19: _ radius=16.5866430024 angle=2.99911
+c20: _ radius=12.8769009681 angle=3.63761863676
+c21: _ radius=19.1697680538 angle=2.62274588692
+c22: _ radius=12.0148443703 angle=2.4603106126
+c23: _ radius=11.1495655496 angle=2.87015
+c24: _ radius=19.0473935894 angle=2.96488127257
+c25: _ radius=2.9444389791664403 angle=1.13378525525
+c26: _ radius=1.791759469228055 angle=1.03701652207
+c27: _ radius=1.9459101490553132 angle=0.97287567206
+c28: _ radius=1.6094379124341003 angle=1.23170555667
+c29: _ radius=2.6390573296152584 angle=2.15473008744
+c30: _ radius=1.791759469228055 angle=0.98889343127
+c31: _ radius=3.091042453358316 angle=1.1689033742
+c32: _ radius=2.995732273553991 angle=0.941325006106
+c33: _ radius=1.6094379124341003 angle=0.874279055555
+c34: _ radius=3.2188758248682006 angle=1.54828733903
+c35: _ radius=2.1972245773362196 angle=0.841384486077
+c36: _ radius=3.6109179126442243 angle=0.984569727114
+c37: _ radius=3.0794415416798357 angle=2.16190181987
+c38: _ radius=1.9459101490553132 angle=0.874063158327
+c39: _ radius=2.0794415416798357 angle=1.49034170973
+c40: _ radius=3.713572066704308 angle=0.806325359261
+c41: _ radius=3.258096538021482 angle=1.01981560416
+c42: _ radius=7.1972245773362196 angle=1.97052524565
+c43: _ radius=1.6094379124341003 angle=1.13611160461
+c44: _ radius=1.1972245773362196 angle=2.23077513014
+c45: _ radius=3.791759469228055 angle=0.887635711255
+c46: _ radius=4.1972245773362196 angle=1.44203361403
+c47: _ radius=8.6094379124341003 angle=0.597736522499
+c48: _ radius=11.6094379124341003 angle=1.04610445149
+p1: _ radius=0.7 angle=3.22435678964
+p2: _ radius=0.7 angle=3.2243567896
+p3: _ radius=12.8934676597 angle=2.95081967213
+p4: _ radius=19.2697694366 angle=2.94186046512
+p5: _ radius=16.5866430024 angle=2.999107674
+p6: _ radius=6.5866430024 angle=3.999107674
+p7: _ radius=4.5866430024 angle=7.999107674
+p8: _ radius=12.5866430024 angle=3.999107674
+p9: _ radius=1.791759469228055 angle=0.671802885433
+p10: _ radius=2.5649493574615367 angle=1.33074409054
+p11: _ radius=1.9459101490553132 angle=1.78098947021
+p12: _ radius=2.772588722239781 angle=2.04198670468
+p13: _ radius=3.6094379124341003 angle=1.45815155514
+p14: _ radius=4.6094379124341003 angle=0.0592481685187
+p15: _ radius=5.6094379124341003 angle=1.45815155514
+p16: _ radius=6.6094379124341003 angle=1.45815155514
+
+[links]
+r1:r2 delay=10ms
+r2:r3 delay=10ms
+r3:r4 delay=10ms
+r1:r4 delay=10ms
+p1:r1 delay=5ms
+p2:r1 delay=5ms
+p3:r1 delay=5ms
+p4:r1 delay=5ms
+p5:r2 delay=5ms
+p6:r2 delay=5ms
+p7:r2 delay=5ms
+p8:r2 delay=5ms
+p9:r3 delay=5ms
+p10:r3 delay=5ms
+p11:r3 delay=5ms
+p12:r3 delay=5ms
+p13:r4 delay=5ms
+p14:r4 delay=5ms
+p15:r4 delay=5ms
+p16:r4 delay=5ms
+c1:r1 delay=5ms
+c2:r1 delay=5ms
+c3:r1 delay=5ms
+c4:r1 delay=5ms   
+c5:r1 delay=5ms
+c6:r1 delay=5ms
+c7:r1 delay=5ms
+c8:r1 delay=5ms
+c9:r1 delay=5ms
+c10:r1 delay=5ms
+c11:r1 delay=5ms
+c12:r1 delay=5ms
+c13:r2 delay=5ms
+c14:r2 delay=5ms
+c15:r2 delay=5ms
+c16:r2 delay=5ms
+c17:r2 delay=5ms
+c18:r2 delay=5ms
+c19:r2 delay=5ms
+c20:r2 delay=5ms
+c21:r2 delay=5ms
+c22:r2 delay=5ms
+c23:r2 delay=5ms
+c24:r2 delay=5ms
+c25:r3 delay=5ms
+c26:r3 delay=5ms
+c27:r3 delay=5ms
+c28:r3 delay=5ms   
+c29:r3 delay=5ms
+c30:r3 delay=5ms
+c31:r3 delay=5ms
+c32:r3 delay=5ms
+c33:r3 delay=5ms
+c34:r3 delay=5ms
+c35:r3 delay=5ms
+c36:r3 delay=5ms
+c37:r4 delay=5ms
+c38:r4 delay=5ms
+c39:r4 delay=5ms
+c40:r4 delay=5ms
+c41:r4 delay=5ms
+c42:r4 delay=5ms
+c43:r4 delay=5ms
+c44:r4 delay=5ms
+c45:r4 delay=5ms
+c46:r4 delay=5ms
+c47:r4 delay=5ms
+c48:r4 delay=5ms

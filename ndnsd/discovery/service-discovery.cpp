@@ -71,7 +71,7 @@ ServiceDiscovery::ServiceDiscovery(const std::string& filename,
   **/
   m_reloadPrefix = m_fileProcessor.getAppPrefix();
   m_reloadPrefix.append("reload");
-  setInterestFilter(m_reloadPrefix);
+  // setInterestFilter(m_reloadPrefix);
 }
 
 void
