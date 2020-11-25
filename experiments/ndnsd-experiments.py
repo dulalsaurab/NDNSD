@@ -14,7 +14,7 @@ from minindn.helpers.nfdc import Nfdc
 from minindn.apps.nlsr import Nlsr
 from minindn.helpers.ndn_routing_helper import NdnRoutingHelper
 
-numberOfUpdates = 100
+numberOfUpdates = 300
 jitter = 100
 
 def cleanUp():
@@ -40,8 +40,8 @@ class NDNSDExperiment():
   def start(self):
     self.ndn.start()
     time.sleep(2)
-    AppManager(self.ndn, self.ndn.net.hosts, Nfd, logLevel='NONE')
-    AppManager(self.ndn, self.ndn.net.hosts, Nlsr, logLevel='NONE')
+    self.nfds = AppManager(self.ndn, self.ndn.net.hosts, Nfd, logLevel='DEBUG')
+    self.nlsrs = AppManager(self.ndn, self.ndn.net.hosts, Nlsr, logLevel='DEBUG')
     time.sleep(100)
     # for host in self.ndn.net.hosts:
     #   host.cmd('tshark -o ip.defragment:TRUE -o ip.check_checksum:FALSE -ni any -f "udp port 6363" -w {}.pcap &> /dev/null &'
@@ -90,7 +90,10 @@ class NDNSDExperiment():
 
       cmd = 'ndnsd-consumer -s {} -c 1 -p 1 &> {}/{}/consumer.log &'.format(self.consumers[cName], self.args.workDir, cName)
       consumer.cmd(cmd)
-      time.sleep(10)
+      time.sleep(2)
+
+def partitionExperiment():
+  pass
 
 if __name__ == '__main__':
     setLogLevel('info')
@@ -108,23 +111,48 @@ if __name__ == '__main__':
     exp.startProducer()
     exp.startConsumer()
 
-    # set /discovery/printers to multicast on all the nodes. 
+    # set /discovery/printers to multicast on all the nodes.
     for host in ndn.net.hosts:
       Nfdc.setStrategy(host, '/discovery/printer', Nfdc.STRATEGY_MULTICAST)
-      time.sleep(2)
+      time.sleep(1)
 
-    # need to run reload at producers node
+    # ---------------------------------- setup for normal experiment --------------------------------------------------------------
+    # # need to run reload at producers node
+    # print("Staring experiment, i.e. reloading producers, approximate time to complete: {} seconds".format(numberOfUpdates + jitter))
+    # for host in exp.producer_nodes:
+    #   appPrefix = '/ndnsd/{}/service-info'.format(host.name)
+    #   cmd = 'ndnsd-reload -c {} -i {} -r {} -p {} &> {}/{}/reload.log &'.format(numberOfUpdates, exp.producers[host.name][1]-10,
+    #                                                                                                                         100, appPrefix, ndn.args.workDir, host.name)
+    #   host.cmd(cmd)
+    # ---------------------------------- setup for normal experiment end -------------------------------------------------------------
+
+
+    # ---------------------------------- setting up partition experiment ----------------------------------------------------------------
+      '''
+            c3-----p1     p2
+                       |      |
+      c1---c2----r1----r2-----r3
+                       |      |
+                      c4     c5
+        In this experiment we will bring down the link between r1 and r1 for 10 seconds, which will divide the network in two cluster. 
+        and bring them up again. The link will be broken after the nodes (sync) are up and syncronized
+      '''
     print("Staring experiment, i.e. reloading producers, approximate time to complete: {} seconds".format(numberOfUpdates + jitter))
     for host in exp.producer_nodes:
       appPrefix = '/ndnsd/{}/service-info'.format(host.name)
-      cmd = 'ndnsd-reload -c {} -i {} -r {} -p {} &> {}/{}/reload.log &'.format(numberOfUpdates, exp.producers[host.name][1]-10,
+      cmd = 'ndnsd-reload -c {} -i {} -r {} -p {} &> {}/{}/reload.log &'.format(numberOfUpdates, exp.producers[host.name][1] - 10,
                                                                                                                             100, appPrefix, ndn.args.workDir, host.name)
       host.cmd(cmd)
+    # # bring the link down for 10s
+    # ndn.net.configLinkStatus('r1', 'r2', 'down')
+    # time.sleep(10)
+    # ndn.net.configLinkStatus('r1', 'r2', 'up')
 
     # approximate time to complete the experiment
     print("Sleep approximately {} seconds to complete the experiment".format(2*numberOfUpdates + jitter))
     time.sleep(2*numberOfUpdates + jitter)
     print("Experiment completed")
+    # ---------------------------------- setting up partition experiment end ----------------------------------
 
     MiniNDNCLI(ndn.net)
     ndn.stop()

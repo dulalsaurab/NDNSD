@@ -37,7 +37,6 @@ def registerRouteToAllNeighbors(ndn, host, syncPrefix):
             Nfdc.registerRoute(host, syncPrefix, ip)
 
 class NDNSDExperiment():
-
   def __init__(self, ndnwifi, producers, consumers):
     self.ndn = ndnwifi
     self.args = ndnwifi.args
@@ -48,24 +47,18 @@ class NDNSDExperiment():
     self.start()
 
   def start(self):
-    print("reached here")
     self.ndn.start()
-    sleep(5)
-    nfds = AppManager(self.ndn, self.ndn.net.stations, Nfd, logLevel='DEBUG')
+    time.sleep(5)
+    info('Starting NFD on nodes\n')
+    self.nfds = AppManager(self.ndn, self.ndn.net.stations, Nfd, logLevel='DEBUG')
 
     # nlsrs = AppManager(self.ndn, self.ndn.net.hosts, Nlsr)
-
-    # info('Starting NFD on nodes\n')
-    # nfds = AppManager(ndn, ndn.net.hosts, Nfd)
 
     for host in self.ndn.net.stations:
       host.cmd('tshark -o ip.defragment:TRUE -o ip.check_checksum:FALSE -ni any -f "udp port 6363" -w {}.pcap &> /dev/null &'
                .format(host.name))
-      #host.cmd('ndndump -i any &> {}.ndndump &'.format(host.name))
       time.sleep(0.005)
 
-
-    # time.sleep(6)
      # copy the test.info file to system first and from there copy it to node directory
     Popen(['cp', 'test.info', '/usr/local/etc/ndn/ndnsd_default.info'],
            stdout=PIPE, stderr=PIPE).communicate()
@@ -133,17 +126,15 @@ class NDNSDExperiment():
 if __name__ == '__main__':
 
     subprocess.call(['rm','-r','/tmp/minindn/'])
-
-
     setLogLevel('info')
     ndn = MinindnWifi()
     producers = dict()
     consumers = dict()
     producers['p1'] = ['printer', 50] #{"<sp-name>": ['service-name', 'lifetime in ms']}
     producers['p2'] = ['printer', 50]
-    producers['p3'] = ['printer', 50]
-    producers['p4'] = ['printer', 50]
-    producers['p5'] = ['printer', 50]
+    # producers['p3'] = ['printer', 50]
+    # producers['p4'] = ['printer', 50]
+    # producers['p5'] = ['printer', 50]
     # consumers = {'a':'printer', 'b':'printer', 'c':'printer','d':'printer', 'e':'printer', 'f':'printer'} #['<consumer-name>']
     consumers = {'c1':'printer', 'c2':'printer', 'c3':'printer',} #['<consumer-name>']
     # consumers = {'c1':'printer'}

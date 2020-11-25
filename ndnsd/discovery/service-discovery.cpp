@@ -38,7 +38,7 @@ ServiceDiscovery::ServiceDiscovery(const ndn::Name& serviceName,
   , m_counter(0)
   , m_syncProtocol(processFalgs(pFlags, 'p', false))
   , m_syncAdapter(m_face, m_syncProtocol, makeSyncPrefix(m_serviceName),
-                  "/defaultName", 1600_ms,
+                  "/defaultName", 4000_ms,
                   std::bind(&ServiceDiscovery::processSyncUpdate, this, _1))
   , m_discoveryCallback(discoveryCallback)
 {
@@ -55,7 +55,7 @@ ServiceDiscovery::ServiceDiscovery(const std::string& filename,
   , m_appType(processFalgs(pFlags, 't', false))
   , m_syncProtocol(processFalgs(pFlags, 'p', false))
   , m_syncAdapter(m_face, m_syncProtocol, makeSyncPrefix(m_fileProcessor.getServiceName()),
-                  m_fileProcessor.getAppPrefix(), 1600_ms,
+                  m_fileProcessor.getAppPrefix(), 4000_ms,
                   std::bind(&ServiceDiscovery::processSyncUpdate, this, _1))
   , m_discoveryCallback(discoveryCallback)
 {
@@ -69,9 +69,10 @@ ServiceDiscovery::ServiceDiscovery(const std::string& filename,
     each node will list on m_reloadPrefix, and will update their service once the
     interest is received.
   **/
+  // why get from m_fileProcessor and not from state, also filter is already set for top level prefix why on this one as well? 
   m_reloadPrefix = m_fileProcessor.getAppPrefix();
   m_reloadPrefix.append("reload");
-  setInterestFilter(m_reloadPrefix);
+  // setInterestFilter(m_reloadPrefix);
 }
 
 void
@@ -192,6 +193,8 @@ ServiceDiscovery::processInterest(const ndn::Name& name, const ndn::Interest& in
   if (interest.getName().getSubName(0, interest.getName().size() - 1) == m_reloadPrefix)
   {
     NDN_LOG_INFO("Receive request to reload service");
+    auto name = interest.getName();
+    NDN_LOG_INFO("interest name::: for debug ****" << name);
     // reload file and update state
     setUpdateProducerState(true);
 
