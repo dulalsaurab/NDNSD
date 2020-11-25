@@ -44,9 +44,21 @@ class NDNSDExperiment():
 
   def start(self):
     self.ndn.start()
-    sleep(5)
-    nfds = AppManager(self.ndn, self.ndn.net.hosts, Nfd, logLevel='DEBUG')
+    time.sleep(5)
+    self.setMTUsize(9000)
+    nfds = AppManager(self.ndn, self.ndn.net.hosts, Nfd) # logLevel=)
     Popen(['cp', 'test.info', '/usr/local/etc/ndn/ndnsd_default.info'], stdout=PIPE, stderr=PIPE).communicate()
+
+    for host in self.ndn.net.hosts:
+      host.cmd('tshark -o ip.defragment:TRUE -o ip.check_checksum:FALSE -ni any -f "udp port 6363" -w {}.pcap &> /dev/null &'
+                .format(host.name))
+      # host.cmd('ndndump -i any &> {}.ndndump &'.format(host.name))
+      time.sleep(0.1)
+
+  def setMTUsize(self, mtu):
+    for host in self.ndn.net.hosts:
+      for intf in host.intfList():
+        host.cmd("ifconfig {} mtu {}".format(intf, mtu))
 
   def startProducer(self):
     print("Starting producers")
@@ -64,7 +76,7 @@ class NDNSDExperiment():
       time.sleep(2)
 
       # uncomment to enable sync log
-      cmd = 'export NDN_LOG=ndnsd.*=TRACE:psync.*=TRACE:sync.*=TRACE'
+      cmd = 'export NDN_LOG=ndnsd.*=NONE' #:psync.*=NONE:sync.*=NONE'
       host.cmd(cmd)
       cmd = 'ndnsd-producer {} 1 &> {}/{}/producer.log &'.format(hostInfoFile, self.args.workDir, hostName)
       host.cmd(cmd)
@@ -75,7 +87,7 @@ class NDNSDExperiment():
     for consumer in self.consumer_nodes:
       cName = consumer.name
       # uncomment to enable sync log
-      cmd = 'export NDN_LOG=ndnsd.*=TRACE:psync.*=TRACE:sync.*=TRACE'
+      cmd = 'export NDN_LOG=ndnsd.*=NONE' #:psync.*=TRACE:sync.*=TRACE'
       consumer.cmd(cmd)
       cmd = 'ndnsd-consumer -s {} &> {}/{}/consumer.log -c 1 -p 1 &'.format(self.consumers[cName], self.args.workDir, cName)
       consumer.cmd(cmd)
@@ -102,10 +114,11 @@ if __name__ == '__main__':
     ndn = Minindn()
     producers = dict()
     consumers = dict()
-    producers = generateNode('P', 4)
-    consumers = generateNode('C', 12)
+    producers = generateNode('P', 16)
+    consumers = generateNode('C', 48)
     print(consumers, producers)
     exp = NDNSDExperiment(ndn, producers, consumers)
+
     # ----------------------------- adding static routes using ndn routing helper -----------------------
     # For all host, pass ndn.net.hosts or a list, [ndn.net['a'], ..] or [ndn.net.hosts[0],.]
     info('Adding static routes to NFD\n')
@@ -114,6 +127,7 @@ if __name__ == '__main__':
       hostName = host.name
       appPrefix = '/ndnsd/{}/service-info'.format(hostName)
       discoveryPrefix = '/discovery/{}'.format(exp.producers[hostName][0])
+      print ("Add routes for: ", hostName, appPrefix, discoveryPrefix)
       grh.addOrigin([host], [appPrefix, discoveryPrefix])
     grh.calculateNPossibleRoutes()
     # ----------------------------- adding static routes using ndn routing helper END-----------------------
@@ -136,10 +150,10 @@ if __name__ == '__main__':
 
     # approximate time to complete the experiment
     print("Sleep approximately {} seconds to complete the experiment".format(numberOfUpdates + jitter))
-    time.sleep(numberOfUpdates + jitter)
+    time.sleep(numberOfUpdates + 10)
     print("Experiment completed")
 
     # Start the CLI
-    MiniNDNCLI(ndn.net)
+    # MiniNDNCLI(ndn.net)
     ndn.stop()
 
