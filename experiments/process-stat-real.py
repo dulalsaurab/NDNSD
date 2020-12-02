@@ -7,18 +7,20 @@ import csv
 import numpy as np
 
 #rootDir = "/home/vagrant/mini-ndn/ndn-src/ndnsd/experiments/result/loss-experiment/10_percent"
-rootDir = "/home/mini-ndn/europa_bkp/mini-ndn/sdulal/mini-ndn/ndn-src/NDNSD/experiments/result/loss-experiment/10_percent"
-# rootDir = "real-exp/after_timesync/congestion/producer++/3c4p-500ms"
+# rootDir = "/home/mini-ndn/europa_bkp/mini-ndn/sdulal/mini-ndn/ndn-src/NDNSD/experiments/result/loss-experiment/10_percent"
+rootDir = "/tmp/minindn/"
 
-topo = {
-        'c1p1':3, 'c1p2':4,
-        'c2p1':2, 'c2p2':3,
-        'c3p1':1,
-        'c4p1':3, 'c4p2':2,
-        'c5p1':4, 'c5p2':3
-        }
-prod = ['p1', 'p2']
-cons = ['c1','c2', 'c3', 'c4', 'c5']
+#topo = {
+#        'c1p1':3, 'c1p2':4,
+#        'c2p1':2, 'c2p2':3,
+#       'c3p1':1,
+#        'c4p1':3, 'c4p2':2,
+#        'c5p1':4, 'c5p2':3
+#        }
+
+topo = {'c1p1': 2, 'c1p2': 2, 'c1p3': 2}
+prod = ['p1', 'p2', 'p3']
+cons = ['c1']
 
 def processLogFile(filename, searchStrings):
   res_dict = {}
@@ -43,7 +45,7 @@ def getDiff(send, received):
   return r_final
 
 def dump(data, filename):
-  h_l = [item[0] for item in data] 
+  h_l = [item[0] for item in data]
   data = np.transpose([i[1:] for i in data])
   header = ','.join(h_l)
   np.savetxt(filename, data, delimiter=",", header=header, fmt='%1.5f')
@@ -62,6 +64,8 @@ def computeSyncDelay():
       prefixUpdateTS = processLogFile(file2,  ["Sync update received for prefix: /ndnsd/{}/".format(p)])
 
       r_final = getDiff(prefixPublishTS, prefixUpdateTS)
+      print ("******************",p, c, "****************")
+      print (r_final)
       c_p_sync = [r_final[x] for x in r_final]
       header = "{} - {} sync".format(p, c)
       c_p_sync.insert(0, header)

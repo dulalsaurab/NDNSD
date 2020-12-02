@@ -32,6 +32,14 @@ def registerRouteToAllNeighbors(ndn, host, syncPrefix):
             Nfdc.createFace(host, ip)
             Nfdc.registerRoute(host, syncPrefix, ip)
 
+def setTsharkLog(ndn):
+    for host in ndn.net.hosts:
+        print ("Setting tshark for host:", host.name)
+        host.cmd('tshark -o ip.defragment:TRUE -o ip.check_checksum:FALSE -ni any -f "udp port 6363" -w {}.pcap &> /dev/null &'
+                .format(host.name))
+        # host.cmd('ndndump -i any &> {}.ndndump &'.format(host.name))
+        time.sleep(0.1)
+
 class NDNSDExperiment():
   def __init__(self, ndnwifi, producers, consumers):
     self.ndn = ndnwifi
@@ -46,14 +54,8 @@ class NDNSDExperiment():
     self.ndn.start()
     time.sleep(5)
     self.setMTUsize(9000)
-    nfds = AppManager(self.ndn, self.ndn.net.hosts, Nfd) # logLevel=)
+    nfds = AppManager(self.ndn, self.ndn.net.hosts, Nfd, logLevel='NONE')
     Popen(['cp', 'test.info', '/usr/local/etc/ndn/ndnsd_default.info'], stdout=PIPE, stderr=PIPE).communicate()
-
-    for host in self.ndn.net.hosts:
-      host.cmd('tshark -o ip.defragment:TRUE -o ip.check_checksum:FALSE -ni any -f "udp port 6363" -w {}.pcap &> /dev/null &'
-                .format(host.name))
-      # host.cmd('ndndump -i any &> {}.ndndump &'.format(host.name))
-      time.sleep(0.1)
 
   def setMTUsize(self, mtu):
     for host in self.ndn.net.hosts:
@@ -73,10 +75,10 @@ class NDNSDExperiment():
 
       # host.cmd('nlsrc advertise {}'.format("/discovery/printer"))
       # host.cmd('nlsrc advertise {}'.format(appPrefix))
-      time.sleep(2)
+      time.sleep(0.1)
 
       # uncomment to enable sync log
-      cmd = 'export NDN_LOG=ndnsd.*=NONE' #:psync.*=NONE:sync.*=NONE'
+      cmd = 'export NDN_LOG=ndnsd.*=NONE' #:psync.*=TRACE:sync.*=NONE'
       host.cmd(cmd)
       cmd = 'ndnsd-producer {} 1 &> {}/{}/producer.log &'.format(hostInfoFile, self.args.workDir, hostName)
       host.cmd(cmd)
@@ -85,6 +87,7 @@ class NDNSDExperiment():
   def startConsumer(self):
     print("Staring consumers")
     for consumer in self.consumer_nodes:
+      print ("Consumer Name: ", consumer.name)
       cName = consumer.name
       # uncomment to enable sync log
       cmd = 'export NDN_LOG=ndnsd.*=NONE' #:psync.*=TRACE:sync.*=TRACE'
@@ -92,7 +95,7 @@ class NDNSDExperiment():
       cmd = 'ndnsd-consumer -s {} &> {}/{}/consumer.log -c 1 -p 1 &'.format(self.consumers[cName], self.args.workDir, cName)
       consumer.cmd(cmd)
       # sleep for a while to let consumer boot up properly
-      time.sleep(2)
+      # time.sleep(0.1)
 
 # type = C or P for consumer and producer respectively
 # count = how many?
@@ -134,23 +137,28 @@ if __name__ == '__main__':
 
     exp.startProducer()
     exp.startConsumer()
-
+    time.sleep(10)
     # set /discovery/printers to multicast on all the nodes.
     for host in ndn.net.hosts:
       Nfdc.setStrategy(host, '/discovery/printer', Nfdc.STRATEGY_MULTICAST)
-      time.sleep(2)
+      time.sleep(1)
+
+    print ("Reached here ...")
+    setTsharkLog(ndn)
+    time.sleep(1)
+    print ("reached here ....2")
 
     # need to run reload at producers node
     print("Staring experiment, i.e. reloading producers, approximate time to complete: {} seconds".format(2*(numberOfUpdates + jitter)))
     for host in exp.producer_nodes:
       appPrefix = '/ndnsd/{}/service-info'.format(host.name)
       cmd = 'ndnsd-reload -c {} -i {} -r {} -p {} &> {}/{}/reload.log &'.format(numberOfUpdates, exp.producers[host.name][1]-10,
-                                                                                100, appPrefix, ndn.args.workDir, host.name)
+                                                                                50, appPrefix, ndn.args.workDir, host.name)
       host.cmd(cmd)
 
     # approximate time to complete the experiment
     print("Sleep approximately {} seconds to complete the experiment".format(numberOfUpdates + jitter))
-    time.sleep(numberOfUpdates + 10)
+    time.sleep(numberOfUpdates + jitter)
     print("Experiment completed")
 
     # Start the CLI
