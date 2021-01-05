@@ -1,0 +1,53 @@
+NFD version 0.7.0-commit-c1d4837 starting
+Built with GNU C++ version 9.3.0, with GNU libstdc++ version 20200408, with Boost version 1.71.0, with libpcap version 1.9.1 (with TPACKET_V3), without WebSocket++, with ndn-cxx version 0.7.0-commit-e36aae1
+1605732644.308113 DEBUG: [nfd.NullTransport] [id=0,local=null://,remote=null://] Creating transport
+1605732644.308145  INFO: [nfd.FaceTable] Added face id=255 remote=null:// local=null://
+1605732644.308153 DEBUG: [nfd.NullTransport] [id=0,local=contentstore://,remote=contentstore://] Creating transport
+1605732644.308156  INFO: [nfd.FaceTable] Added face id=254 remote=contentstore:// local=contentstore://
+1605732644.308181 DEBUG: [nfd.ContentStore] set-policy lru
+1605732644.308186  INFO: [nfd.CsPolicy] setLimit 10
+1605732644.308232 DEBUG: [nfd.Strategy] create /localhost/nfd/strategy/best-route/%FD%05 found=/localhost/nfd/strategy/best-route/%FD%05 created=/localhost/nfd/strategy/best-route/%FD%05
+1605732644.308244  INFO: [nfd.StrategyChoice] setDefaultStrategy /localhost/nfd/strategy/best-route/%FD%05
+1605732644.308256 DEBUG: [nfd.InternalForwarderTransport] [id=0,local=internal://,remote=internal://] Creating transport
+1605732644.308265 DEBUG: [nfd.InternalClientTransport] connectToForwarder 0x55828480f7e0
+1605732644.308303  INFO: [nfd.FaceTable] Added face id=1 remote=internal:// local=internal://
+1605732644.308603  WARN: [nfd.CommandAuthenticator] 'certfile any' is intended for demo purposes only and SHOULD NOT be used in production environments
+1605732644.308740 DEBUG: [nfd.Strategy] create /localhost/nfd/strategy/best-route found=/localhost/nfd/strategy/best-route/%FD%05 created=/localhost/nfd/strategy/best-route/%FD%05
+1605732644.308760 DEBUG: [nfd.Strategy] create /localhost/nfd/strategy/multicast found=/localhost/nfd/strategy/multicast/%FD%03 created=/localhost/nfd/strategy/multicast/%FD%03
+1605732644.308771  INFO: [nfd.StrategyChoice] changeStrategy(/ndn/broadcast) /localhost/nfd/strategy/best-route/%FD%05 -> /localhost/nfd/strategy/multicast/%FD%03
+1605732644.308784 DEBUG: [nfd.Strategy] create /localhost/nfd/strategy/multicast found=/localhost/nfd/strategy/multicast/%FD%03 created=/localhost/nfd/strategy/multicast/%FD%03
+1605732644.308793  INFO: [nfd.StrategyChoice] changeStrategy(/localhost) /localhost/nfd/strategy/best-route/%FD%05 -> /localhost/nfd/strategy/multicast/%FD%03
+1605732644.308801 DEBUG: [nfd.Strategy] create /localhost/nfd/strategy/best-route found=/localhost/nfd/strategy/best-route/%FD%05 created=/localhost/nfd/strategy/best-route/%FD%05
+1605732644.308810  INFO: [nfd.StrategyChoice] changeStrategy(/localhost/nfd) /localhost/nfd/strategy/multicast/%FD%03 -> /localhost/nfd/strategy/best-route/%FD%05
+1605732644.308816  INFO: [nfd.CsPolicy] setLimit 65536
+1605732644.308818 DEBUG: [nfd.ContentStore] set-policy lru
+1605732644.308821  INFO: [nfd.CsPolicy] setLimit 65536
+1605732644.308832  INFO: [nfd.EthernetFactory] enabling multicast on 01:00:5e:00:17:aa
+1605732644.308858  INFO: [nfd.TcpChannel] [tcp4://0.0.0.0:6363] Creating channel
+1605732644.308920 DEBUG: [nfd.TcpChannel] [tcp4://0.0.0.0:6363] Started listening
+1605732644.308932  INFO: [nfd.TcpChannel] [tcp6://[::]:6363] Creating channel
+1605732644.308955 DEBUG: [nfd.TcpChannel] [tcp6://[::]:6363] Started listening
+1605732644.308975  INFO: [nfd.UdpChannel] [udp4://0.0.0.0:6363] Creating channel
+1605732644.308993 DEBUG: [nfd.UdpChannel] [udp4://0.0.0.0:6363] Started listening
+1605732644.309006  INFO: [nfd.UdpChannel] [udp6://[::]:6363] Creating channel
+1605732644.309020 DEBUG: [nfd.UdpChannel] [udp6://[::]:6363] Started listening
+1605732644.309030  INFO: [nfd.UdpFactory] enabling multicast on 224.0.23.170:56363
+1605732644.309040  INFO: [nfd.UdpFactory] enabling multicast on [ff02::1234]:56363
+1605732644.309062  INFO: [nfd.UnixStreamChannel] [unix:///run/c1.sock] Creating channel
+1605732644.309842 FATAL: [nfd.Main] ../daemon/face/unix-stream-channel.cpp(86): Throw in function listen
+Dynamic exception type: boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<nfd::face::UnixStreamChannel::Error> >
+std::exception::what: Socket file at /run/c1.sock belongs to another NFD process
+===== Stacktrace =====
+ 0# nfd::face::UnixStreamChannel::listen(std::function<void (std::shared_ptr<nfd::face::Face> const&)> const&, std::function<void (unsigned int, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&)> const&, int) [clone .cold] at ../daemon/face/unix-stream-channel.cpp:86
+ 1# nfd::face::UnixStreamFactory::doProcessConfig(boost::optional<boost::property_tree::basic_ptree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&>, nfd::face::FaceSystem::ConfigContext&) at ../daemon/face/unix-stream-factory.cpp:86
+ 2# nfd::face::ProtocolFactory::processConfig(boost::optional<boost::property_tree::basic_ptree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&>, nfd::face::FaceSystem::ConfigContext&) at ../daemon/face/protocol-factory.cpp:77
+ 3# nfd::face::FaceSystem::processConfig(boost::property_tree::basic_ptree<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::less<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&, bool, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) at ../daemon/face/face-system.cpp:126
+ 4# nfd::ConfigFile::process(bool, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) const at ../daemon/common/config-file.cpp:127
+ 5# nfd::ConfigFile::parse(std::istream&, bool, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&) at ../daemon/common/config-file.cpp:113
+ 6# nfd::ConfigFile::parse(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > const&, bool) at ../daemon/common/config-file.cpp:91
+ 7# nfd::Nfd::initializeManagement() at ../daemon/nfd.cpp:169
+ 8# nfd::Nfd::initialize() at ../daemon/nfd.cpp:89
+ 9# main at ../daemon/main.cpp:336
+10# __libc_start_main in /lib/x86_64-linux-gnu/libc.so.6
+11# _start in nfd
+======================

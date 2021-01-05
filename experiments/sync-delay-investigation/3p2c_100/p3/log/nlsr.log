@@ -1,0 +1,684 @@
+1605737557.850898  INFO: [nlsr.ConfParameter] Router Name: /%C1.Router/cs/p3
+1605737557.850925  INFO: [nlsr.ConfParameter] Site Name: /p3-site
+1605737557.850939  INFO: [nlsr.ConfParameter] Network: /ndn
+1605737557.850940  INFO: [nlsr.ConfParameter] Router Prefix: /ndn/p3-site/%C1.Router/cs/p3
+1605737557.850943  INFO: [nlsr.ConfParameter] Sync Prefix: /localhop/ndn/nlsr/sync/%FD%08
+1605737557.850945  INFO: [nlsr.ConfParameter] Sync LSA prefix: /localhop/ndn/nlsr/LSA
+1605737557.850947  INFO: [nlsr.ConfParameter] Hello Interest retry number: 3
+1605737557.850950  INFO: [nlsr.ConfParameter] Hello Interest resend second: 1
+1605737557.850952  INFO: [nlsr.ConfParameter] Info Interest interval: 60
+1605737557.850954  INFO: [nlsr.ConfParameter] LSA refresh time: 1800
+1605737557.850955  INFO: [nlsr.ConfParameter] FIB Entry refresh time: 3600
+1605737557.850957  INFO: [nlsr.ConfParameter] LSA Interest lifetime: 4 seconds
+1605737557.850972  INFO: [nlsr.ConfParameter] Router dead interval: 3600
+1605737557.850978  INFO: [nlsr.ConfParameter] Max Faces Per Prefix: 3
+1605737557.850979  INFO: [nlsr.ConfParameter] State Directory: /tmp/minindn/p3/log
+1605737557.850981  INFO: [nlsr.ConfParameter] Adjacency LSA build interval:  10
+1605737557.850982  INFO: [nlsr.ConfParameter] Routing calculation interval:  15
+1605737557.850985 DEBUG: [nlsr.ConfParameter] Initializing Key ...
+1605737557.851187  WARN: [nlsr.ConfParameter] Identity /ndn/p3-site/%C1.Router/cs/p3/nlsr does not exist
+1605737557.865435 ERROR: [nlsr.ConfParameter] Router's Identity /ndn/p3-site/%C1.Router/cs/p3 does not exist, NLSR is running without security. If security is enabled in the configuration, NLSR will not converge.
+1605737557.865495 DEBUG: [nlsr.SyncProtocolAdapter] Using PSync
+1605737557.866992 DEBUG: [nlsr.SequencingManager] Seq File Name: /tmp/minindn/p3/log/nlsrSeqNo.txt
+1605737557.867023 DEBUG: [nlsr.SequencingManager] Adj LSA seq no: 0
+1605737557.867026 DEBUG: [nlsr.SequencingManager] Name LSA Seq no: 0
+1605737557.867054 DEBUG: [nlsr.update.PrefixUpdateProcessor] Setting dispatcher to capture Interests for: /localhost/nlsr/prefix-update
+1605737557.867090 DEBUG: [nlsr.Nlsr] Initializing Nlsr
+1605737557.867601 DEBUG: [nlsr.Nlsr] Default NLSR identity: /ndn/p3-site/%C1.Router/cs/p3/nlsr
+1605737557.867622 DEBUG: [nlsr.Nlsr] Setting interest filter for Hello interest: /ndn/p3-site/%C1.Router/cs/p3/nlsr/INFO
+1605737557.868031 DEBUG: [nlsr.Nlsr] Setting interest filter for LsaPrefix: /localhop/ndn/nlsr/LSA
+1605737557.868186 DEBUG: [nlsr.Nlsr] Enabling incoming face id indication for local face.
+1605737557.868434 DEBUG: [nlsr.AdjacencyList] -------Adjacency List--------
+1605737557.868446 DEBUG: [nlsr.AdjacencyList] Adjacent: /ndn/p2-site/%C1.Router/cs/p2
+		Connecting FaceUri: udp4://10.0.0.13:6363
+		Link cost: 10
+		Status: 0
+		Interest Timed Out: 0
+1605737557.868467 DEBUG: [nlsr.Nlsr] Name prefix list: {
+/ndn/p3-site/p3
+Sources:
+  
+}
+1605737557.868473 DEBUG: [nlsr.SequencingManager] Adj LSA seq no: 0
+1605737557.868487 DEBUG: [nlsr.SequencingManager] Name LSA Seq no: 1
+1605737557.868617 DEBUG: [nlsr.Lsdb] Adding NAME LSA
+1605737557.868629 DEBUG: [nlsr.Lsdb]     NAME LSA:
+      Origin Router      : /ndn/p3-site/%C1.Router/cs/p3
+      Sequence Number    : 1
+      Expires in         : 3599999 milliseconds
+      Names:
+        Name 0: /ndn/p3-site/p3
+1605737557.872700 DEBUG: [nlsr.Nlsr] Successfully registered prefix: /ndn/p3-site/%C1.Router/cs/p3/nlsr/INFO
+1605737557.873641 DEBUG: [nlsr.route.Fib] Successfully set strategy choice: /localhost/nfd/strategy/multicast/%FD%03 for name: /localhop/ndn/nlsr/LSA
+1605737557.873896 DEBUG: [nlsr.route.Fib] Successfully set strategy choice: /localhost/nfd/strategy/multicast/%FD%03 for name: /localhop/ndn/nlsr/sync/%FD%08
+1605737557.873931 DEBUG: [nlsr.Nlsr] Successfully enabled incoming face id indicationfor face id 262
+1605737557.874033 DEBUG: [nlsr.Nlsr] Processing face dataset
+1605737557.874041 DEBUG: [nlsr.Nlsr] FaceUri: udp4://10.0.0.13:6363 FaceId: 260
+1605737557.874046 DEBUG: [nlsr.route.Fib] Registering prefix: /ndn/p2-site/%C1.Router/cs/p2 faceUri: udp4://10.0.0.13:6363
+1605737557.874156 DEBUG: [nlsr.route.Fib] Registering prefix: /localhop/ndn/nlsr/LSA faceUri: udp4://10.0.0.13:6363
+1605737557.874232 DEBUG: [nlsr.Nlsr] Scheduling Dataset Fetch in 3600 seconds
+1605737557.874320 DEBUG: [nlsr.Nlsr] Successfully registered prefix: /localhop/ndn/nlsr/LSA
+1605737557.874346 DEBUG: [nlsr.Nlsr] Successfully registered prefix: /localhost/nlsr
+1605737557.874364 DEBUG: [nlsr.Nlsr] Successfully registered prefix: /ndn/p3-site/%C1.Router/cs/p3/nlsr
+1605737557.874563 DEBUG: [nlsr.CertificateStore] KEY prefix: /ndn/p3-site/%C1.Router/cs/p3/nlsr/KEY registration is successful.
+1605737557.875172 DEBUG: [nlsr.CertificateStore] KEY prefix: /ndn/p3-site/%C1.Router/cs/p3/KEY registration is successful.
+1605737557.875406 DEBUG: [nlsr.CertificateStore] KEY prefix: /ndn/p3-site/%C1.Operator registration is successful.
+1605737557.875986 DEBUG: [nlsr.CertificateStore] KEY prefix: /ndn/p3-site/KEY registration is successful.
+1605737557.876177 DEBUG: [nlsr.route.Fib] Successful in name registration: /ndn/p2-site/%C1.Router/cs/p2 Face Uri: udp4://10.0.0.13:6363 faceId: 260
+1605737557.876201 DEBUG: [nlsr.HelloProtocol] Expressing Interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605737557.876211 DEBUG: [nlsr.HelloProtocol] Sending HELLO interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605737557.876257 DEBUG: [nlsr.route.Fib] Successful in name registration: /localhop/ndn/nlsr/LSA Face Uri: udp4://10.0.0.13:6363 faceId: 260
+1605737558.612131 DEBUG: [nlsr.HelloProtocol] Interest Received for Name: /ndn/p3-site/%C1.Router/cs/p3/nlsr/INFO/%07%20%08%03ndn%08%07p2-site%08%08%C1.Router%08%02cs%08%02p2
+1605737558.612167 DEBUG: [nlsr.HelloProtocol] Neighbor: /ndn/p2-site/%C1.Router/cs/p2
+1605737558.612328 DEBUG: [nlsr.HelloProtocol] Sending out data for name: /ndn/p3-site/%C1.Router/cs/p3/nlsr/INFO/%07%20%08%03ndn%08%07p2-site%08%08%C1.Router%08%02cs%08%02p2
+1605737558.612358 DEBUG: [nlsr.HelloProtocol] Expressing Interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605737558.635802 DEBUG: [nlsr.HelloProtocol] Received data for INFO(name): /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3/%FD%00%00%01u%DDj%B2%60
+1605737558.635866 DEBUG: [nlsr.HelloProtocol] Data signed with: /ndn/p2-site/%C1.Router/cs/p2/nlsr/KEY/%C4%E5%A4Fp%1DU%B5
+1605737558.635894 DEBUG: [nlsr.HelloProtocol] Data validation successful for INFO(name): /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3/%FD%00%00%01u%DDj%B2%60
+1605737558.635922 DEBUG: [nlsr.HelloProtocol] Neighbor : /ndn/p2-site/%C1.Router/cs/p2
+1605737558.635939 DEBUG: [nlsr.HelloProtocol] Old Status: 0 New Status: 1
+1605737558.635955 DEBUG: [nlsr.Lsdb] Scheduling Adjacency LSA build in 10 seconds
+1605737558.635990 DEBUG: [nlsr.route.Fib] Registering prefix: /localhop/ndn/nlsr/sync/%FD%08 faceUri: udp4://10.0.0.13:6363
+1605737558.637616 DEBUG: [nlsr.route.Fib] Successful in name registration: /localhop/ndn/nlsr/sync/%FD%08 Face Uri: udp4://10.0.0.13:6363 faceId: 260
+1605737558.721900 DEBUG: [nlsr.SyncLogicHandler] Update Name: /localhop/ndn/nlsr/LSA/p2-site/%C1.Router/cs/p2/NAME Seq no: 1
+1605737558.721956 DEBUG: [nlsr.SyncLogicHandler] Origin Router of update: /ndn/p2-site/%C1.Router/cs/p2
+1605737558.721978 DEBUG: [nlsr.SyncLogicHandler] Received sync update with higher NAME sequence number than entry in LSDB
+1605737558.722004 DEBUG: [nlsr.Lsdb] Fetching Data for LSA: /localhop/ndn/nlsr/LSA/p2-site/%C1.Router/cs/p2/NAME/%01 Seq number: 1
+1605737558.722495 DEBUG: [nlsr.SyncLogicHandler] Update Name: /localhop/ndn/nlsr/LSA/c1-site/%C1.Router/cs/c1/NAME Seq no: 1
+1605737558.722542 DEBUG: [nlsr.SyncLogicHandler] Origin Router of update: /ndn/c1-site/%C1.Router/cs/c1
+1605737558.722562 DEBUG: [nlsr.SyncLogicHandler] Received sync update with higher NAME sequence number than entry in LSDB
+1605737558.722596 DEBUG: [nlsr.Lsdb] Fetching Data for LSA: /localhop/ndn/nlsr/LSA/c1-site/%C1.Router/cs/c1/NAME/%01 Seq number: 1
+1605737558.723043 DEBUG: [nlsr.SyncLogicHandler] Update Name: /localhop/ndn/nlsr/LSA/p1-site/%C1.Router/cs/p1/NAME Seq no: 1
+1605737558.723078 DEBUG: [nlsr.SyncLogicHandler] Origin Router of update: /ndn/p1-site/%C1.Router/cs/p1
+1605737558.723099 DEBUG: [nlsr.SyncLogicHandler] Received sync update with higher NAME sequence number than entry in LSDB
+1605737558.723124 DEBUG: [nlsr.Lsdb] Fetching Data for LSA: /localhop/ndn/nlsr/LSA/p1-site/%C1.Router/cs/p1/NAME/%01 Seq number: 1
+1605737558.728519 DEBUG: [nlsr.route.Fib] Successfully set strategy choice: /localhost/nfd/strategy/best-route/%FD%05 for name: /ndn/p2-site/%C1.Router/cs/p2/KEY
+1605737558.730507 DEBUG: [nlsr.route.Fib] Successfully set strategy choice: /localhost/nfd/strategy/best-route/%FD%05 for name: /ndn/p2-site/%C1.Router/cs/p2/nlsr/KEY
+1605737558.730609 DEBUG: [nlsr.route.Fib] Successfully set strategy choice: /localhost/nfd/strategy/best-route/%FD%05 for name: /ndn/p2-site/KEY
+1605737558.730654 DEBUG: [nlsr.route.Fib] Successfully set strategy choice: /localhost/nfd/strategy/best-route/%FD%05 for name: /ndn/p2-site/%C1.Operator
+1605737558.730691 DEBUG: [nlsr.route.Fib] Successfully set strategy choice: /localhost/nfd/strategy/best-route/%FD%05 for name: /ndn/c1-site/%C1.Router/cs/c1/KEY
+1605737558.730736 DEBUG: [nlsr.route.Fib] Successfully set strategy choice: /localhost/nfd/strategy/best-route/%FD%05 for name: /ndn/c1-site/%C1.Router/cs/c1/nlsr/KEY
+1605737558.730775 DEBUG: [nlsr.route.Fib] Successfully set strategy choice: /localhost/nfd/strategy/best-route/%FD%05 for name: /ndn/c1-site/KEY
+1605737558.730809 DEBUG: [nlsr.route.Fib] Successfully set strategy choice: /localhost/nfd/strategy/best-route/%FD%05 for name: /ndn/c1-site/%C1.Operator
+1605737558.730843 DEBUG: [nlsr.route.Fib] Successfully set strategy choice: /localhost/nfd/strategy/best-route/%FD%05 for name: /ndn/p1-site/%C1.Router/cs/p1/KEY
+1605737558.730877 DEBUG: [nlsr.route.Fib] Successfully set strategy choice: /localhost/nfd/strategy/best-route/%FD%05 for name: /ndn/p1-site/%C1.Router/cs/p1/nlsr/KEY
+1605737558.730910 DEBUG: [nlsr.route.Fib] Successfully set strategy choice: /localhost/nfd/strategy/best-route/%FD%05 for name: /ndn/p1-site/KEY
+1605737558.730943 DEBUG: [nlsr.route.Fib] Successfully set strategy choice: /localhost/nfd/strategy/best-route/%FD%05 for name: /ndn/p1-site/%C1.Operator
+1605737558.746508 DEBUG: [nlsr.Lsdb] Received data for LSA interest: /localhop/ndn/nlsr/LSA/p2-site/%C1.Router/cs/p2/NAME/%01
+1605737558.746776 DEBUG: [nlsr.Lsdb] Adding NAME LSA
+1605737558.746802 DEBUG: [nlsr.Lsdb]     NAME LSA:
+      Origin Router      : /ndn/p2-site/%C1.Router/cs/p2
+      Sequence Number    : 1
+      Expires in         : 3597253 milliseconds
+      Names:
+        Name 0: /ndn/p2-site/p2
+1605737558.746849 DEBUG: [nlsr.route.NamePrefixTable] Adding origin: /ndn/p2-site/%C1.Router/cs/p2 to a new name prefix: /ndn/p2-site/%C1.Router/cs/p2
+1605737558.746870 DEBUG: [nlsr.route.Fib] Fib::remove called
+1605737558.746886 DEBUG: [nlsr.route.NamePrefixTable] Adding origin: /ndn/p2-site/%C1.Router/cs/p2 to a new name prefix: /ndn/p2-site/p2
+1605737558.746901 DEBUG: [nlsr.route.Fib] Fib::remove called
+1605737558.747002 DEBUG: [nlsr.Lsdb] Received data for LSA interest: /localhop/ndn/nlsr/LSA/c1-site/%C1.Router/cs/c1/NAME/%01
+1605737558.747128 DEBUG: [nlsr.Lsdb] Adding NAME LSA
+1605737558.747149 DEBUG: [nlsr.Lsdb]     NAME LSA:
+      Origin Router      : /ndn/c1-site/%C1.Router/cs/c1
+      Sequence Number    : 1
+      Expires in         : 3592252 milliseconds
+      Names:
+        Name 0: /ndn/c1-site/c1
+1605737558.747177 DEBUG: [nlsr.route.NamePrefixTable] Adding origin: /ndn/c1-site/%C1.Router/cs/c1 to a new name prefix: /ndn/c1-site/%C1.Router/cs/c1
+1605737558.747194 DEBUG: [nlsr.route.Fib] Fib::remove called
+1605737558.747209 DEBUG: [nlsr.route.NamePrefixTable] Adding origin: /ndn/c1-site/%C1.Router/cs/c1 to a new name prefix: /ndn/c1-site/c1
+1605737558.747224 DEBUG: [nlsr.route.Fib] Fib::remove called
+1605737558.747305 DEBUG: [nlsr.Lsdb] Received data for LSA interest: /localhop/ndn/nlsr/LSA/p1-site/%C1.Router/cs/p1/NAME/%01
+1605737558.747428 DEBUG: [nlsr.Lsdb] Adding NAME LSA
+1605737558.747447 DEBUG: [nlsr.Lsdb]     NAME LSA:
+      Origin Router      : /ndn/p1-site/%C1.Router/cs/p1
+      Sequence Number    : 1
+      Expires in         : 3595252 milliseconds
+      Names:
+        Name 0: /ndn/p1-site/p1
+1605737558.747475 DEBUG: [nlsr.route.NamePrefixTable] Adding origin: /ndn/p1-site/%C1.Router/cs/p1 to a new name prefix: /ndn/p1-site/%C1.Router/cs/p1
+1605737558.747492 DEBUG: [nlsr.route.Fib] Fib::remove called
+1605737558.747506 DEBUG: [nlsr.route.NamePrefixTable] Adding origin: /ndn/p1-site/%C1.Router/cs/p1 to a new name prefix: /ndn/p1-site/p1
+1605737558.747521 DEBUG: [nlsr.route.Fib] Fib::remove called
+1605737559.878755 DEBUG: [nlsr.HelloProtocol] Interest timed out for Name: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605737559.878868 DEBUG: [nlsr.HelloProtocol] Neighbor: /ndn/p2-site/%C1.Router/cs/p2
+1605737559.878896 DEBUG: [nlsr.HelloProtocol] Status: 1
+1605737559.878915 DEBUG: [nlsr.HelloProtocol] Info Interest Timed out: 1
+1605737559.878946 DEBUG: [nlsr.HelloProtocol] Resending interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605737559.878971 DEBUG: [nlsr.HelloProtocol] Expressing Interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605737559.879610 DEBUG: [nlsr.HelloProtocol] Received data for INFO(name): /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3/%FD%00%00%01u%DDj%B2%60
+1605737559.879653 DEBUG: [nlsr.HelloProtocol] Data signed with: /ndn/p2-site/%C1.Router/cs/p2/nlsr/KEY/%C4%E5%A4Fp%1DU%B5
+1605737559.879677 DEBUG: [nlsr.HelloProtocol] Data validation successful for INFO(name): /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3/%FD%00%00%01u%DDj%B2%60
+1605737559.879699 DEBUG: [nlsr.HelloProtocol] Neighbor : /ndn/p2-site/%C1.Router/cs/p2
+1605737559.879714 DEBUG: [nlsr.HelloProtocol] Old Status: 1 New Status: 1
+1605737559.879732 DEBUG: [nlsr.route.Fib] Registering prefix: /localhop/ndn/nlsr/sync/%FD%08 faceUri: udp4://10.0.0.13:6363
+1605737559.881111 DEBUG: [nlsr.route.Fib] Successful in name registration: /localhop/ndn/nlsr/sync/%FD%08 Face Uri: udp4://10.0.0.13:6363 faceId: 260
+1605737566.901425 DEBUG: [nlsr.Lsdb] Interest received for LSA: /localhop/ndn/nlsr/LSA/c1-site/%C1.Router/cs/c1/ADJACENCY/%01
+1605737566.901523 DEBUG: [nlsr.Lsdb] Interest received for LSA: /localhop/ndn/nlsr/LSA/p1-site/%C1.Router/cs/p1/ADJACENCY/%01
+1605737566.976187 DEBUG: [nlsr.Lsdb] Interest received for LSA: /localhop/ndn/nlsr/LSA/c2-site/%C1.Router/cs/c2/NAME/%01
+1605737567.000825 DEBUG: [nlsr.Lsdb] Interest received for LSA: /localhop/ndn/nlsr/LSA/p3-site/%C1.Router/cs/p3/NAME/%01
+1605737567.000862 DEBUG: [nlsr.Lsdb] LSA sequence number from interest: 1
+1605737567.000874 DEBUG: [nlsr.Lsdb] /localhop/ndn/nlsr/LSA/p3-site/%C1.Router/cs/p3/NAME/%01?CanBePrefix&MustBeFresh&Nonce=f95f9470 received for NAME
+1605737567.446091 DEBUG: [nlsr.Lsdb] Interest received for LSA: /localhop/ndn/nlsr/LSA/c2-site/%C1.Router/cs/c2/ADJACENCY/%01
+1605737568.652150 DEBUG: [nlsr.Lsdb] Building and installing own Adj LSA
+1605737568.652188 DEBUG: [nlsr.SequencingManager] Adj LSA seq no: 1
+1605737568.652194 DEBUG: [nlsr.SequencingManager] Name LSA Seq no: 1
+1605737568.653489 DEBUG: [nlsr.Lsdb] Adding ADJACENCY LSA
+1605737568.653507 DEBUG: [nlsr.Lsdb]     ADJACENCY LSA:
+      Origin Router      : /ndn/p3-site/%C1.Router/cs/p3
+      Sequence Number    : 1
+      Expires in         : 3599998 milliseconds
+      Adjacent(s):
+        Adjacent 0: (name=/ndn/p2-site/%C1.Router/cs/p2, uri=udp4://10.0.0.13:6363, cost=10)
+1605737568.653545 DEBUG: [nlsr.route.RoutingTable] Scheduling routing table calculation in 15 seconds
+1605737568.666351 DEBUG: [nlsr.SyncLogicHandler] Update Name: /localhop/ndn/nlsr/LSA/c1-site/%C1.Router/cs/c1/ADJACENCY Seq no: 1
+1605737568.666419 DEBUG: [nlsr.SyncLogicHandler] Origin Router of update: /ndn/c1-site/%C1.Router/cs/c1
+1605737568.666443 DEBUG: [nlsr.SyncLogicHandler] Received sync update with higher ADJACENCY sequence number than entry in LSDB
+1605737568.666472 DEBUG: [nlsr.Lsdb] Fetching Data for LSA: /localhop/ndn/nlsr/LSA/c1-site/%C1.Router/cs/c1/ADJACENCY/%01 Seq number: 1
+1605737568.666511 DEBUG: [nlsr.SyncLogicHandler] Update Name: /localhop/ndn/nlsr/LSA/c2-site/%C1.Router/cs/c2/NAME Seq no: 1
+1605737568.666533 DEBUG: [nlsr.SyncLogicHandler] Origin Router of update: /ndn/c2-site/%C1.Router/cs/c2
+1605737568.666549 DEBUG: [nlsr.SyncLogicHandler] Received sync update with higher NAME sequence number than entry in LSDB
+1605737568.666570 DEBUG: [nlsr.Lsdb] Fetching Data for LSA: /localhop/ndn/nlsr/LSA/c2-site/%C1.Router/cs/c2/NAME/%01 Seq number: 1
+1605737568.667033 DEBUG: [nlsr.SyncLogicHandler] Update Name: /localhop/ndn/nlsr/LSA/c2-site/%C1.Router/cs/c2/ADJACENCY Seq no: 1
+1605737568.667067 DEBUG: [nlsr.SyncLogicHandler] Origin Router of update: /ndn/c2-site/%C1.Router/cs/c2
+1605737568.667086 DEBUG: [nlsr.SyncLogicHandler] Received sync update with higher ADJACENCY sequence number than entry in LSDB
+1605737568.667109 DEBUG: [nlsr.Lsdb] Fetching Data for LSA: /localhop/ndn/nlsr/LSA/c2-site/%C1.Router/cs/c2/ADJACENCY/%01 Seq number: 1
+1605737568.667146 DEBUG: [nlsr.SyncLogicHandler] Update Name: /localhop/ndn/nlsr/LSA/p1-site/%C1.Router/cs/p1/ADJACENCY Seq no: 1
+1605737568.667168 DEBUG: [nlsr.SyncLogicHandler] Origin Router of update: /ndn/p1-site/%C1.Router/cs/p1
+1605737568.667184 DEBUG: [nlsr.SyncLogicHandler] Received sync update with higher ADJACENCY sequence number than entry in LSDB
+1605737568.667205 DEBUG: [nlsr.Lsdb] Fetching Data for LSA: /localhop/ndn/nlsr/LSA/p1-site/%C1.Router/cs/p1/ADJACENCY/%01 Seq number: 1
+1605737568.667238 DEBUG: [nlsr.SyncLogicHandler] Update Name: /localhop/ndn/nlsr/LSA/p2-site/%C1.Router/cs/p2/ADJACENCY Seq no: 1
+1605737568.667259 DEBUG: [nlsr.SyncLogicHandler] Origin Router of update: /ndn/p2-site/%C1.Router/cs/p2
+1605737568.667274 DEBUG: [nlsr.SyncLogicHandler] Received sync update with higher ADJACENCY sequence number than entry in LSDB
+1605737568.667294 DEBUG: [nlsr.Lsdb] Fetching Data for LSA: /localhop/ndn/nlsr/LSA/p2-site/%C1.Router/cs/p2/ADJACENCY/%01 Seq number: 1
+1605737568.671357 DEBUG: [nlsr.route.Fib] Successfully set strategy choice: /localhost/nfd/strategy/best-route/%FD%05 for name: /ndn/c2-site/%C1.Router/cs/c2/KEY
+1605737568.671423 DEBUG: [nlsr.route.Fib] Successfully set strategy choice: /localhost/nfd/strategy/best-route/%FD%05 for name: /ndn/c2-site/%C1.Router/cs/c2/nlsr/KEY
+1605737568.671463 DEBUG: [nlsr.route.Fib] Successfully set strategy choice: /localhost/nfd/strategy/best-route/%FD%05 for name: /ndn/c2-site/KEY
+1605737568.671497 DEBUG: [nlsr.route.Fib] Successfully set strategy choice: /localhost/nfd/strategy/best-route/%FD%05 for name: /ndn/c2-site/%C1.Operator
+1605737568.690883 DEBUG: [nlsr.Lsdb] Received data for LSA interest: /localhop/ndn/nlsr/LSA/c1-site/%C1.Router/cs/c1/ADJACENCY/%01
+1605737568.691491 DEBUG: [nlsr.Lsdb] Adding ADJACENCY LSA
+1605737568.691503 DEBUG: [nlsr.Lsdb]     ADJACENCY LSA:
+      Origin Router      : /ndn/c1-site/%C1.Router/cs/c1
+      Sequence Number    : 1
+      Expires in         : 3597308 milliseconds
+      Adjacent(s):
+        Adjacent 0: (name=/ndn/p1-site/%C1.Router/cs/p1, uri=udp4://10.0.0.2:6363, cost=10)
+1605737568.691538 DEBUG: [nlsr.route.Fib] Fib::remove called
+1605737568.691704 DEBUG: [nlsr.Lsdb] Received data for LSA interest: /localhop/ndn/nlsr/LSA/c2-site/%C1.Router/cs/c2/NAME/%01
+1605737568.691815 DEBUG: [nlsr.Lsdb] Adding NAME LSA
+1605737568.691819 DEBUG: [nlsr.Lsdb]     NAME LSA:
+      Origin Router      : /ndn/c2-site/%C1.Router/cs/c2
+      Sequence Number    : 1
+      Expires in         : 3584308 milliseconds
+      Names:
+        Name 0: /ndn/c2-site/c2
+1605737568.691838 DEBUG: [nlsr.route.NamePrefixTable] Adding origin: /ndn/c2-site/%C1.Router/cs/c2 to a new name prefix: /ndn/c2-site/%C1.Router/cs/c2
+1605737568.691915 DEBUG: [nlsr.route.Fib] Fib::remove called
+1605737568.691923 DEBUG: [nlsr.route.NamePrefixTable] Adding origin: /ndn/c2-site/%C1.Router/cs/c2 to a new name prefix: /ndn/c2-site/c2
+1605737568.691934 DEBUG: [nlsr.route.Fib] Fib::remove called
+1605737568.692022 DEBUG: [nlsr.Lsdb] Received data for LSA interest: /localhop/ndn/nlsr/LSA/c2-site/%C1.Router/cs/c2/ADJACENCY/%01
+1605737568.692222 DEBUG: [nlsr.Lsdb] Adding ADJACENCY LSA
+1605737568.692236 DEBUG: [nlsr.Lsdb]     ADJACENCY LSA:
+      Origin Router      : /ndn/c2-site/%C1.Router/cs/c2
+      Sequence Number    : 1
+      Expires in         : 3598307 milliseconds
+      Adjacent(s):
+        Adjacent 0: (name=/ndn/p2-site/%C1.Router/cs/p2, uri=udp4://10.0.0.6:6363, cost=10)
+1605737568.692256 DEBUG: [nlsr.route.Fib] Fib::remove called
+1605737568.692314 DEBUG: [nlsr.Lsdb] Received data for LSA interest: /localhop/ndn/nlsr/LSA/p1-site/%C1.Router/cs/p1/ADJACENCY/%01
+1605737568.692490 DEBUG: [nlsr.Lsdb] Adding ADJACENCY LSA
+1605737568.692496 DEBUG: [nlsr.Lsdb]     ADJACENCY LSA:
+      Origin Router      : /ndn/p1-site/%C1.Router/cs/p1
+      Sequence Number    : 1
+      Expires in         : 3597307 milliseconds
+      Adjacent(s):
+        Adjacent 0: (name=/ndn/c1-site/%C1.Router/cs/c1, uri=udp4://10.0.0.1:6363, cost=10)
+        Adjacent 1: (name=/ndn/p2-site/%C1.Router/cs/p2, uri=udp4://10.0.0.10:6363, cost=10)
+1605737568.692516 DEBUG: [nlsr.route.Fib] Fib::remove called
+1605737568.692570 DEBUG: [nlsr.Lsdb] Received data for LSA interest: /localhop/ndn/nlsr/LSA/p2-site/%C1.Router/cs/p2/ADJACENCY/%01
+1605737568.692701 DEBUG: [nlsr.Lsdb] Adding ADJACENCY LSA
+1605737568.692705 DEBUG: [nlsr.Lsdb]     ADJACENCY LSA:
+      Origin Router      : /ndn/p2-site/%C1.Router/cs/p2
+      Sequence Number    : 1
+      Expires in         : 3599307 milliseconds
+      Adjacent(s):
+        Adjacent 0: (name=/ndn/p1-site/%C1.Router/cs/p1, uri=udp4://10.0.0.9:6363, cost=10)
+        Adjacent 1: (name=/ndn/c2-site/%C1.Router/cs/c2, uri=udp4://10.0.0.5:6363, cost=10)
+        Adjacent 2: (name=/ndn/p3-site/%C1.Router/cs/p3, uri=udp4://10.0.0.14:6363, cost=10)
+1605737568.692725 DEBUG: [nlsr.route.Fib] Fib::remove called
+1605737568.693406 DEBUG: [nlsr.Lsdb] Interest received for LSA: /localhop/ndn/nlsr/LSA/p3-site/%C1.Router/cs/p3/ADJACENCY/%01
+1605737568.693487 DEBUG: [nlsr.Lsdb] LSA sequence number from interest: 1
+1605737568.693507 DEBUG: [nlsr.Lsdb] /localhop/ndn/nlsr/LSA/p3-site/%C1.Router/cs/p3/ADJACENCY/%01?CanBePrefix&MustBeFresh&Nonce=a47f52a7 received for ADJACENCY
+1605737583.667587 DEBUG: [nlsr.Lsdb] ---------------NAME LSDB-------------------
+1605737583.667688 DEBUG: [nlsr.Lsdb]     NAME LSA:
+      Origin Router      : /ndn/c2-site/%C1.Router/cs/c2
+      Sequence Number    : 1
+      Expires in         : 3569332 milliseconds
+      Names:
+        Name 0: /ndn/c2-site/c2
+1605737583.667743 DEBUG: [nlsr.Lsdb]     NAME LSA:
+      Origin Router      : /ndn/p1-site/%C1.Router/cs/p1
+      Sequence Number    : 1
+      Expires in         : 3570332 milliseconds
+      Names:
+        Name 0: /ndn/p1-site/p1
+1605737583.667774 DEBUG: [nlsr.Lsdb]     NAME LSA:
+      Origin Router      : /ndn/c1-site/%C1.Router/cs/c1
+      Sequence Number    : 1
+      Expires in         : 3567332 milliseconds
+      Names:
+        Name 0: /ndn/c1-site/c1
+1605737583.667867 DEBUG: [nlsr.Lsdb]     NAME LSA:
+      Origin Router      : /ndn/p2-site/%C1.Router/cs/p2
+      Sequence Number    : 1
+      Expires in         : 3572332 milliseconds
+      Names:
+        Name 0: /ndn/p2-site/p2
+1605737583.667899 DEBUG: [nlsr.Lsdb]     NAME LSA:
+      Origin Router      : /ndn/p3-site/%C1.Router/cs/p3
+      Sequence Number    : 1
+      Expires in         : 3574200 milliseconds
+      Names:
+        Name 0: /ndn/p3-site/p3
+1605737583.667970 DEBUG: [nlsr.Lsdb] ---------------ADJACENCY LSDB-------------------
+1605737583.667995 DEBUG: [nlsr.Lsdb]     ADJACENCY LSA:
+      Origin Router      : /ndn/p2-site/%C1.Router/cs/p2
+      Sequence Number    : 1
+      Expires in         : 3584331 milliseconds
+      Adjacent(s):
+        Adjacent 0: (name=/ndn/p1-site/%C1.Router/cs/p1, uri=udp4://10.0.0.9:6363, cost=10)
+        Adjacent 1: (name=/ndn/c2-site/%C1.Router/cs/c2, uri=udp4://10.0.0.5:6363, cost=10)
+        Adjacent 2: (name=/ndn/p3-site/%C1.Router/cs/p3, uri=udp4://10.0.0.14:6363, cost=10)
+1605737583.668194 DEBUG: [nlsr.Lsdb]     ADJACENCY LSA:
+      Origin Router      : /ndn/p1-site/%C1.Router/cs/p1
+      Sequence Number    : 1
+      Expires in         : 3582331 milliseconds
+      Adjacent(s):
+        Adjacent 0: (name=/ndn/c1-site/%C1.Router/cs/c1, uri=udp4://10.0.0.1:6363, cost=10)
+        Adjacent 1: (name=/ndn/p2-site/%C1.Router/cs/p2, uri=udp4://10.0.0.10:6363, cost=10)
+1605737583.668258 DEBUG: [nlsr.Lsdb]     ADJACENCY LSA:
+      Origin Router      : /ndn/c2-site/%C1.Router/cs/c2
+      Sequence Number    : 1
+      Expires in         : 3583331 milliseconds
+      Adjacent(s):
+        Adjacent 0: (name=/ndn/p2-site/%C1.Router/cs/p2, uri=udp4://10.0.0.6:6363, cost=10)
+1605737583.668293 DEBUG: [nlsr.Lsdb]     ADJACENCY LSA:
+      Origin Router      : /ndn/c1-site/%C1.Router/cs/c1
+      Sequence Number    : 1
+      Expires in         : 3582331 milliseconds
+      Adjacent(s):
+        Adjacent 0: (name=/ndn/p1-site/%C1.Router/cs/p1, uri=udp4://10.0.0.2:6363, cost=10)
+1605737583.668325 DEBUG: [nlsr.Lsdb]     ADJACENCY LSA:
+      Origin Router      : /ndn/p3-site/%C1.Router/cs/p3
+      Sequence Number    : 1
+      Expires in         : 3584983 milliseconds
+      Adjacent(s):
+        Adjacent 0: (name=/ndn/p2-site/%C1.Router/cs/p2, uri=udp4://10.0.0.13:6363, cost=10)
+1605737583.668357 DEBUG: [nlsr.route.NamePrefixTable] ----------------NPT----------------------
+Name: /ndn/p2-site/%C1.Router/cs/p2
+  Destination: /ndn/p2-site/%C1.Router/cs/p2
+    
+Name: /ndn/p2-site/p2
+  Destination: /ndn/p2-site/%C1.Router/cs/p2
+    
+Name: /ndn/c1-site/%C1.Router/cs/c1
+  Destination: /ndn/c1-site/%C1.Router/cs/c1
+    
+Name: /ndn/c1-site/c1
+  Destination: /ndn/c1-site/%C1.Router/cs/c1
+    
+Name: /ndn/p1-site/%C1.Router/cs/p1
+  Destination: /ndn/p1-site/%C1.Router/cs/p1
+    
+Name: /ndn/p1-site/p1
+  Destination: /ndn/p1-site/%C1.Router/cs/p1
+    
+Name: /ndn/c2-site/%C1.Router/cs/c2
+  Destination: /ndn/c2-site/%C1.Router/cs/c2
+    
+Name: /ndn/c2-site/c2
+  Destination: /ndn/c2-site/%C1.Router/cs/c2
+    
+1605737583.668419 DEBUG: [nlsr.route.RoutingTable] Calculating routing table
+1605737583.668470 DEBUG: [nlsr.route.Map] ---------------Map----------------------
+1605737583.668492 DEBUG: [nlsr.route.Map] MapEntry: ( Router: /ndn/p2-site/%C1.Router/cs/p2 Mapping No: 0 )
+1605737583.668513 DEBUG: [nlsr.route.Map] MapEntry: ( Router: /ndn/p1-site/%C1.Router/cs/p1 Mapping No: 1 )
+1605737583.668532 DEBUG: [nlsr.route.Map] MapEntry: ( Router: /ndn/c2-site/%C1.Router/cs/c2 Mapping No: 2 )
+1605737583.668551 DEBUG: [nlsr.route.Map] MapEntry: ( Router: /ndn/p3-site/%C1.Router/cs/p3 Mapping No: 3 )
+1605737583.668570 DEBUG: [nlsr.route.Map] MapEntry: ( Router: /ndn/c1-site/%C1.Router/cs/c1 Mapping No: 4 )
+1605737583.668594 DEBUG: [nlsr.route.RoutingTableCalculator] LinkStateRoutingTableCalculator::calculatePath Called
+1605737583.668631 DEBUG: [nlsr.route.RoutingTableCalculator] -----------Legend (routerName -> index)------
+1605737583.668653 DEBUG: [nlsr.route.RoutingTableCalculator] Router:/ndn/p2-site/%C1.Router/cs/p2 Index:0
+1605737583.668676 DEBUG: [nlsr.route.RoutingTableCalculator] Router:/ndn/p1-site/%C1.Router/cs/p1 Index:1
+1605737583.668697 DEBUG: [nlsr.route.RoutingTableCalculator] Router:/ndn/c2-site/%C1.Router/cs/c2 Index:2
+1605737583.668717 DEBUG: [nlsr.route.RoutingTableCalculator] Router:/ndn/p3-site/%C1.Router/cs/p3 Index:3
+1605737583.668736 DEBUG: [nlsr.route.RoutingTableCalculator] Router:/ndn/c1-site/%C1.Router/cs/c1 Index:4
+1605737583.668756 DEBUG: [nlsr.route.RoutingTableCalculator]  |0 1 2 3 4 
+1605737583.668774 DEBUG: [nlsr.route.RoutingTableCalculator] ------------
+1605737583.668798 DEBUG: [nlsr.route.RoutingTableCalculator] 0|0 10 10 10 0 
+1605737583.668819 DEBUG: [nlsr.route.RoutingTableCalculator] 1|10 0 0 0 10 
+1605737583.668847 DEBUG: [nlsr.route.RoutingTableCalculator] 2|10 0 0 0 0 
+1605737583.668868 DEBUG: [nlsr.route.RoutingTableCalculator] 3|10 0 0 0 0 
+1605737583.668887 DEBUG: [nlsr.route.RoutingTableCalculator] 4|0 10 0 0 0 
+1605737583.668906 DEBUG: [nlsr.route.RoutingTableCalculator] -----------Legend (routerName -> index)------
+1605737583.668925 DEBUG: [nlsr.route.RoutingTableCalculator] Router:/ndn/p2-site/%C1.Router/cs/p2 Index:0
+1605737583.668946 DEBUG: [nlsr.route.RoutingTableCalculator] Router:/ndn/p1-site/%C1.Router/cs/p1 Index:1
+1605737583.668966 DEBUG: [nlsr.route.RoutingTableCalculator] Router:/ndn/c2-site/%C1.Router/cs/c2 Index:2
+1605737583.668986 DEBUG: [nlsr.route.RoutingTableCalculator] Router:/ndn/p3-site/%C1.Router/cs/p3 Index:3
+1605737583.669006 DEBUG: [nlsr.route.RoutingTableCalculator] Router:/ndn/c1-site/%C1.Router/cs/c1 Index:4
+1605737583.669026 DEBUG: [nlsr.route.RoutingTableCalculator]  |0 1 2 3 4 
+1605737583.669043 DEBUG: [nlsr.route.RoutingTableCalculator] ------------
+1605737583.669064 DEBUG: [nlsr.route.RoutingTableCalculator] 0|0 10 10 10 0 
+1605737583.669084 DEBUG: [nlsr.route.RoutingTableCalculator] 1|10 0 0 0 10 
+1605737583.669103 DEBUG: [nlsr.route.RoutingTableCalculator] 2|10 0 0 0 0 
+1605737583.669121 DEBUG: [nlsr.route.RoutingTableCalculator] 3|10 0 0 0 0 
+1605737583.669140 DEBUG: [nlsr.route.RoutingTableCalculator] 4|0 10 0 0 0 
+1605737583.669159 DEBUG: [nlsr.route.RoutingTableCalculator] LinkStateRoutingTableCalculator::addAllNextHopsToRoutingTable Called
+1605737583.669183 DEBUG: [nlsr.route.RoutingTable] Adding NextHop(Uri: udp4://10.0.0.13:6363, Cost: 10) for destination: /ndn/p2-site/%C1.Router/cs/p2
+1605737583.669219 DEBUG: [nlsr.route.RoutingTable] Adding NextHop(Uri: udp4://10.0.0.13:6363, Cost: 20) for destination: /ndn/p1-site/%C1.Router/cs/p1
+1605737583.669250 DEBUG: [nlsr.route.RoutingTable] Adding NextHop(Uri: udp4://10.0.0.13:6363, Cost: 20) for destination: /ndn/c2-site/%C1.Router/cs/c2
+1605737583.669280 DEBUG: [nlsr.route.RoutingTable] Adding NextHop(Uri: udp4://10.0.0.13:6363, Cost: 30) for destination: /ndn/c1-site/%C1.Router/cs/c1
+1605737583.669309 DEBUG: [nlsr.route.RoutingTable] Calling Update NPT With new Route
+1605737583.669330 DEBUG: [nlsr.route.NamePrefixTable] Updating table with newly calculated routes
+1605737583.669349 DEBUG: [nlsr.route.NamePrefixTable] Routing entry: /ndn/p1-site/%C1.Router/cs/p1 has changed next-hops.
+1605737583.669374 DEBUG: [nlsr.route.Fib] Fib::update called
+1605737583.669394 DEBUG: [nlsr.route.Fib] New FIB Entry
+1605737583.669432 DEBUG: [nlsr.route.Fib] Registering prefix: /ndn/p1-site/p1 faceUri: udp4://10.0.0.13:6363
+1605737583.669813 DEBUG: [nlsr.route.Fib] Scheduling refresh for /ndn/p1-site/p1 Seq Num: 1 in 3600 seconds
+1605737583.669871 DEBUG: [nlsr.route.Fib] Fib::update called
+1605737583.669895 DEBUG: [nlsr.route.Fib] New FIB Entry
+1605737583.669927 DEBUG: [nlsr.route.Fib] Registering prefix: /ndn/p1-site/%C1.Router/cs/p1 faceUri: udp4://10.0.0.13:6363
+1605737583.670098 DEBUG: [nlsr.route.Fib] Scheduling refresh for /ndn/p1-site/%C1.Router/cs/p1 Seq Num: 1 in 3600 seconds
+1605737583.670142 DEBUG: [nlsr.route.NamePrefixTable] Routing entry: /ndn/c2-site/%C1.Router/cs/c2 has changed next-hops.
+1605737583.670169 DEBUG: [nlsr.route.Fib] Fib::update called
+1605737583.670189 DEBUG: [nlsr.route.Fib] New FIB Entry
+1605737583.670219 DEBUG: [nlsr.route.Fib] Registering prefix: /ndn/c2-site/c2 faceUri: udp4://10.0.0.13:6363
+1605737583.670378 DEBUG: [nlsr.route.Fib] Scheduling refresh for /ndn/c2-site/c2 Seq Num: 1 in 3600 seconds
+1605737583.670422 DEBUG: [nlsr.route.Fib] Fib::update called
+1605737583.670444 DEBUG: [nlsr.route.Fib] New FIB Entry
+1605737583.670475 DEBUG: [nlsr.route.Fib] Registering prefix: /ndn/c2-site/%C1.Router/cs/c2 faceUri: udp4://10.0.0.13:6363
+1605737583.670633 DEBUG: [nlsr.route.Fib] Scheduling refresh for /ndn/c2-site/%C1.Router/cs/c2 Seq Num: 1 in 3600 seconds
+1605737583.670675 DEBUG: [nlsr.route.NamePrefixTable] Routing entry: /ndn/c1-site/%C1.Router/cs/c1 has changed next-hops.
+1605737583.670726 DEBUG: [nlsr.route.Fib] Fib::update called
+1605737583.670752 DEBUG: [nlsr.route.Fib] New FIB Entry
+1605737583.670800 DEBUG: [nlsr.route.Fib] Registering prefix: /ndn/c1-site/c1 faceUri: udp4://10.0.0.13:6363
+1605737583.671143 DEBUG: [nlsr.route.Fib] Scheduling refresh for /ndn/c1-site/c1 Seq Num: 1 in 3600 seconds
+1605737583.671192 DEBUG: [nlsr.route.Fib] Fib::update called
+1605737583.671210 DEBUG: [nlsr.route.Fib] New FIB Entry
+1605737583.671235 DEBUG: [nlsr.route.Fib] Registering prefix: /ndn/c1-site/%C1.Router/cs/c1 faceUri: udp4://10.0.0.13:6363
+1605737583.671366 DEBUG: [nlsr.route.Fib] Scheduling refresh for /ndn/c1-site/%C1.Router/cs/c1 Seq Num: 1 in 3600 seconds
+1605737583.671400 DEBUG: [nlsr.route.NamePrefixTable] Routing entry: /ndn/p2-site/%C1.Router/cs/p2 has changed next-hops.
+1605737583.671420 DEBUG: [nlsr.route.Fib] Fib::update called
+1605737583.671436 DEBUG: [nlsr.route.Fib] New FIB Entry
+1605737583.671459 DEBUG: [nlsr.route.Fib] Registering prefix: /ndn/p2-site/p2 faceUri: udp4://10.0.0.13:6363
+1605737583.671580 DEBUG: [nlsr.route.Fib] Scheduling refresh for /ndn/p2-site/p2 Seq Num: 1 in 3600 seconds
+1605737583.671613 DEBUG: [nlsr.route.Fib] Fib::update called
+1605737583.671630 DEBUG: [nlsr.route.Fib] New FIB Entry
+1605737583.671649 DEBUG: [nlsr.route.RoutingTable] Routing Table:
+  Destination: /ndn/p2-site/%C1.Router/cs/p2
+    NextHop(Uri: udp4://10.0.0.13:6363, Cost: 10)
+  Destination: /ndn/p1-site/%C1.Router/cs/p1
+    NextHop(Uri: udp4://10.0.0.13:6363, Cost: 20)
+  Destination: /ndn/c2-site/%C1.Router/cs/c2
+    NextHop(Uri: udp4://10.0.0.13:6363, Cost: 20)
+  Destination: /ndn/c1-site/%C1.Router/cs/c1
+    NextHop(Uri: udp4://10.0.0.13:6363, Cost: 30)
+1605737583.671678 DEBUG: [nlsr.route.NamePrefixTable] ----------------NPT----------------------
+Name: /ndn/p2-site/%C1.Router/cs/p2
+  Destination: /ndn/p2-site/%C1.Router/cs/p2
+    NextHop(Uri: udp4://10.0.0.13:6363, Cost: 10)
+Name: /ndn/p2-site/p2
+  Destination: /ndn/p2-site/%C1.Router/cs/p2
+    NextHop(Uri: udp4://10.0.0.13:6363, Cost: 10)
+Name: /ndn/c1-site/%C1.Router/cs/c1
+  Destination: /ndn/c1-site/%C1.Router/cs/c1
+    NextHop(Uri: udp4://10.0.0.13:6363, Cost: 30)
+Name: /ndn/c1-site/c1
+  Destination: /ndn/c1-site/%C1.Router/cs/c1
+    NextHop(Uri: udp4://10.0.0.13:6363, Cost: 30)
+Name: /ndn/p1-site/%C1.Router/cs/p1
+  Destination: /ndn/p1-site/%C1.Router/cs/p1
+    NextHop(Uri: udp4://10.0.0.13:6363, Cost: 20)
+Name: /ndn/p1-site/p1
+  Destination: /ndn/p1-site/%C1.Router/cs/p1
+    NextHop(Uri: udp4://10.0.0.13:6363, Cost: 20)
+Name: /ndn/c2-site/%C1.Router/cs/c2
+  Destination: /ndn/c2-site/%C1.Router/cs/c2
+    NextHop(Uri: udp4://10.0.0.13:6363, Cost: 20)
+Name: /ndn/c2-site/c2
+  Destination: /ndn/c2-site/%C1.Router/cs/c2
+    NextHop(Uri: udp4://10.0.0.13:6363, Cost: 20)
+1605737583.671717 DEBUG: [nlsr.route.Fib] -------------------FIB-----------------------------
+1605737583.671731 DEBUG: [nlsr.route.Fib] Name Prefix: /ndn/c1-site/c1
+1605737583.671746 DEBUG: [nlsr.route.Fib] Seq No: 1
+1605737583.671760 DEBUG: [nlsr.route.Fib]     NextHop(Uri: udp4://10.0.0.13:6363, Cost: 30)
+1605737583.671776 DEBUG: [nlsr.route.Fib] Name Prefix: /ndn/c1-site/%C1.Router/cs/c1
+1605737583.671791 DEBUG: [nlsr.route.Fib] Seq No: 1
+1605737583.671804 DEBUG: [nlsr.route.Fib]     NextHop(Uri: udp4://10.0.0.13:6363, Cost: 30)
+1605737583.671819 DEBUG: [nlsr.route.Fib] Name Prefix: /ndn/c2-site/c2
+1605737583.671896 DEBUG: [nlsr.route.Fib] Seq No: 1
+1605737583.671912 DEBUG: [nlsr.route.Fib]     NextHop(Uri: udp4://10.0.0.13:6363, Cost: 20)
+1605737583.671970 DEBUG: [nlsr.route.Fib] Name Prefix: /ndn/c2-site/%C1.Router/cs/c2
+1605737583.671986 DEBUG: [nlsr.route.Fib] Seq No: 1
+1605737583.671998 DEBUG: [nlsr.route.Fib]     NextHop(Uri: udp4://10.0.0.13:6363, Cost: 20)
+1605737583.672012 DEBUG: [nlsr.route.Fib] Name Prefix: /ndn/p1-site/p1
+1605737583.672024 DEBUG: [nlsr.route.Fib] Seq No: 1
+1605737583.672036 DEBUG: [nlsr.route.Fib]     NextHop(Uri: udp4://10.0.0.13:6363, Cost: 20)
+1605737583.672049 DEBUG: [nlsr.route.Fib] Name Prefix: /ndn/p1-site/%C1.Router/cs/p1
+1605737583.672062 DEBUG: [nlsr.route.Fib] Seq No: 1
+1605737583.672090 DEBUG: [nlsr.route.Fib]     NextHop(Uri: udp4://10.0.0.13:6363, Cost: 20)
+1605737583.672105 DEBUG: [nlsr.route.Fib] Name Prefix: /ndn/p2-site/p2
+1605737583.672118 DEBUG: [nlsr.route.Fib] Seq No: 1
+1605737583.672129 DEBUG: [nlsr.route.Fib]     NextHop(Uri: udp4://10.0.0.13:6363, Cost: 10)
+1605737583.672143 DEBUG: [nlsr.route.Fib] Name Prefix: /ndn/p2-site/%C1.Router/cs/p2
+1605737583.672156 DEBUG: [nlsr.route.Fib] Seq No: 1
+1605737583.672167 DEBUG: [nlsr.route.Fib]     NextHop(Uri: udp4://10.0.0.13:6363, Cost: 10)
+1605737583.674269 DEBUG: [nlsr.route.Fib] Successful in name registration: /ndn/p1-site/p1 Face Uri: udp4://10.0.0.13:6363 faceId: 260
+1605737583.675141 DEBUG: [nlsr.route.Fib] Successful in name registration: /ndn/p1-site/%C1.Router/cs/p1 Face Uri: udp4://10.0.0.13:6363 faceId: 260
+1605737583.676667 DEBUG: [nlsr.route.Fib] Successful in name registration: /ndn/c2-site/c2 Face Uri: udp4://10.0.0.13:6363 faceId: 260
+1605737583.677023 DEBUG: [nlsr.route.Fib] Successful in name registration: /ndn/c2-site/%C1.Router/cs/c2 Face Uri: udp4://10.0.0.13:6363 faceId: 260
+1605737583.677365 DEBUG: [nlsr.route.Fib] Successful in name registration: /ndn/c1-site/c1 Face Uri: udp4://10.0.0.13:6363 faceId: 260
+1605737583.677541 DEBUG: [nlsr.route.Fib] Successful in name registration: /ndn/c1-site/%C1.Router/cs/c1 Face Uri: udp4://10.0.0.13:6363 faceId: 260
+1605737583.677807 DEBUG: [nlsr.route.Fib] Successful in name registration: /ndn/p2-site/p2 Face Uri: udp4://10.0.0.13:6363 faceId: 260
+1605737616.624114 DEBUG: [nlsr.HelloProtocol] Interest Received for Name: /ndn/p3-site/%C1.Router/cs/p3/nlsr/INFO/%07%20%08%03ndn%08%07p2-site%08%08%C1.Router%08%02cs%08%02p2
+1605737616.624181 DEBUG: [nlsr.HelloProtocol] Neighbor: /ndn/p2-site/%C1.Router/cs/p2
+1605737616.624364 DEBUG: [nlsr.HelloProtocol] Sending out data for name: /ndn/p3-site/%C1.Router/cs/p3/nlsr/INFO/%07%20%08%03ndn%08%07p2-site%08%08%C1.Router%08%02cs%08%02p2
+1605737617.876559 DEBUG: [nlsr.HelloProtocol] Expressing Interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605737617.876656 DEBUG: [nlsr.HelloProtocol] Sending HELLO interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605737617.907455 DEBUG: [nlsr.HelloProtocol] Received data for INFO(name): /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3/%FD%00%00%01u%DDk%99%DF
+1605737617.907529 DEBUG: [nlsr.HelloProtocol] Data signed with: /ndn/p2-site/%C1.Router/cs/p2/nlsr/KEY/%C4%E5%A4Fp%1DU%B5
+1605737617.907564 DEBUG: [nlsr.HelloProtocol] Data validation successful for INFO(name): /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3/%FD%00%00%01u%DDk%99%DF
+1605737617.907601 DEBUG: [nlsr.HelloProtocol] Neighbor : /ndn/p2-site/%C1.Router/cs/p2
+1605737617.907622 DEBUG: [nlsr.HelloProtocol] Old Status: 1 New Status: 1
+1605737617.907649 DEBUG: [nlsr.route.Fib] Registering prefix: /localhop/ndn/nlsr/sync/%FD%08 faceUri: udp4://10.0.0.13:6363
+1605737617.909416 DEBUG: [nlsr.route.Fib] Successful in name registration: /localhop/ndn/nlsr/sync/%FD%08 Face Uri: udp4://10.0.0.13:6363 faceId: 260
+1605737658.979389 DEBUG: [nlsr.SyncLogicHandler] Update Name: /localhop/ndn/nlsr/LSA/p1-site/%C1.Router/cs/p1/NAME Seq no: 2
+1605737658.979439 DEBUG: [nlsr.SyncLogicHandler] Origin Router of update: /ndn/p1-site/%C1.Router/cs/p1
+1605737658.979460 DEBUG: [nlsr.SyncLogicHandler] Received sync update with higher NAME sequence number than entry in LSDB
+1605737658.979488 DEBUG: [nlsr.Lsdb] Fetching Data for LSA: /localhop/ndn/nlsr/LSA/p1-site/%C1.Router/cs/p1/NAME/%02 Seq number: 2
+1605737658.980762 DEBUG: [nlsr.Lsdb] Interest received for LSA: /localhop/ndn/nlsr/LSA/p1-site/%C1.Router/cs/p1/NAME/%02
+1605737659.116162 DEBUG: [nlsr.Lsdb] Interest received for LSA: /localhop/ndn/nlsr/LSA/p1-site/%C1.Router/cs/p1/NAME/%03
+1605737659.116760 DEBUG: [nlsr.SyncLogicHandler] Update Name: /localhop/ndn/nlsr/LSA/p1-site/%C1.Router/cs/p1/NAME Seq no: 3
+1605737659.116810 DEBUG: [nlsr.SyncLogicHandler] Origin Router of update: /ndn/p1-site/%C1.Router/cs/p1
+1605737659.116829 DEBUG: [nlsr.SyncLogicHandler] Received sync update with higher NAME sequence number than entry in LSDB
+1605737659.116854 DEBUG: [nlsr.Lsdb] Fetching Data for LSA: /localhop/ndn/nlsr/LSA/p1-site/%C1.Router/cs/p1/NAME/%03 Seq number: 3
+1605737659.142979 DEBUG: [nlsr.Lsdb] Received data for LSA interest: /localhop/ndn/nlsr/LSA/p1-site/%C1.Router/cs/p1/NAME/%03
+1605737659.143128 DEBUG: [nlsr.Lsdb] Updating NAME LSA:
+1605737659.143147 DEBUG: [nlsr.Lsdb]     NAME LSA:
+      Origin Router      : /ndn/p1-site/%C1.Router/cs/p1
+      Sequence Number    : 1
+      Expires in         : 3494856 milliseconds
+      Names:
+        Name 0: /ndn/p1-site/p1
+1605737659.143178 DEBUG: [nlsr.route.NamePrefixTable] Adding origin: /ndn/p1-site/%C1.Router/cs/p1 to a new name prefix: /ndnsd/p1/service-info
+1605737659.143195 DEBUG: [nlsr.route.Fib] Fib::update called
+1605737659.143207 DEBUG: [nlsr.route.Fib] New FIB Entry
+1605737659.143236 DEBUG: [nlsr.route.Fib] Registering prefix: /ndnsd/p1/service-info faceUri: udp4://10.0.0.13:6363
+1605737659.143368 DEBUG: [nlsr.route.Fib] Scheduling refresh for /ndnsd/p1/service-info Seq Num: 1 in 3600 seconds
+1605737659.143395 DEBUG: [nlsr.route.NamePrefixTable] Adding origin: /ndn/p1-site/%C1.Router/cs/p1 to a new name prefix: /discovery/printer
+1605737659.143409 DEBUG: [nlsr.route.Fib] Fib::update called
+1605737659.143420 DEBUG: [nlsr.route.Fib] New FIB Entry
+1605737659.143436 DEBUG: [nlsr.route.Fib] Registering prefix: /discovery/printer faceUri: udp4://10.0.0.13:6363
+1605737659.143523 DEBUG: [nlsr.route.Fib] Scheduling refresh for /discovery/printer Seq Num: 1 in 3600 seconds
+1605737659.143549 DEBUG: [nlsr.Lsdb] Updated NAME LSA:
+1605737659.143561 DEBUG: [nlsr.Lsdb]     NAME LSA:
+      Origin Router      : /ndn/p1-site/%C1.Router/cs/p1
+      Sequence Number    : 3
+      Expires in         : 3598856 milliseconds
+      Names:
+        Name 0: /ndn/p1-site/p1
+        Name 1: /ndnsd/p1/service-info
+        Name 2: /discovery/printer
+1605737659.145381 DEBUG: [nlsr.route.Fib] Successful in name registration: /ndnsd/p1/service-info Face Uri: udp4://10.0.0.13:6363 faceId: 260
+1605737659.145839 DEBUG: [nlsr.route.Fib] Successful in name registration: /discovery/printer Face Uri: udp4://10.0.0.13:6363 faceId: 260
+1605737659.989765 DEBUG: [nlsr.Lsdb] Interest received for LSA: /localhop/ndn/nlsr/LSA/p1-site/%C1.Router/cs/p1/NAME/%02
+1605737661.015090 DEBUG: [nlsr.SyncLogicHandler] Update Name: /localhop/ndn/nlsr/LSA/p2-site/%C1.Router/cs/p2/NAME Seq no: 2
+1605737661.015153 DEBUG: [nlsr.SyncLogicHandler] Origin Router of update: /ndn/p2-site/%C1.Router/cs/p2
+1605737661.015189 DEBUG: [nlsr.SyncLogicHandler] Received sync update with higher NAME sequence number than entry in LSDB
+1605737661.015218 DEBUG: [nlsr.Lsdb] Fetching Data for LSA: /localhop/ndn/nlsr/LSA/p2-site/%C1.Router/cs/p2/NAME/%02 Seq number: 2
+1605737661.038761 DEBUG: [nlsr.SyncLogicHandler] Update Name: /localhop/ndn/nlsr/LSA/p2-site/%C1.Router/cs/p2/NAME Seq no: 3
+1605737661.038809 DEBUG: [nlsr.SyncLogicHandler] Origin Router of update: /ndn/p2-site/%C1.Router/cs/p2
+1605737661.038866 DEBUG: [nlsr.SyncLogicHandler] Received sync update with higher NAME sequence number than entry in LSDB
+1605737661.038893 DEBUG: [nlsr.Lsdb] Fetching Data for LSA: /localhop/ndn/nlsr/LSA/p2-site/%C1.Router/cs/p2/NAME/%03 Seq number: 3
+1605737661.061558 DEBUG: [nlsr.Lsdb] Received data for LSA interest: /localhop/ndn/nlsr/LSA/p2-site/%C1.Router/cs/p2/NAME/%03
+1605737661.061922 DEBUG: [nlsr.Lsdb] Updating NAME LSA:
+1605737661.061971 DEBUG: [nlsr.Lsdb]     NAME LSA:
+      Origin Router      : /ndn/p2-site/%C1.Router/cs/p2
+      Sequence Number    : 1
+      Expires in         : 3494938 milliseconds
+      Names:
+        Name 0: /ndn/p2-site/p2
+1605737661.062033 DEBUG: [nlsr.route.NamePrefixTable] Adding origin: /ndn/p2-site/%C1.Router/cs/p2 to a new name prefix: /ndnsd/p2/service-info
+1605737661.062073 DEBUG: [nlsr.route.Fib] Fib::update called
+1605737661.062112 DEBUG: [nlsr.route.Fib] New FIB Entry
+1605737661.062163 DEBUG: [nlsr.route.Fib] Registering prefix: /ndnsd/p2/service-info faceUri: udp4://10.0.0.13:6363
+1605737661.062567 DEBUG: [nlsr.route.Fib] Scheduling refresh for /ndnsd/p2/service-info Seq Num: 1 in 3600 seconds
+1605737661.062632 DEBUG: [nlsr.route.Fib] Fib::update called
+1605737661.062668 DEBUG: [nlsr.route.Fib] Existing FIB Entry
+1605737661.062714 DEBUG: [nlsr.route.Fib] Registering prefix: /discovery/printer faceUri: udp4://10.0.0.13:6363
+1605737661.062876 DEBUG: [nlsr.Lsdb] Updated NAME LSA:
+1605737661.062906 DEBUG: [nlsr.Lsdb]     NAME LSA:
+      Origin Router      : /ndn/p2-site/%C1.Router/cs/p2
+      Sequence Number    : 3
+      Expires in         : 3599937 milliseconds
+      Names:
+        Name 0: /ndn/p2-site/p2
+        Name 1: /ndnsd/p2/service-info
+        Name 2: /discovery/printer
+1605737661.065297 DEBUG: [nlsr.route.Fib] Successful in name registration: /ndnsd/p2/service-info Face Uri: udp4://10.0.0.13:6363 faceId: 260
+1605737661.066087 DEBUG: [nlsr.route.Fib] Successful in name registration: /discovery/printer Face Uri: udp4://10.0.0.13:6363 faceId: 260
+1605737662.017159 DEBUG: [nlsr.Lsdb] Interest received for LSA: /localhop/ndn/nlsr/LSA/p1-site/%C1.Router/cs/p1/NAME/%02
+1605737663.048169 DEBUG: [nlsr.update.PrefixUpdateProcessor] accept /localhost/nlsr/prefix-update/advertise/h%16%07%14%08%09discovery%08%07printer/%00%00%01u%DDlJE/O%1F%F3b%C6%B7%00%90/%16%2B%1B%01%03%1C%26%07%24%08%09localhost%08%08operator%08%03KEY%08%08%A7%11%C1%2B%90%A7QE/%17F0D%02%20%0B%CB8U%13%08%E3%24%E8%F8%14Y%DEX6%CE%10%23i%D5%DC_%A6%F2%D3n%E5%01%A9%00%CC%DC%02%20T%95%A6j%ABA%EE%20%02%D95%CE%98%80%0481%C1%C1%7D%F6%A9j%91Q%CB%FFH%01%BB%2C%5E signer=*
+1605737663.048207  INFO: [nlsr.update.PrefixCommandProcessor] Advertising name: /discovery/printer
+1605737663.048214 DEBUG: [nlsr.SequencingManager] Adj LSA seq no: 1
+1605737663.048217 DEBUG: [nlsr.SequencingManager] Name LSA Seq no: 2
+1605737663.049108 DEBUG: [nlsr.Lsdb] Updating NAME LSA:
+1605737663.049127 DEBUG: [nlsr.Lsdb]     NAME LSA:
+      Origin Router      : /ndn/p3-site/%C1.Router/cs/p3
+      Sequence Number    : 1
+      Expires in         : 3494819 milliseconds
+      Names:
+        Name 0: /ndn/p3-site/p3
+1605737663.049153 DEBUG: [nlsr.Lsdb] Updated NAME LSA:
+1605737663.049156 DEBUG: [nlsr.Lsdb]     NAME LSA:
+      Origin Router      : /ndn/p3-site/%C1.Router/cs/p3
+      Sequence Number    : 2
+      Expires in         : 3599999 milliseconds
+      Names:
+        Name 0: /ndn/p3-site/p3
+        Name 1: /discovery/printer
+1605737663.064220 DEBUG: [nlsr.update.PrefixUpdateProcessor] accept /localhost/nlsr/prefix-update/advertise/h%1B%07%19%08%05ndnsd%08%02p3%08%0Cservice-info/%00%00%01u%DDlJU/%01%8F%1A%B4%91Z%1E%D3/%16%2B%1B%01%03%1C%26%07%24%08%09localhost%08%08operator%08%03KEY%08%08%A7%11%C1%2B%90%A7QE/%17F0D%02%21%00%DE%AD%8AR7%EB%DE%E8%40z%0F%40%17h%F0%AB%AD%3C%A7l%0C%2B%E0V%E3g%E0%5C8%60%81%A2%02%1Fs%3C%EC%C0%3A%F1%2Bd%9DY%DAxUg%18%5B%1B%E9hc%7Diw_%E7%5DY%F6X%D0s signer=*
+1605737663.064284  INFO: [nlsr.update.PrefixCommandProcessor] Advertising name: /ndnsd/p3/service-info
+1605737663.064333 DEBUG: [nlsr.SequencingManager] Adj LSA seq no: 1
+1605737663.064382 DEBUG: [nlsr.SequencingManager] Name LSA Seq no: 3
+1605737663.064579 DEBUG: [nlsr.Lsdb] Updating NAME LSA:
+1605737663.064603 DEBUG: [nlsr.Lsdb]     NAME LSA:
+      Origin Router      : /ndn/p3-site/%C1.Router/cs/p3
+      Sequence Number    : 2
+      Expires in         : 3599983 milliseconds
+      Names:
+        Name 0: /ndn/p3-site/p3
+        Name 1: /discovery/printer
+1605737663.064727 DEBUG: [nlsr.Lsdb] Updated NAME LSA:
+1605737663.064741 DEBUG: [nlsr.Lsdb]     NAME LSA:
+      Origin Router      : /ndn/p3-site/%C1.Router/cs/p3
+      Sequence Number    : 3
+      Expires in         : 3599999 milliseconds
+      Names:
+        Name 0: /ndn/p3-site/p3
+        Name 1: /ndnsd/p3/service-info
+        Name 2: /discovery/printer
+1605737663.072436 DEBUG: [nlsr.Lsdb] Interest received for LSA: /localhop/ndn/nlsr/LSA/p3-site/%C1.Router/cs/p3/NAME/%02
+1605737663.072467 DEBUG: [nlsr.Lsdb] LSA sequence number from interest: 2
+1605737663.072476 DEBUG: [nlsr.Lsdb] /localhop/ndn/nlsr/LSA/p3-site/%C1.Router/cs/p3/NAME/%02?CanBePrefix&MustBeFresh&Nonce=ebf55775 received for NAME
+1605737663.097887 DEBUG: [nlsr.Lsdb] Interest received for LSA: /localhop/ndn/nlsr/LSA/p3-site/%C1.Router/cs/p3/NAME/%03
+1605737663.097918 DEBUG: [nlsr.Lsdb] LSA sequence number from interest: 3
+1605737663.097929 DEBUG: [nlsr.Lsdb] /localhop/ndn/nlsr/LSA/p3-site/%C1.Router/cs/p3/NAME/%03?CanBePrefix&MustBeFresh&Nonce=3e335123 received for NAME
+1605737664.081043 DEBUG: [nlsr.Lsdb] Interest received for LSA: /localhop/ndn/nlsr/LSA/p3-site/%C1.Router/cs/p3/NAME/%02
+1605737664.081087 DEBUG: [nlsr.Lsdb] LSA sequence number from interest: 2
+1605737664.081105 DEBUG: [nlsr.Lsdb] /localhop/ndn/nlsr/LSA/p3-site/%C1.Router/cs/p3/NAME/%02?CanBePrefix&MustBeFresh&Nonce=29edcb2e received for NAME
+1605737666.063738 DEBUG: [nlsr.Lsdb] Interest received for LSA: /localhop/ndn/nlsr/LSA/p1-site/%C1.Router/cs/p1/NAME/%02
+1605737666.075560 DEBUG: [nlsr.Lsdb] Interest received for LSA: /localhop/ndn/nlsr/LSA/p3-site/%C1.Router/cs/p3/NAME/%02
+1605737666.075627 DEBUG: [nlsr.Lsdb] LSA sequence number from interest: 2
+1605737666.075655 DEBUG: [nlsr.Lsdb] /localhop/ndn/nlsr/LSA/p3-site/%C1.Router/cs/p3/NAME/%02?CanBePrefix&MustBeFresh&Nonce=669cd22e received for NAME
+1605737670.092662 DEBUG: [nlsr.Lsdb] Interest received for LSA: /localhop/ndn/nlsr/LSA/p3-site/%C1.Router/cs/p3/NAME/%02
+1605737670.092720 DEBUG: [nlsr.Lsdb] LSA sequence number from interest: 2
+1605737670.092785 DEBUG: [nlsr.Lsdb] /localhop/ndn/nlsr/LSA/p3-site/%C1.Router/cs/p3/NAME/%02?CanBePrefix&MustBeFresh&Nonce=6e9557a3 received for NAME
+1605737674.063327 DEBUG: [nlsr.Lsdb] Interest received for LSA: /localhop/ndn/nlsr/LSA/p1-site/%C1.Router/cs/p1/NAME/%02
+1605737676.679198 DEBUG: [nlsr.HelloProtocol] Interest Received for Name: /ndn/p3-site/%C1.Router/cs/p3/nlsr/INFO/%07%20%08%03ndn%08%07p2-site%08%08%C1.Router%08%02cs%08%02p2
+1605737676.679259 DEBUG: [nlsr.HelloProtocol] Neighbor: /ndn/p2-site/%C1.Router/cs/p2
+1605737676.679387 DEBUG: [nlsr.HelloProtocol] Sending out data for name: /ndn/p3-site/%C1.Router/cs/p3/nlsr/INFO/%07%20%08%03ndn%08%07p2-site%08%08%C1.Router%08%02cs%08%02p2
+1605737677.877794 DEBUG: [nlsr.HelloProtocol] Expressing Interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605737677.877877 DEBUG: [nlsr.HelloProtocol] Sending HELLO interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605737677.901527 DEBUG: [nlsr.HelloProtocol] Received data for INFO(name): /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3/%FD%00%00%01u%DDl%84A
+1605737677.901593 DEBUG: [nlsr.HelloProtocol] Data signed with: /ndn/p2-site/%C1.Router/cs/p2/nlsr/KEY/%C4%E5%A4Fp%1DU%B5
+1605737677.901622 DEBUG: [nlsr.HelloProtocol] Data validation successful for INFO(name): /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3/%FD%00%00%01u%DDl%84A
+1605737677.901655 DEBUG: [nlsr.HelloProtocol] Neighbor : /ndn/p2-site/%C1.Router/cs/p2
+1605737677.901672 DEBUG: [nlsr.HelloProtocol] Old Status: 1 New Status: 1
+1605737677.901694 DEBUG: [nlsr.route.Fib] Registering prefix: /localhop/ndn/nlsr/sync/%FD%08 faceUri: udp4://10.0.0.13:6363
+1605737677.903236 DEBUG: [nlsr.route.Fib] Successful in name registration: /localhop/ndn/nlsr/sync/%FD%08 Face Uri: udp4://10.0.0.13:6363 faceId: 260
+1605737678.111649 DEBUG: [nlsr.Lsdb] Interest received for LSA: /localhop/ndn/nlsr/LSA/p3-site/%C1.Router/cs/p3/NAME/%02
+1605737678.111738 DEBUG: [nlsr.Lsdb] LSA sequence number from interest: 2
+1605737678.111779 DEBUG: [nlsr.Lsdb] /localhop/ndn/nlsr/LSA/p3-site/%C1.Router/cs/p3/NAME/%02?CanBePrefix&MustBeFresh&Nonce=1c3d3243 received for NAME
+1605737690.064572 DEBUG: [nlsr.Lsdb] Interest received for LSA: /localhop/ndn/nlsr/LSA/p1-site/%C1.Router/cs/p1/NAME/%02
+1605737694.112640 DEBUG: [nlsr.Lsdb] Interest received for LSA: /localhop/ndn/nlsr/LSA/p3-site/%C1.Router/cs/p3/NAME/%02
+1605737694.112679 DEBUG: [nlsr.Lsdb] LSA sequence number from interest: 2
+1605737694.112692 DEBUG: [nlsr.Lsdb] /localhop/ndn/nlsr/LSA/p3-site/%C1.Router/cs/p3/NAME/%02?CanBePrefix&MustBeFresh&Nonce=c081d772 received for NAME
+1605737722.053149 DEBUG: [nlsr.Lsdb] Failed to fetch LSA: /localhop/ndn/nlsr/LSA/p1-site/%C1.Router/cs/p1/NAME, Error code: 1, Message: Timeout exceeded
+1605737724.023316 DEBUG: [nlsr.Lsdb] Failed to fetch LSA: /localhop/ndn/nlsr/LSA/p2-site/%C1.Router/cs/p2/NAME, Error code: 1, Message: Timeout exceeded
+1605737736.724021 DEBUG: [nlsr.HelloProtocol] Interest Received for Name: /ndn/p3-site/%C1.Router/cs/p3/nlsr/INFO/%07%20%08%03ndn%08%07p2-site%08%08%C1.Router%08%02cs%08%02p2
+1605737736.724095 DEBUG: [nlsr.HelloProtocol] Neighbor: /ndn/p2-site/%C1.Router/cs/p2
+1605737736.724319 DEBUG: [nlsr.HelloProtocol] Sending out data for name: /ndn/p3-site/%C1.Router/cs/p3/nlsr/INFO/%07%20%08%03ndn%08%07p2-site%08%08%C1.Router%08%02cs%08%02p2
+1605737737.878072 DEBUG: [nlsr.HelloProtocol] Expressing Interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605737737.878153 DEBUG: [nlsr.HelloProtocol] Sending HELLO interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605737737.901804 DEBUG: [nlsr.HelloProtocol] Received data for INFO(name): /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3/%FD%00%00%01u%DDmn%A1
+1605737737.901874 DEBUG: [nlsr.HelloProtocol] Data signed with: /ndn/p2-site/%C1.Router/cs/p2/nlsr/KEY/%C4%E5%A4Fp%1DU%B5
+1605737737.901904 DEBUG: [nlsr.HelloProtocol] Data validation successful for INFO(name): /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3/%FD%00%00%01u%DDmn%A1
+1605737737.901935 DEBUG: [nlsr.HelloProtocol] Neighbor : /ndn/p2-site/%C1.Router/cs/p2
+1605737737.901952 DEBUG: [nlsr.HelloProtocol] Old Status: 1 New Status: 1
+1605737737.901973 DEBUG: [nlsr.route.Fib] Registering prefix: /localhop/ndn/nlsr/sync/%FD%08 faceUri: udp4://10.0.0.13:6363
+1605737737.903334 DEBUG: [nlsr.route.Fib] Successful in name registration: /localhop/ndn/nlsr/sync/%FD%08 Face Uri: udp4://10.0.0.13:6363 faceId: 260
+1605737796.723715 DEBUG: [nlsr.HelloProtocol] Interest Received for Name: /ndn/p3-site/%C1.Router/cs/p3/nlsr/INFO/%07%20%08%03ndn%08%07p2-site%08%08%C1.Router%08%02cs%08%02p2
+1605737796.723787 DEBUG: [nlsr.HelloProtocol] Neighbor: /ndn/p2-site/%C1.Router/cs/p2
+1605737796.724022 DEBUG: [nlsr.HelloProtocol] Sending out data for name: /ndn/p3-site/%C1.Router/cs/p3/nlsr/INFO/%07%20%08%03ndn%08%07p2-site%08%08%C1.Router%08%02cs%08%02p2
+1605737797.882675 DEBUG: [nlsr.HelloProtocol] Expressing Interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605737797.882853 DEBUG: [nlsr.HelloProtocol] Sending HELLO interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605737797.907736 DEBUG: [nlsr.HelloProtocol] Received data for INFO(name): /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3/%FD%00%00%01u%DDnY%07
+1605737797.907777 DEBUG: [nlsr.HelloProtocol] Data signed with: /ndn/p2-site/%C1.Router/cs/p2/nlsr/KEY/%C4%E5%A4Fp%1DU%B5
+1605737797.907802 DEBUG: [nlsr.HelloProtocol] Data validation successful for INFO(name): /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3/%FD%00%00%01u%DDnY%07
+1605737797.907825 DEBUG: [nlsr.HelloProtocol] Neighbor : /ndn/p2-site/%C1.Router/cs/p2
+1605737797.907839 DEBUG: [nlsr.HelloProtocol] Old Status: 1 New Status: 1
+1605737797.907857 DEBUG: [nlsr.route.Fib] Registering prefix: /localhop/ndn/nlsr/sync/%FD%08 faceUri: udp4://10.0.0.13:6363
+1605737797.909206 DEBUG: [nlsr.route.Fib] Successful in name registration: /localhop/ndn/nlsr/sync/%FD%08 Face Uri: udp4://10.0.0.13:6363 faceId: 260
+1605737856.724269 DEBUG: [nlsr.HelloProtocol] Interest Received for Name: /ndn/p3-site/%C1.Router/cs/p3/nlsr/INFO/%07%20%08%03ndn%08%07p2-site%08%08%C1.Router%08%02cs%08%02p2
+1605737856.724309 DEBUG: [nlsr.HelloProtocol] Neighbor: /ndn/p2-site/%C1.Router/cs/p2
+1605737856.724476 DEBUG: [nlsr.HelloProtocol] Sending out data for name: /ndn/p3-site/%C1.Router/cs/p3/nlsr/INFO/%07%20%08%03ndn%08%07p2-site%08%08%C1.Router%08%02cs%08%02p2
+1605737857.883415 DEBUG: [nlsr.HelloProtocol] Expressing Interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605737857.883466 DEBUG: [nlsr.HelloProtocol] Sending HELLO interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605737857.906741 DEBUG: [nlsr.HelloProtocol] Received data for INFO(name): /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3/%FD%00%00%01u%DDoCg
+1605737857.906785 DEBUG: [nlsr.HelloProtocol] Data signed with: /ndn/p2-site/%C1.Router/cs/p2/nlsr/KEY/%C4%E5%A4Fp%1DU%B5
+1605737857.906804 DEBUG: [nlsr.HelloProtocol] Data validation successful for INFO(name): /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3/%FD%00%00%01u%DDoCg
+1605737857.906822 DEBUG: [nlsr.HelloProtocol] Neighbor : /ndn/p2-site/%C1.Router/cs/p2
+1605737857.906827 DEBUG: [nlsr.HelloProtocol] Old Status: 1 New Status: 1
+1605737857.906839 DEBUG: [nlsr.route.Fib] Registering prefix: /localhop/ndn/nlsr/sync/%FD%08 faceUri: udp4://10.0.0.13:6363
+1605737857.908591 DEBUG: [nlsr.route.Fib] Successful in name registration: /localhop/ndn/nlsr/sync/%FD%08 Face Uri: udp4://10.0.0.13:6363 faceId: 260

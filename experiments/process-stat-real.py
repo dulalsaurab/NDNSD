@@ -6,7 +6,12 @@ from collections import defaultdict
 import csv
 import numpy as np
 
+<<<<<<< HEAD
 rootDir = "/home/vagrant/mini-ndn/ndn-src/ndnsd/experiments/result/loss-experiment/8_percent"
+=======
+#rootDir = "/home/vagrant/mini-ndn/ndn-src/ndnsd/experiments/result/loss-experiment/10_percent"
+rootDir = "/home/mini-ndn/europa_bkp/mini-ndn/sdulal/mini-ndn/ndn-src/NDNSD/experiments/result/loss-experiment/10_percent"
+>>>>>>> 45a65842df32b16fff169eb44943445dfa1bddb5
 # rootDir = "real-exp/after_timesync/congestion/producer++/3c4p-500ms"
 
 topo = {

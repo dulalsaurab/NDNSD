@@ -1,0 +1,156 @@
+1605735184.864785  INFO: [nlsr.ConfParameter] Router Name: /%C1.Router/cs/p3
+1605735184.864811  INFO: [nlsr.ConfParameter] Site Name: /p3-site
+1605735184.864824  INFO: [nlsr.ConfParameter] Network: /ndn
+1605735184.864826  INFO: [nlsr.ConfParameter] Router Prefix: /ndn/p3-site/%C1.Router/cs/p3
+1605735184.864828  INFO: [nlsr.ConfParameter] Sync Prefix: /localhop/ndn/nlsr/sync/%FD%08
+1605735184.864830  INFO: [nlsr.ConfParameter] Sync LSA prefix: /localhop/ndn/nlsr/LSA
+1605735184.864832  INFO: [nlsr.ConfParameter] Hello Interest retry number: 3
+1605735184.864835  INFO: [nlsr.ConfParameter] Hello Interest resend second: 1
+1605735184.864837  INFO: [nlsr.ConfParameter] Info Interest interval: 60
+1605735184.864839  INFO: [nlsr.ConfParameter] LSA refresh time: 1800
+1605735184.864840  INFO: [nlsr.ConfParameter] FIB Entry refresh time: 3600
+1605735184.864842  INFO: [nlsr.ConfParameter] LSA Interest lifetime: 4 seconds
+1605735184.864855  INFO: [nlsr.ConfParameter] Router dead interval: 3600
+1605735184.864859  INFO: [nlsr.ConfParameter] Max Faces Per Prefix: 3
+1605735184.864861  INFO: [nlsr.ConfParameter] State Directory: /tmp/minindn/p3/log
+1605735184.864863  INFO: [nlsr.ConfParameter] Adjacency LSA build interval:  10
+1605735184.864864  INFO: [nlsr.ConfParameter] Routing calculation interval:  15
+1605735184.864866 DEBUG: [nlsr.ConfParameter] Initializing Key ...
+1605735184.865049  WARN: [nlsr.ConfParameter] Identity /ndn/p3-site/%C1.Router/cs/p3/nlsr does not exist
+1605735184.878685 ERROR: [nlsr.ConfParameter] Router's Identity /ndn/p3-site/%C1.Router/cs/p3 does not exist, NLSR is running without security. If security is enabled in the configuration, NLSR will not converge.
+1605735184.878742 DEBUG: [nlsr.SyncProtocolAdapter] Using PSync
+1605735184.880060 DEBUG: [nlsr.SequencingManager] Seq File Name: /tmp/minindn/p3/log/nlsrSeqNo.txt
+1605735184.880088 DEBUG: [nlsr.SequencingManager] Adj LSA seq no: 0
+1605735184.880091 DEBUG: [nlsr.SequencingManager] Name LSA Seq no: 0
+1605735184.880118 DEBUG: [nlsr.update.PrefixUpdateProcessor] Setting dispatcher to capture Interests for: /localhost/nlsr/prefix-update
+1605735184.880150 DEBUG: [nlsr.Nlsr] Initializing Nlsr
+1605735184.880655 DEBUG: [nlsr.Nlsr] Default NLSR identity: /ndn/p3-site/%C1.Router/cs/p3/nlsr
+1605735184.880675 DEBUG: [nlsr.Nlsr] Setting interest filter for Hello interest: /ndn/p3-site/%C1.Router/cs/p3/nlsr/INFO
+1605735184.881069 DEBUG: [nlsr.Nlsr] Setting interest filter for LsaPrefix: /localhop/ndn/nlsr/LSA
+1605735184.881223 DEBUG: [nlsr.Nlsr] Enabling incoming face id indication for local face.
+1605735184.881463 DEBUG: [nlsr.AdjacencyList] -------Adjacency List--------
+1605735184.881474 DEBUG: [nlsr.AdjacencyList] Adjacent: /ndn/p2-site/%C1.Router/cs/p2
+		Connecting FaceUri: udp4://10.0.0.13:6363
+		Link cost: 10
+		Status: 0
+		Interest Timed Out: 0
+1605735184.881491 DEBUG: [nlsr.Nlsr] Name prefix list: {
+/ndn/p3-site/p3
+Sources:
+  
+}
+1605735184.881497 DEBUG: [nlsr.SequencingManager] Adj LSA seq no: 0
+1605735184.881505 DEBUG: [nlsr.SequencingManager] Name LSA Seq no: 1
+1605735184.881643 DEBUG: [nlsr.Lsdb] Adding NAME LSA
+1605735184.881657 DEBUG: [nlsr.Lsdb]     NAME LSA:
+      Origin Router      : /ndn/p3-site/%C1.Router/cs/p3
+      Sequence Number    : 1
+      Expires in         : 3599999 milliseconds
+      Names:
+        Name 0: /ndn/p3-site/p3
+1605735184.885779 DEBUG: [nlsr.Nlsr] Successfully registered prefix: /ndn/p3-site/%C1.Router/cs/p3/nlsr/INFO
+1605735184.886482 DEBUG: [nlsr.route.Fib] Successfully set strategy choice: /localhost/nfd/strategy/multicast/%FD%03 for name: /localhop/ndn/nlsr/LSA
+1605735184.886969 DEBUG: [nlsr.route.Fib] Successfully set strategy choice: /localhost/nfd/strategy/multicast/%FD%03 for name: /localhop/ndn/nlsr/sync/%FD%08
+1605735184.887278 DEBUG: [nlsr.Nlsr] Successfully enabled incoming face id indicationfor face id 262
+1605735184.887573 DEBUG: [nlsr.Nlsr] Processing face dataset
+1605735184.887582 DEBUG: [nlsr.Nlsr] FaceUri: udp4://10.0.0.13:6363 FaceId: 261
+1605735184.887587 DEBUG: [nlsr.route.Fib] Registering prefix: /ndn/p2-site/%C1.Router/cs/p2 faceUri: udp4://10.0.0.13:6363
+1605735184.887701 DEBUG: [nlsr.route.Fib] Registering prefix: /localhop/ndn/nlsr/LSA faceUri: udp4://10.0.0.13:6363
+1605735184.887783 DEBUG: [nlsr.Nlsr] Scheduling Dataset Fetch in 3600 seconds
+1605735184.888027 DEBUG: [nlsr.Nlsr] Successfully registered prefix: /localhop/ndn/nlsr/LSA
+1605735184.888145 DEBUG: [nlsr.Nlsr] Successfully registered prefix: /localhost/nlsr
+1605735184.888355 DEBUG: [nlsr.Nlsr] Successfully registered prefix: /ndn/p3-site/%C1.Router/cs/p3/nlsr
+1605735184.888388 DEBUG: [nlsr.CertificateStore] KEY prefix: /ndn/p3-site/%C1.Router/cs/p3/nlsr/KEY registration is successful.
+1605735184.888504 DEBUG: [nlsr.CertificateStore] KEY prefix: /ndn/p3-site/%C1.Router/cs/p3/KEY registration is successful.
+1605735184.888616 DEBUG: [nlsr.CertificateStore] KEY prefix: /ndn/p3-site/%C1.Operator registration is successful.
+1605735184.888653 DEBUG: [nlsr.CertificateStore] KEY prefix: /ndn/p3-site/KEY registration is successful.
+1605735184.888690 DEBUG: [nlsr.route.Fib] Successful in name registration: /ndn/p2-site/%C1.Router/cs/p2 Face Uri: udp4://10.0.0.13:6363 faceId: 261
+1605735184.888706 DEBUG: [nlsr.HelloProtocol] Expressing Interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605735184.888719 DEBUG: [nlsr.HelloProtocol] Sending HELLO interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605735184.889721 DEBUG: [nlsr.route.Fib] Successful in name registration: /localhop/ndn/nlsr/LSA Face Uri: udp4://10.0.0.13:6363 faceId: 261
+1605735187.044416 DEBUG: [nlsr.HelloProtocol] Interest timed out for Name: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605735187.044498 DEBUG: [nlsr.HelloProtocol] Neighbor: /ndn/p2-site/%C1.Router/cs/p2
+1605735187.044506 DEBUG: [nlsr.HelloProtocol] Status: 0
+1605735187.044510 DEBUG: [nlsr.HelloProtocol] Info Interest Timed out: 1
+1605735187.044532 DEBUG: [nlsr.HelloProtocol] Resending interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605735187.044547 DEBUG: [nlsr.HelloProtocol] Expressing Interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605735188.044843 DEBUG: [nlsr.HelloProtocol] Interest timed out for Name: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605735188.044877 DEBUG: [nlsr.HelloProtocol] Neighbor: /ndn/p2-site/%C1.Router/cs/p2
+1605735188.044884 DEBUG: [nlsr.HelloProtocol] Status: 0
+1605735188.044887 DEBUG: [nlsr.HelloProtocol] Info Interest Timed out: 2
+1605735188.044897 DEBUG: [nlsr.HelloProtocol] Resending interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605735188.044904 DEBUG: [nlsr.HelloProtocol] Expressing Interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605735189.061315 DEBUG: [nlsr.HelloProtocol] Interest timed out for Name: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605735189.061371 DEBUG: [nlsr.HelloProtocol] Neighbor: /ndn/p2-site/%C1.Router/cs/p2
+1605735189.061381 DEBUG: [nlsr.HelloProtocol] Status: 0
+1605735189.061386 DEBUG: [nlsr.HelloProtocol] Info Interest Timed out: 3
+1605735189.061401 DEBUG: [nlsr.HelloProtocol] Resending interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605735189.061410 DEBUG: [nlsr.HelloProtocol] Expressing Interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605735190.064659 DEBUG: [nlsr.HelloProtocol] Interest timed out for Name: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605735190.064706 DEBUG: [nlsr.HelloProtocol] Neighbor: /ndn/p2-site/%C1.Router/cs/p2
+1605735190.064713 DEBUG: [nlsr.HelloProtocol] Status: 0
+1605735190.064716 DEBUG: [nlsr.HelloProtocol] Info Interest Timed out: 4
+1605735244.889975 DEBUG: [nlsr.HelloProtocol] Expressing Interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605735244.890013 DEBUG: [nlsr.HelloProtocol] Sending HELLO interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605735245.902643 DEBUG: [nlsr.HelloProtocol] Interest timed out for Name: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605735245.902703 DEBUG: [nlsr.HelloProtocol] Neighbor: /ndn/p2-site/%C1.Router/cs/p2
+1605735245.902715 DEBUG: [nlsr.HelloProtocol] Status: 0
+1605735245.902720 DEBUG: [nlsr.HelloProtocol] Info Interest Timed out: 5
+1605735300.049396 DEBUG: [nlsr.update.PrefixUpdateProcessor] accept /localhost/nlsr/prefix-update/advertise/h%16%07%14%08%09discovery%08%07printer/%00%00%01u%DDH%3B%CF/%0B%CAz%B2%EEZ%A1%DF/%16%2B%1B%01%03%1C%26%07%24%08%09localhost%08%08operator%08%03KEY%08%08%17%A6%80Om%0F%F0%60/%17F0D%02%20H%97%3B%C3%09%21Ow%84Q%B3%F9%F1e%7C%B4%F4%06%AA%F3%01%F5%FD9%F1%7Ds%C6p%E8%E5R%02%20Tu%FFD%805%E9k%FA%84%03h%86%06%DCI%1Bbi%0A%123%92t%FD%25%5B%16%F1%B0H%13 signer=*
+1605735300.049473  INFO: [nlsr.update.PrefixCommandProcessor] Advertising name: /discovery/printer
+1605735300.049482 DEBUG: [nlsr.SequencingManager] Adj LSA seq no: 0
+1605735300.049485 DEBUG: [nlsr.SequencingManager] Name LSA Seq no: 2
+1605735300.049717 DEBUG: [nlsr.Lsdb] Updating NAME LSA:
+1605735300.049730 DEBUG: [nlsr.Lsdb]     NAME LSA:
+      Origin Router      : /ndn/p3-site/%C1.Router/cs/p3
+      Sequence Number    : 1
+      Expires in         : 3484831 milliseconds
+      Names:
+        Name 0: /ndn/p3-site/p3
+1605735300.049757 DEBUG: [nlsr.Lsdb] Updated NAME LSA:
+1605735300.049763 DEBUG: [nlsr.Lsdb]     NAME LSA:
+      Origin Router      : /ndn/p3-site/%C1.Router/cs/p3
+      Sequence Number    : 2
+      Expires in         : 3599999 milliseconds
+      Names:
+        Name 0: /ndn/p3-site/p3
+        Name 1: /discovery/printer
+1605735300.064949 DEBUG: [nlsr.update.PrefixUpdateProcessor] accept /localhost/nlsr/prefix-update/advertise/h%1B%07%19%08%05ndnsd%08%02p3%08%0Cservice-info/%00%00%01u%DDH%3B%DF/%FC%C5%A3U%25B%40%9C/%16%2B%1B%01%03%1C%26%07%24%08%09localhost%08%08operator%08%03KEY%08%08%17%A6%80Om%0F%F0%60/%17G0E%02%20%07%05q%3E%EES%26%00%AC%00%9Emsjj%87%A0%23m%99%A5%FDK%C8iO%DB%16%C4%84%95z%02%21%00%F3%175%C0%83g%22%5B%83%D3H%BC%85%FC%C3C%15l%F5%D1%3A%A2K%A1%A3%12%10%E8.%0EoR signer=*
+1605735300.064986  INFO: [nlsr.update.PrefixCommandProcessor] Advertising name: /ndnsd/p3/service-info
+1605735300.064996 DEBUG: [nlsr.SequencingManager] Adj LSA seq no: 0
+1605735300.064998 DEBUG: [nlsr.SequencingManager] Name LSA Seq no: 3
+1605735300.065201 DEBUG: [nlsr.Lsdb] Updating NAME LSA:
+1605735300.065212 DEBUG: [nlsr.Lsdb]     NAME LSA:
+      Origin Router      : /ndn/p3-site/%C1.Router/cs/p3
+      Sequence Number    : 2
+      Expires in         : 3599984 milliseconds
+      Names:
+        Name 0: /ndn/p3-site/p3
+        Name 1: /discovery/printer
+1605735300.065237 DEBUG: [nlsr.Lsdb] Updated NAME LSA:
+1605735300.065239 DEBUG: [nlsr.Lsdb]     NAME LSA:
+      Origin Router      : /ndn/p3-site/%C1.Router/cs/p3
+      Sequence Number    : 3
+      Expires in         : 3599999 milliseconds
+      Names:
+        Name 0: /ndn/p3-site/p3
+        Name 1: /ndnsd/p3/service-info
+        Name 2: /discovery/printer
+1605735304.890365 DEBUG: [nlsr.HelloProtocol] Expressing Interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605735304.890425 DEBUG: [nlsr.HelloProtocol] Sending HELLO interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605735305.890979 DEBUG: [nlsr.HelloProtocol] Interest timed out for Name: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605735305.891019 DEBUG: [nlsr.HelloProtocol] Neighbor: /ndn/p2-site/%C1.Router/cs/p2
+1605735305.891027 DEBUG: [nlsr.HelloProtocol] Status: 0
+1605735305.891031 DEBUG: [nlsr.HelloProtocol] Info Interest Timed out: 6
+1605735364.891160 DEBUG: [nlsr.HelloProtocol] Expressing Interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605735364.891232 DEBUG: [nlsr.HelloProtocol] Sending HELLO interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605735365.891645 DEBUG: [nlsr.HelloProtocol] Interest timed out for Name: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605735365.891692 DEBUG: [nlsr.HelloProtocol] Neighbor: /ndn/p2-site/%C1.Router/cs/p2
+1605735365.891703 DEBUG: [nlsr.HelloProtocol] Status: 0
+1605735365.891708 DEBUG: [nlsr.HelloProtocol] Info Interest Timed out: 7
+1605735424.891816 DEBUG: [nlsr.HelloProtocol] Expressing Interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605735424.891865 DEBUG: [nlsr.HelloProtocol] Sending HELLO interest: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605735425.892628 DEBUG: [nlsr.HelloProtocol] Interest timed out for Name: /ndn/p2-site/%C1.Router/cs/p2/nlsr/INFO/%07%20%08%03ndn%08%07p3-site%08%08%C1.Router%08%02cs%08%02p3
+1605735425.892683 DEBUG: [nlsr.HelloProtocol] Neighbor: /ndn/p2-site/%C1.Router/cs/p2
+1605735425.892693 DEBUG: [nlsr.HelloProtocol] Status: 0
+1605735425.892698 DEBUG: [nlsr.HelloProtocol] Info Interest Timed out: 8

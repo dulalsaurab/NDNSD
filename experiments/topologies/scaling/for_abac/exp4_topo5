@@ -1,0 +1,63 @@
+[nodes]
+r1: _ radius=0.5 angle=2.64159265359
+r2: _ radius=0.4 angle=1.47079632679
+r3: _ radius=0.6 angle=1.67079632679
+r4: _ radius=0.7 angle=1.77079632679
+c1: _ radius=0.8 angle=1.87079632679
+c2: _ radius=0.9 angle=1.97079632679
+c3: _ radius=3 angle=3.22435678964
+c4: _ radius=10.3354428445 angle=1.12640207075
+c5: _ radius=14.3378634978 angle=2.99956859362
+c6: _ radius=16.2305391314 angle=2.97033285094
+c7: _ radius=11.5531281288 angle=2.98403796376
+c8: _ radius=29.2553552716 angle=2.62295081967
+c9: _ radius=15.264773513 angle=2.98360655738
+c10: _ radius=17.7738038607 angle=2.98018269082
+c11: _ radius=16.206035855 angle=2.62083
+c12: _ radius=19.6533436173 angle=3.64135462555
+c13: _ radius=19.9001283692 angle=2.13894230769
+c14: _ radius=13.4257788269 angle=2.97670405522
+c15: _ radius=12.0281644432 angle=3.11561691113
+c16: _ radius=19.3573834399 angle=3.53687143598
+c17: _ radius=13.5903793307 angle=1.1393442623
+c18: _ radius=11.1495655496 angle=2.87016
+c19: _ radius=16.5866430024 angle=2.99911
+c20: _ radius=12.8769009681 angle=3.63761863676
+c21: _ radius=19.1697680538 angle=2.62274588692
+c22: _ radius=12.0148443703 angle=2.4603106126
+c23: _ radius=11.1495655496 angle=2.87015
+c24: _ radius=19.0473935894 angle=2.96488127257
+c25: _ radius=2.9444389791664403 angle=1.13378525525
+p1: _ radius=0.7 angle=3.22435678964
+
+[links]
+r1:r2 delay=10ms
+r2:r3 delay=10ms
+r3:r4 delay=10ms
+r1:r4 delay=10ms
+p1:r1 delay=5ms
+c1:r2 delay=5ms
+c2:r2 delay=5ms
+c3:r2 delay=5ms
+c4:r2 delay=5ms   
+c5:r2 delay=5ms
+c6:r2 delay=5ms
+c7:r2 delay=5ms
+c8:r2 delay=5ms
+c9:r3 delay=5ms
+c10:r3 delay=5ms
+c11:r3 delay=5ms
+c12:r3 delay=5ms
+c13:r3 delay=5ms
+c14:r3 delay=5ms
+c15:r3 delay=5ms
+c16:r3 delay=5ms
+c17:r4 delay=5ms
+c18:r4 delay=5ms
+c19:r4 delay=5ms
+c20:r4 delay=5ms
+c21:r4 delay=5ms
+c22:r4 delay=5ms
+c23:r4 delay=5ms
+c24:r4 delay=5ms
+c25:r3 delay=5ms

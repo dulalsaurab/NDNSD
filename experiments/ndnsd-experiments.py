@@ -40,8 +40,13 @@ class NDNSDExperiment():
   def start(self):
     self.ndn.start()
     time.sleep(2)
+<<<<<<< HEAD
     self.nfds = AppManager(self.ndn, self.ndn.net.hosts, Nfd, logLevel='DEBUG')
     self.nlsrs = AppManager(self.ndn, self.ndn.net.hosts, Nlsr, logLevel='DEBUG')
+=======
+    AppManager(self.ndn, self.ndn.net.hosts, Nfd, logLevel='DEBUG')
+    AppManager(self.ndn, self.ndn.net.hosts, Nlsr, logLevel='DEBUG')
+>>>>>>> 45a65842df32b16fff169eb44943445dfa1bddb5
     time.sleep(100)
     # for host in self.ndn.net.hosts:
     #   host.cmd('tshark -o ip.defragment:TRUE -o ip.check_checksum:FALSE -ni any -f "udp port 6363" -w {}.pcap &> /dev/null &'
@@ -81,19 +86,29 @@ class NDNSDExperiment():
       # uncomment to enable sync log
       cmd = 'export NDN_LOG=ndnsd.*=TRACE' #:psync.*=TRACE:sync.*=TRACE'
       consumer.cmd(cmd)
-
-      # set multi-cast strategy for sync prefix
-      # consumer.cmd('nlsrc advertise {}'.format("/discovery/printer"))
-      # time.sleep(1)
-      # Nfdc.setStrategy(consumer, '/discovery/printer', Nfdc.STRATEGY_MULTICAST)
-      # time.sleep(1)
-
       cmd = 'ndnsd-consumer -s {} -c 1 -p 1 &> {}/{}/consumer.log &'.format(self.consumers[cName], self.args.workDir, cName)
       consumer.cmd(cmd)
+<<<<<<< HEAD
       time.sleep(2)
 
 def partitionExperiment():
   pass
+=======
+      time.sleep(10)
+# type = C or P for consumer and producer respectively
+# count = how many?
+def generateNode(type, count):
+    nodes = dict()
+    if type == 'C':
+      for c in range(0, count):
+        name = 'c{}'.format(c+1)
+        nodes[name] = 'printer'
+    elif type == 'P':
+      for c in range(0, count):
+        name = 'p{}'.format(c+1)
+        nodes[name] = ['printer', 1000]
+    return nodes
+>>>>>>> 45a65842df32b16fff169eb44943445dfa1bddb5
 
 if __name__ == '__main__':
     setLogLevel('info')

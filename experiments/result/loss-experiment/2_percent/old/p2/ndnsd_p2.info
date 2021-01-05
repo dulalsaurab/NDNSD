@@ -1,0 +1,12 @@
+required
+{
+    serviceName printer
+    appPrefix /ndnsd/p2/service-info
+    lifetime 1
+}
+details
+{
+    description "repo to insert sensor data"
+    appPrefix /repo/r1
+    servedPrefix /prefix
+}
