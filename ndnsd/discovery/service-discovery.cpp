@@ -198,14 +198,15 @@ ServiceDiscovery::processInterest(const ndn::Name& name, const ndn::Interest& in
     // if change is detected, call doUpdate to notify sync about the update
     doUpdate(m_producerState.applicationPrefix);
     // send back the response
-    static const std::string content("Update Successful");
+    // static const std::string content("Update Successful");
     // Create Data packet
-    ndn::Data data(interest.getName());
-    data.setFreshnessPeriod(1_s);
-    data.setContent(reinterpret_cast<const uint8_t*>(content.data()), content.size());
+    // ndn::Data data(interest.getName());
+    // data.setFreshnessPeriod(1_s);
+    // data.setContent(reinterpret_cast<const uint8_t*>(content.data()), content.size());
 
-    m_keyChain.sign(data);
-    m_face.put(data);
+    // m_keyChain.sign(data);
+    // m_face.put(data);
+    NDN_LOG_INFO("Reload completed");
     NDN_LOG_DEBUG("Data sent for reload interest :" << interest.getName());
   }
   else
@@ -230,6 +231,15 @@ ServiceDiscovery::sendData(const ndn::Name& name)
   m_keyChain.sign(replyData);
   m_face.put(replyData);
   NDN_LOG_DEBUG("Data sent for :" << name);
+}
+
+void
+ServiceDiscovery::reloadProducer()
+{
+  NDN_LOG_INFO("Receive request to reload service");
+  setUpdateProducerState(true);
+  doUpdate(m_producerState.applicationPrefix);
+  NDN_LOG_INFO("Reload completed");
 }
 
 void

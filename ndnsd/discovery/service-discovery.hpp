@@ -185,6 +185,9 @@ public:
   {
     return m_syncProtocol;
   }
+  
+   void
+   reloadProducer();
 
   /*
    @brief Process Type Flags send by consumer and producer application.

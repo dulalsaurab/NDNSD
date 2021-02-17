@@ -54,7 +54,7 @@ class NDNSDExperiment():
     self.ndn.start()
     time.sleep(5)
     self.setMTUsize(9000)
-    nfds = AppManager(self.ndn, self.ndn.net.hosts, Nfd, logLevel='NONE')
+    nfds = AppManager(self.ndn, self.ndn.net.hosts, Nfd, logLevel='DEBUG')
     Popen(['cp', 'test.info', '/usr/local/etc/ndn/ndnsd_default.info'], stdout=PIPE, stderr=PIPE).communicate()
 
   def setMTUsize(self, mtu):
@@ -78,7 +78,7 @@ class NDNSDExperiment():
       time.sleep(0.1)
 
       # uncomment to enable sync log
-      cmd = 'export NDN_LOG=ndnsd.*=NONE' #:psync.*=TRACE:sync.*=NONE'
+      cmd = 'export NDN_LOG=ndnsd.*=TRACE:psync.*=TRACE:sync.*=NONE'
       host.cmd(cmd)
       cmd = 'ndnsd-producer {} 1 &> {}/{}/producer.log &'.format(hostInfoFile, self.args.workDir, hostName)
       host.cmd(cmd)
@@ -90,7 +90,7 @@ class NDNSDExperiment():
       print ("Consumer Name: ", consumer.name)
       cName = consumer.name
       # uncomment to enable sync log
-      cmd = 'export NDN_LOG=ndnsd.*=NONE' #:psync.*=TRACE:sync.*=TRACE'
+      cmd = 'export NDN_LOG=ndnsd.*=TRACE:psync.*=TRACE:sync.*=TRACE'
       consumer.cmd(cmd)
       cmd = 'ndnsd-consumer -s {} &> {}/{}/consumer.log -c 1 -p 1 &'.format(self.consumers[cName], self.args.workDir, cName)
       consumer.cmd(cmd)
@@ -108,7 +108,7 @@ def generateNode(type, count):
     elif type == 'P':
       for c in range(0, count):
         name = 'p{}'.format(c+1)
-        nodes[name] = ['printer', 1000]
+        nodes[name] = ['printer', 100]
     return nodes
 
 if __name__ == '__main__':
@@ -117,8 +117,8 @@ if __name__ == '__main__':
     ndn = Minindn()
     producers = dict()
     consumers = dict()
-    producers = generateNode('P', 16)
-    consumers = generateNode('C', 48)
+    producers = generateNode('P', 3)
+    consumers = generateNode('C', 1)
     print(consumers, producers)
     exp = NDNSDExperiment(ndn, producers, consumers)
 
@@ -143,10 +143,8 @@ if __name__ == '__main__':
       Nfdc.setStrategy(host, '/discovery/printer', Nfdc.STRATEGY_MULTICAST)
       time.sleep(1)
 
-    print ("Reached here ...")
-    setTsharkLog(ndn)
-    time.sleep(1)
-    print ("reached here ....2")
+    #setTsharkLog(ndn)
+    #time.sleep(1)
 
     # need to run reload at producers node
     print("Staring experiment, i.e. reloading producers, approximate time to complete: {} seconds".format(2*(numberOfUpdates + jitter)))

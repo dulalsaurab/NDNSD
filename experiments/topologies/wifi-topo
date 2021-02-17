@@ -1,12 +1,6 @@
 [stations]
 c1: range=20
-c2: range=15
-c3: range=30
-p1: range=35
-p2: range=40
-p3: range=40
-p4: range=45
-p5: range=23		
+p1: range=23		
 
 [cars]
 
@@ -15,10 +9,4 @@ ap1: position=50,50,50 range=50
 
 [links]
 p1:ap1 delay=10ms
-p2:ap1 delay=10ms
-p3:ap1 delay=10ms
-p4:ap1 delay=10ms
-p5:ap1 delay=10ms
 c1:ap1 delay=10ms
-c2:ap1 delay=10ms
-c3:ap1 delay=10ms

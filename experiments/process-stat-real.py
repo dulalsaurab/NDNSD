@@ -6,7 +6,7 @@ from collections import defaultdict
 import csv
 import numpy as np
 
-#rootDir = "/home/vagrant/mini-ndn/ndn-src/ndnsd/experiments/result/loss-experiment/10_percent"
+#rootDir = "sync-delay-investigation/run-dec10-1/"
 # rootDir = "/home/mini-ndn/europa_bkp/mini-ndn/sdulal/mini-ndn/ndn-src/NDNSD/experiments/result/loss-experiment/10_percent"
 rootDir = "/tmp/minindn/"
 

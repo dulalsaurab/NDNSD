@@ -39,7 +39,6 @@ const char* NDNSD_RELOAD_PREFIX = "/ndnsd/reload";
 const int DEFAULT_RELOAD_COUNT = -1234;
 const int ONE_TIME_RELOAD = 1;
 
-
 static void
 usage(const boost::program_options::options_description& options)
 {
@@ -67,6 +66,20 @@ public:
     std::srand(time(NULL));
   }
 
+  void
+  scheduleReloadInterests()
+  {
+       ndn::time::milliseconds interval_prev (0); 
+      for (int i = 0; i <= m_reloadCount; i++)
+      {
+        auto interval = m_reloadInterval + ndn::time::milliseconds(m_rangeUniformRandom(m_rng));  // ndn::time::milliseconds(getRandom());
+        interval += interval_prev;
+        NDN_LOG_DEBUG("Tentative next interest schedule in : " << interval);
+         m_nextPingEvent.push_back(m_scheduler.schedule(interval, [this] { expressInterest();}));
+         interval_prev = interval;
+      }
+  }
+
   int
   getRandom()
   {
@@ -88,6 +101,7 @@ public:
                            ndn::bind(&UpdateState::onData, this, _1, _2),
                            ndn::bind(&UpdateState::onTimeout, this, _1),
                            ndn::bind(&UpdateState::onTimeout, this, _1));
+    m_reloadCount--;
   }
 
   void
@@ -111,33 +125,31 @@ private:
   {
     NDN_LOG_INFO("Update Successful" << data);
     // exit application
-    auto interval = m_reloadInterval + ndn::time::milliseconds(m_rangeUniformRandom(m_rng));  // ndn::time::milliseconds(getRandom());
-    NDN_LOG_DEBUG("Tentative next interest schedule in : " << interval);
-
-    if (m_reloadCount == DEFAULT_RELOAD_COUNT)
-    {
-
-      m_nextPingEvent = m_scheduler.schedule(interval, [this] { expressInterest();});
-    }
-    else
-    {
-      m_reloadCount--;
-      if(m_reloadCount <= 0)
-        exit(0);
-      m_nextPingEvent = m_scheduler.schedule(interval, [this] { expressInterest();});
-    }
+    // auto interval = m_reloadInterval + ndn::time::milliseconds(m_rangeUniformRandom(m_rng));  // ndn::time::milliseconds(getRandom());
+    // NDN_LOG_DEBUG("Tentative next interest schedule in : " << interval);
+    // if (m_reloadCount == DEFAULT_RELOAD_COUNT)
+    // {
+    //   m_nextPingEvent = m_scheduler.schedule(interval, [this] { expressInterest();});
+    // }
+    // else
+    // {
+    //   m_reloadCount--;
+    //   if(m_reloadCount <= 0)
+    //     exit(0);
+    //   m_nextPingEvent = m_scheduler.schedule(interval, [this] { expressInterest();});
+    // }
   }
 
   void onTimeout(const ndn::Interest& interest)
   {
-    if (m_threshold < 0)
-    {
-      // we have reached maximum retry
-      NDN_LOG_INFO("Update failed, please try again later");
-      exit(0);
-    }
-    expressInterest();
-    m_threshold--;
+    // if (m_threshold < 0)
+    // {
+    //   // we have reached maximum retry
+      NDN_LOG_INFO("Interest timeout, unexpected");
+    //   exit(0);
+    // }
+    // // expressInterest();
+    // m_threshold--;
   }
 
 private:
@@ -148,7 +160,7 @@ private:
   ndn::time::milliseconds m_reloadInterval;
   int m_randomJitter;
   ndn::Scheduler m_scheduler;
-  ndn::scheduler::ScopedEventId m_nextPingEvent;
+  std::vector <ndn::scheduler::ScopedEventId> m_nextPingEvent;
 
   ndn::random::RandomNumberEngine& m_rng;
   std::uniform_int_distribution<int> m_rangeUniformRandom;
@@ -186,7 +198,6 @@ main (int argc, char* argv[])
     po::variables_map optVm;
     po::store(po::parse_command_line(argc, argv, visibleOptDesc), optVm);
     po::notify(optVm);
-
 
     if (optVm.count("help") > 0) {
       usage(visibleOptDesc);
@@ -249,5 +260,6 @@ main (int argc, char* argv[])
 
   int threshold = 2;
   UpdateState us(threshold, reloadInterval, nPings, randomJitter, appPrefix);
+  us.scheduleReloadInterests();
   us.run();
 }
