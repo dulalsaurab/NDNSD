@@ -50,7 +50,7 @@ def startProducer (producer):
 
 def startConsumer (consumers):
     for consumer in consumers:
-        consumer.cmd('tshark -o ip.defragment:TRUE -o ip.check_checksum:FALSE -ni any -f "udp port 5353" -w {}.pcap &> /dev/null &'.format(consumer.name))
+        consumer.cmd('tshark -o ip.defragment:TRUE -o ip.check_checksum:FALSE -ni any -f "udp port 5353" -w {}.pcap &> /dev/null &'.format(consumer.name))  
         cmd = 'echo "fetching service" | ts "%Y%m%d-%H:%M:%.S" &> avahi.log &'
         consumer.cmd (cmd) 
         cmd = 'avahi-browse -rt {} | ts "%Y%m%d-%H:%M:%.S" &>> avahi.log &'.format('_ndnsd._udp')

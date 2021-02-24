@@ -1,15 +1,14 @@
 import time
 import sys
+import os
 
 from mininet.log import setLogLevel, info
-
 from minindn.minindn import Minindn
 from minindn.util import MiniNDNCLI
 from minindn.apps.app_manager import AppManager
 from minindn.apps.nfd import Nfd
 from minindn.helpers.nfdc import Nfdc
 from subprocess import Popen, PIPE, call
-import os
 from minindn.apps.nlsr import Nlsr
 from minindn.helpers.ndn_routing_helper import NdnRoutingHelper
 import subprocess
@@ -151,7 +150,7 @@ if __name__ == '__main__':
     for host in exp.producer_nodes:
       appPrefix = '/ndnsd/{}/service-info'.format(host.name)
       cmd = 'ndnsd-reload -c {} -i {} -r {} -p {} &> {}/{}/reload.log &'.format(numberOfUpdates, exp.producers[host.name][1]-10,
-                                                                                50, appPrefix, ndn.args.workDir, host.name)
+                                                                                                                             50, appPrefix, ndn.args.workDir, host.name)
       host.cmd(cmd)
 
     # approximate time to complete the experiment

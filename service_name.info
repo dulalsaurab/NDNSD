@@ -1,1 +1,17 @@
-[{"serviceName": printer, "applicationPrefix": "/printer1", "Lifetime": "10_s"},{"Details": "Hp Ledger Jet"}]
+; all the item in the required section needs to be filled properly
+
+required
+{
+  serviceName printer
+  appPrefix /repo/r1 ; repo name prefix
+  lifetime 1 ; in seconds
+}
+
+; additional service details, user can put as many items as desired
+
+details
+{
+  description "repo to insert sensor data"
+  appPrefix /repo/r1 ;repo prefix
+  servedPrefix /prefix ;prefix repo served data for
+}
