@@ -1,2 +1,9 @@
-# NDNSD
-NDN Service Discovery
+### Running Experiment
+
+#### Wireless experiment
+- `sudo python ndnsd-experiments.py topologies/test-topo`
+
+
+#### Wired experiment
+
+- `sudo python wifi-ndnsd-experiments.py topologies/wifi-topo`
