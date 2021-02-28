@@ -8,5 +8,5 @@ p1: range=23
 ap1: position=50,50,50 range=50
 
 [links]
-p1:ap1 delay=10ms
-c1:ap1 delay=10ms
+p1:ap1 delay=20ms
+c1:ap1 delay=20ms
