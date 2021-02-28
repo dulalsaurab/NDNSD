@@ -1,6 +1,6 @@
 ### Running Mini-NDN Experiment
 
-#### Wireless experiment
+#### Wired experiment
 - `sudo python ndnsd-experiments.py topologies/test-topo`
 
 
