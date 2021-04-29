@@ -20,8 +20,10 @@ def setTsharkLog (net):
     for host in net.stations:
         host.cmd('tshark -o ip.defragment:TRUE -o ip.check_checksum:FALSE -ni any -f "udp port 5353" -w {}.pcap &> /dev/null &'.format(host.name))
         host.cmd('ndndump -i any &> {}.ndndump &'.format(host.name))
+
+    for ap in net.aps:
+        ap.cmd('tshark -o ip.defragment:TRUE -o ip.check_checksum:FALSE -ni any -f "udp port 5353" -w /tmp/minindn/{}.pcap &> /dev/null &'.format(ap.name))
     time.sleep(5)
-        # host.cmd('ndndump -i any &> {}.ndndump &'.format(host.name))
 
 def start(ndn):
     ndn.start()
@@ -41,7 +43,7 @@ def startProducer (producer):
     # producer.cmd('tshark -o ip.defragment:TRUE -o ip.check_checksum:FALSE -ni any -f "udp port 5353" -w {}.pcap &> /dev/null &'.format(producer.name))
     cmd = 'echo "Producer publish" | ts `date +%s.%N` &> avahi.log &'
     producer.cmd(cmd)
-    cmd = 'avahi-publish-service {} {} {} {} | ts `date +%s.%N` &>> avahi.log &'.format('printer', '_ndnsd._udp', 5683, '/mylight-myhouse')
+    cmd = 'avahi-publish-service {} {} {} {} -d hello.local | ts `date +%s.%N` &>> avahi.log &'.format('printer', '_ndnsd._udp', 5683, '/mylight-myhouse')
     producer.cmd(cmd)
     time.sleep(0.1)
     # Popen(['cp', 'test.info', '/usr/local/etc/ndn/ndnsd_default.info'], stdout=PIPE, stderr=PIPE).communicate() 
@@ -52,8 +54,8 @@ def startConsumer (consumers):
         # for i in range(0, 10):i
         i=0
         cmd = 'echo "Fetching service, consumer: {}" | ts `date +%s.%N` &> avahi_{}.log &'.format(str(i), str(i))
-        consumer.cmd (cmd) 
-        cmd = 'avahi-browse -rt {} | ts `date +%s.%N` &>> avahi_{}.log &'.format('_ndnsd._udp', str(i))
+        consumer.cmd (cmd)
+        cmd = 'avahi-browse -rt {} -d hello.local  | ts `date +%s.%N` &>> avahi_{}.log &'.format('_ndnsd._udp', str(i))
         consumer.cmd(cmd)
 
 if __name__ == '__main__':
