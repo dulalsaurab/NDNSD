@@ -10,17 +10,17 @@ import numpy as np
 # rootDir = "/home/mini-ndn/europa_bkp/mini-ndn/sdulal/mini-ndn/ndn-src/NDNSD/experiments/result/loss-experiment/10_percent"
 rootDir = "/tmp/minindn/"
 
-#topo = {
-#        'c1p1':3, 'c1p2':4,
-#        'c2p1':2, 'c2p2':3,
-#       'c3p1':1,
-#        'c4p1':3, 'c4p2':2,
-#        'c5p1':4, 'c5p2':3
-#        }
+topo = {
+        'c1p1':3, 'c1p2':4,
+        'c2p1':2, 'c2p2':3,
+        'c3p1':1,
+        'c4p1':3, 'c4p2':2,
+        'c5p1':4, 'c5p2':3
+        }
 
-topo = {'c1p1': 2, 'c1p2': 2, 'c1p3': 2}
-prod = ['p1', 'p2', 'p3']
-cons = ['c1']
+#topo = {'c1p1': 2, 'c1p2': 2, 'c1p3': 2}
+prod = ['p1', 'p2']
+cons = ['c1', 'c2', 'c3', 'c4', 'c5']
 
 def processLogFile(filename, searchStrings):
   res_dict = {}

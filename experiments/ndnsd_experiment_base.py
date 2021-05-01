@@ -59,7 +59,7 @@ class NDNSDExperiment():
       consumers: list, service finder
       expType: string, wired or wireless
   '''
-  def __init__(self, ndn, producers, consumers, expType, nlsr=False):
+  def __init__(self, ndn, producers, consumers, expType="wired", nlsr=True):
     self.ndn = ndn
     self.args = ndn.args
     self.expType = expType
@@ -79,7 +79,7 @@ class NDNSDExperiment():
     AppManager(self.ndn, self.hosts, Nfd, logLevel='DEBUG')
     if nlsr:
         AppManager(self.ndn, self.ndn.net.hosts, Nlsr, logLevel='DEBUG')
-        sleep(20)
+        sleep(50)
     Popen(['cp', 'test.info', '/usr/local/etc/ndn/ndnsd_default.info'], stdout=PIPE, stderr=PIPE).communicate()
 
   def startProducer(self):
@@ -97,7 +97,11 @@ class NDNSDExperiment():
       cmd = 'export NDN_LOG=ndnsd.*=TRACE'#:psync.*=TRACE:sync.*=TRACE'
       producer.cmd(cmd)
       cmd = 'ndnsd-producer {} 1 &> {}/{}/producer.log &'.format(hostInfoFile, self.args.workDir, hostName)
-      producer.cmd(cmd)
+      try:
+          producer.cmd(cmd)
+      except Exception as e:
+          print ("couldn't start producer", e)
+          exit(0)
       sleep(2)
 
   def startConsumer(self):
@@ -107,6 +111,10 @@ class NDNSDExperiment():
       cmd = 'export NDN_LOG=ndnsd.*=TRACE'#:psync.*=TRACE:sync.*=TRACE'
       consumer.cmd(cmd)
       cmd = 'ndnsd-consumer -s {} &> {}/{}/consumer.log -c 1 -p 1 &'.format(self.consumers[cName], self.args.workDir, cName)
-      consumer.cmd(cmd)
+      try:
+          consumer.cmd(cmd)
+      except Exception as e:
+        print ("couldn't start producer", e)
+        exit(0)
       # sleep -- let consumer boot up properly
       sleep(2)

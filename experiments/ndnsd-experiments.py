@@ -1,8 +1,8 @@
 import ndnsd_experiment_base as neb
 from mininet.log import setLogLevel, info
-from minindn.util import MiniNDNWifiCLI, getPopen
+from minindn.util import MiniNDNWifiCLI, MiniNDNCLI, getPopen
 from minindn.helpers.nfdc import Nfdc
-from time import sleep 
+from time import sleep
 from minindn.minindn import Minindn
 
 numberOfUpdates = 10
@@ -14,26 +14,32 @@ if __name__ == '__main__':
     ndn = Minindn()
     producers = dict()
     consumers = dict()
-    producers = neb.generateNodes('P', 1)
-    consumers = neb.generateNodes('C', 1)
+    producers = neb.generateNodes('P', 2)
+    consumers = neb.generateNodes('C', 5)
     print(consumers, producers)
     # pass true if want to use NSLR
     exp = neb.NDNSDExperiment(ndn, producers, consumers, 'wired', True)
     sleep(2)
 
-    # set sync prefix, /discovery/printers, to multicast on all the nodes.
-    for host in ndn.net.hosts:
-      Nfdc.setStrategy(host, '/discovery/printer', Nfdc.STRATEGY_MULTICAST)
-      sleep(2)
-
     for producer in exp.producerNodes:
         hostName = producer.name
         appPrefix = '/ndnsd/{}/service-info'.format(hostName)
         discoveryPrefix = '/discovery/{}'.format(exp.producers[hostName][0])
-        host.cmd('nlsrc advertise {}'.format(appPrefix))
-        host.cmd('nlsrc advertise {}'.format(discoveryPrefix))
-        sleep(0.1)
-   
+        producer.cmd('nlsrc advertise {}'.format(appPrefix))
+        producer.cmd('nlsrc advertise {}'.format(discoveryPrefix))
+        sleep(5)
+
+    for consumer in exp.consumerNodes:
+        hostName = consumer.name
+        discoveryPrefix = '/discovery/{}'.format(exp.consumers[hostName])
+        consumer.cmd('nlsrc advertise {}'.format(discoveryPrefix))
+        sleep(5)
+
+     # set sync prefix, /discovery/printers, to multicast on all the nodes.
+    for host in ndn.net.hosts:
+      Nfdc.setStrategy(host, '/discovery/printer', Nfdc.STRATEGY_MULTICAST)
+      sleep(2)
+
     exp.startProducer()
     exp.startConsumer()
 
@@ -45,7 +51,10 @@ if __name__ == '__main__':
                                                                                                                             100, appPrefix, ndn.args.workDir, host.name)
       host.cmd(cmd)
 
-    # approximate time to complete the experiment
+    # uncomment the line below to enable CLI
+    # MiniNDNCLI(ndn.net)
+
+    # adjust approximate time to complete the experiment based on numberOfUpdates
     print("Sleep approximately {} seconds to complete the experiment".format(2*numberOfUpdates + jitter))
     sleep(numberOfUpdates + jitter)
     print("Experiment completed")
