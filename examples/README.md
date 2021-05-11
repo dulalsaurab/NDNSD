@@ -1,6 +1,6 @@
 ## NDNSD Examples
 
-The examples are not build by default. Use option --with-examples with configure to build them i.e. ndnsd-consumer and ndnsd-consumer. 
+The examples are not build by default. Use option --with-examples with configure to build them i.e. `ndnsd-consumer` and `ndnsd-consumer`. 
 
 `./waf configure --with-examples`  
 `./waf build`
