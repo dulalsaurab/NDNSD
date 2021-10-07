@@ -42,12 +42,19 @@ public:
        /<domain>/<other-info>/discovery/<service-type>, second-last component is always service type
       application parameter: servicePrefix name
     */
+    // send periodic notification 500ms each
     sendNotificationInterest();
+
+    // publish updates, we will publish 300 updates 1 second each
+    publishUpdates();
+
     m_face.processEvents();
   }
 
   void
   sendNotificationInterest();
+
+  void publishUpdates();
 
   void
   expressInterest(ndn::Interest& interest);
@@ -96,11 +103,42 @@ private:
 void
 ProactiveDiscovery::sendNotificationInterest()
 {
-  ++m_currentUpdateCounter;
+  auto name = m_discoveryPrefix;
+  name.appendNumber(m_currentUpdateCounter);
+
+  ndn::Interest interest(name);
+  
+  const std::string serviceInfoName =  "/uofm/printer1/service-info/"; // -- is delimiter, dirty way of avoiding encoding procedure :(
+  interest.setApplicationParameters(reinterpret_cast<const uint8_t*>(serviceInfoName.c_str()), serviceInfoName.size());
+
+  NDN_LOG_INFO("Sending periodic notification: " << name << " Current update counter: " << m_currentUpdateCounter);
+  expressInterest(interest);
+  NDN_LOG_INFO("Notification interest: "  << name << " sent");
+  // schedule another notification interest
+  NDN_LOG_INFO("Next notification interest is scheduled on: " << m_periodicInterval);
+
+  m_scheduledSyncInterestId = m_scheduler.schedule(m_periodicInterval/2,
+                         [this] { sendNotificationInterest();});
+}
+
+void
+ProactiveDiscovery::publishUpdates()
+{
+
+  // if notification is scheduled, cancle it
+  try {
+    m_scheduledSyncInterestId.cancel();
+  }
+  catch (const  std::exception& e) {
+    NDN_LOG_ERROR("Encountered some error, " << e.what());
+  }
+
+  // the service will be updated MAX_UPDATES times  
+  ++m_currentUpdateCounter; 
   if (m_currentUpdateCounter >= MAX_UPDATES)
   {
     NDN_LOG_INFO("Reached maximum number of updated, exiting");
-    exit(0);  
+    exit(0);   
   }
   auto name = m_discoveryPrefix;
   name.appendNumber(m_currentUpdateCounter);
@@ -110,13 +148,19 @@ ProactiveDiscovery::sendNotificationInterest()
   const std::string serviceInfoName =  "/uofm/printer1/service-info/"; // -- is delimiter, dirty way of avoiding encoding procedure :(
   interest.setApplicationParameters(reinterpret_cast<const uint8_t*>(serviceInfoName.c_str()), serviceInfoName.size());
 
-  NDN_LOG_INFO("Sending notification interest: " << name << " Current update counter: " << m_currentUpdateCounter);
+  NDN_LOG_INFO("Sending new publication interest: " << name << " Current update counter: " << m_currentUpdateCounter);
   expressInterest(interest);
-  NDN_LOG_INFO("Notification interest: "  << name << " sent");
+  NDN_LOG_INFO("Publish interest: "  << name << " sent");
   // schedule another interest
-  NDN_LOG_INFO("Next notification interest is scheduled on: " << m_periodicInterval);
-  m_scheduledSyncInterestId = m_scheduler.schedule(m_periodicInterval,
-                         [this] { sendNotificationInterest();});
+  NDN_LOG_INFO("Next publication is scheduled on: " << m_periodicInterval);
+
+  auto scheduledId = m_scheduler.schedule(m_periodicInterval,
+                                  [this] {publishUpdates();});
+
+  // schedule notification now
+  m_scheduledSyncInterestId = m_scheduler.schedule(m_periodicInterval/2,
+                         [this] { sendNotificationInterest();}); 
+ 
 }
 
 void

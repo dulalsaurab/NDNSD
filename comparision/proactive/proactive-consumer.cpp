@@ -55,7 +55,7 @@ void
 ProactiveConsumer::expressInterest(ndn::Interest& interest)
 {
   // interest.setCanBePrefix(true);
-  // interest.setMustBeFresh(true);  
+  interest.setMustBeFresh(false);  
   NDN_LOG_INFO("Sending interest: "<< interest);
   m_face.expressInterest(interest,
                           ndn::bind(&ProactiveConsumer::onData, this, _1, _2),

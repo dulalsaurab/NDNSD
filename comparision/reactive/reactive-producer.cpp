@@ -15,19 +15,32 @@
 
 NDN_LOG_INIT(ndnsd.comparision.reactive_prod);
 
+int MAX_UPDATES = 10;
+
 class ReactiveDiscovery
 {
   // servicePrefix is applicationPrefix
 public:
-  ReactiveDiscovery(const ndn::Name& servicePrefix,  const std::string& serviceType)
-  : m_servicePrefix(servicePrefix) //should be routable
+  ReactiveDiscovery(const ndn::Name& servicePrefix,  const std::string& serviceType,
+                                  ndn::time::milliseconds publicationInterval)
+  : m_scheduler(m_face.getIoService())
+  , m_servicePrefix(servicePrefix) //should be routable
   , m_serviceType(serviceType)
   , m_discoveryPrefix("/uofm/discovery/printer")
+  , m_currentUpdateCounter(0)
+  , m_periodicInterval(publicationInterval)
   {
     setInterestFilter(m_discoveryPrefix);
     std::this_thread::sleep_for (std::chrono::seconds(1));
+
+    // schedule service updated, service is updated in every 1s
+    updateService(); 
+
     m_face.processEvents();
   }
+
+  void
+  updateService();
 
   // interest handeling
   void
@@ -46,10 +59,29 @@ public:
 private: 
   ndn::Face m_face;
   ndn::security::KeyChain m_keychain;
+  ndn::Scheduler m_scheduler;
   ndn::Name m_servicePrefix;
   std::string m_serviceType;
   ndn::Name m_discoveryPrefix;
+  int m_currentUpdateCounter;
+  ndn::time::milliseconds m_periodicInterval;
+  ndn::scheduler::ScopedEventId m_scheduledSyncInterestId;
 };
+
+void
+ReactiveDiscovery::updateService()
+{
+  ++m_currentUpdateCounter;
+  if(m_currentUpdateCounter >= MAX_UPDATES)
+  {
+    NDN_LOG_INFO("Reached maximum number of updated, exiting");
+    exit(0);
+  }
+
+  m_scheduledSyncInterestId = m_scheduler.schedule(m_periodicInterval,
+                         [this] { updateService(); });
+
+}
 
 void
 ReactiveDiscovery::setInterestFilter(ndn::Name name)
@@ -94,12 +126,13 @@ ReactiveDiscovery::processInterest(const ndn::Name& name, const ndn::Interest& i
   {
     // send service-info data for the interest received
     NDN_LOG_INFO("Sending data for: " << name);
-    ndn::Data replyData(name);
-    ndn::time::milliseconds freshnessPeriod(0);
+    ndn::Data replyData(interest.getName());
+    ndn::time::milliseconds freshnessPeriod(2);
     replyData.setFreshnessPeriod(freshnessPeriod);
-    const std::string c =  m_servicePrefix.toUri();
+    // attached current update counter so that consumer will know if all the publication is fetched or not
+    const std::string c =  m_servicePrefix.toUri() + "|" + std::to_string(m_currentUpdateCounter) + "|";
     replyData.setContent(reinterpret_cast<const uint8_t*>(c.c_str()), c.size());
-    m_keychain.sign(replyData);
+    m_keychain.sign(replyData); 
     m_face.put(replyData);
     NDN_LOG_INFO("Data sent for :" << name);
   } 
@@ -119,5 +152,6 @@ ReactiveDiscovery::onRegistrationSuccess(const ndn::Name& name)
 
 int main()
 {
-  ReactiveDiscovery rdiscovery("/uofm/printer1/", "printer");
+  ndn::time::milliseconds interval(1000);
+  ReactiveDiscovery rdiscovery("/uofm/printer1/", "printer", interval);
 }

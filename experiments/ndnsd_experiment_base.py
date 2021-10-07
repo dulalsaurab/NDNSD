@@ -32,7 +32,7 @@ def setTsharkLog(ndn):
         # host.cmd('ndndump -i any &> {}.ndndump &'.format(host.name))
         sleep(0.1)
 
-def setMTUsize(ndn, mtu=9000):
+def setMTUsize(self, ndn, mtu=9000):
     for host in self.ndn.net.hosts:
         for intf in host.intfList():
             host.cmd("ifconfig {} mtu {}".format(intf, mtu))
@@ -79,7 +79,7 @@ class NDNSDExperiment():
     AppManager(self.ndn, self.hosts, Nfd, logLevel='INFO')
     if nlsr:
         AppManager(self.ndn, self.ndn.net.hosts, Nlsr, logLevel='INFO')
-        sleep(50)
+        sleep(90)
     Popen(['cp', 'test.info', '/usr/local/etc/ndn/ndnsd_default.info'], stdout=PIPE, stderr=PIPE).communicate()
 
   def startProducer(self):

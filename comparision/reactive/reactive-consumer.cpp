@@ -22,7 +22,9 @@ public:
   : m_discoveryPrefix(discoveryPrefix)
   , m_serviceType(serviceType)
   {
-    ndn::Interest i1(m_discoveryPrefix);
+    ndn::Name interestName = m_discoveryPrefix;
+    interestName.append(boost::lexical_cast<std::string>(ndn::time::system_clock::now()));
+    ndn::Interest i1(interestName);
     
     expressInterest(i1);
     m_face.processEvents();
@@ -60,10 +62,9 @@ ReactiveConsumer::expressInterest(ndn::Interest& interest)
   const std::string serviceNames = names;
   NDN_LOG_INFO("Excluded names: " << serviceNames);
   interest.setApplicationParameters(reinterpret_cast<const uint8_t*>(serviceNames.c_str()), serviceNames.size());
-  
+  // interest.refreshNonce();
   // interest.setCanBePrefix(true);
-  // interest.setMustBeFresh(true);
- 
+  interest.setMustBeFresh(true);
   NDN_LOG_INFO("Sending interest: "<< interest);
   m_face.expressInterest(interest,
                           ndn::bind(&ReactiveConsumer::onData, this, _1, _2),
@@ -75,6 +76,9 @@ void
 ReactiveConsumer::onData(const ndn::Interest& interest, const ndn::Data& data)
 {
   NDN_LOG_INFO("Recevied data for interest: " << interest.getName());
+
+  std::string _params(reinterpret_cast<const char*>(data.getContent().value()));
+  NDN_LOG_INFO("Data content: " << _params);
   // process data content, and see the service name
 }
 
