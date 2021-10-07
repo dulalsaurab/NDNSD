@@ -3,7 +3,7 @@ from mininet.log import setLogLevel, info
 from minindn.wifi.minindnwifi import MinindnWifi
 from minindn.util import MiniNDNWifiCLI, getPopen
 from minindn.helpers.nfdc import Nfdc
-from time import sleep 
+from time import sleep
 
 numberOfUpdates = 10
 jitter = 5
@@ -14,8 +14,8 @@ if __name__ == '__main__':
     ndn = MinindnWifi()
     producers = dict()
     consumers = dict()
-    producers = neb.generateNodes('P', 1)
-    consumers = neb.generateNodes('C', 1)
+    producers = neb.generateNodes('P', 2)
+    consumers = neb.generateNodes('C', 3)
     print(consumers, producers)
     exp = neb.NDNSDExperiment(ndn, producers, consumers, 'wifi')
     sleep(2)
@@ -44,7 +44,7 @@ if __name__ == '__main__':
     print("Sleep approximately {} seconds to complete the experiment".format((numberOfUpdates + jitter)))
     sleep(numberOfUpdates)
     print("Experiment completed")
-   
+
     # MiniNDNWifiCLI(ndn.net)
     ndn.net.stop()
     ndn.cleanUp()

@@ -5,8 +5,8 @@ from minindn.helpers.nfdc import Nfdc
 from time import sleep
 from minindn.minindn import Minindn
 
-numberOfUpdates = 10
-jitter = 5
+numberOfUpdates = 300
+jitter = 50
 
 if __name__ == '__main__':
     neb.subprocess.call(['rm','-r','/tmp/minindn/'])

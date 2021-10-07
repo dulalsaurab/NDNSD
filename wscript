@@ -65,6 +65,8 @@ def build(bld):
         bld.recurse('examples')
 
     bld.recurse('tools')
+    bld.recurse('comparision/proactive')
+    bld.recurse('comparision/reactive')
 
     headers = bld.path.ant_glob('ndnsd/**/*.hpp')
     bld.install_files(bld.env.INCLUDEDIR, headers, relative_trick=True)
