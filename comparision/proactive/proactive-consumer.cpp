@@ -92,14 +92,15 @@ ProactiveConsumer::setInterestFilter(const ndn::Name& name)
 void
 ProactiveConsumer::processInterest(const ndn::Name& name, const ndn::Interest& interest)
 {
-  NDN_LOG_INFO("Received interest: " << name);
-  
-  auto params = interest.getApplicationParameters();
-  // auto abc = params.value();
-  std::string _params(reinterpret_cast<const char*>(params.value()));
-  ndn::Name applicationPrefix(_params);
-  ndn::Interest dataInterest(applicationPrefix.getPrefix(3));
-  
+  NDN_LOG_INFO("Received interest: " << interest.getName());
+
+  // auto params = interest.getApplicationParameters();
+  // std::string _params(reinterpret_cast<const char*>(params.value()));
+
+  ndn::Name applicationPrefix(interest.getName().getSubName(-2, 2).append("service-info"));
+  NDN_LOG_INFO("Application prefix: " << applicationPrefix);
+  ndn::Interest dataInterest(applicationPrefix);
+
   NDN_LOG_INFO("Sending interest: " << applicationPrefix << " to fetch service info");
   expressInterest(dataInterest);
 }

@@ -15,7 +15,7 @@
 
 NDN_LOG_INIT(ndnsd.comparision.proactive_prod);
 
-int MAX_UPDATES = 10;
+int MAX_UPDATES = 3;
 
 class ProactiveDiscovery
 {
@@ -35,7 +35,7 @@ public:
       serviceInfoPrefix = /uofm/printer1/service-info
     */
     auto serviceName = m_servicePrefix;
-    serviceName.append("service-info");
+    // serviceName.append("service-info");
     setInterestFilter(serviceName);
     std::this_thread::sleep_for (std::chrono::seconds(1));
     /* send notification interest under /uofm/printers/discovery
@@ -104,12 +104,12 @@ void
 ProactiveDiscovery::sendNotificationInterest()
 {
   auto name = m_discoveryPrefix;
-  name.appendNumber(m_currentUpdateCounter);
+  name.appendNumber(m_currentUpdateCounter).append(m_servicePrefix);
 
   ndn::Interest interest(name);
   
-  const std::string serviceInfoName =  "/uofm/printer1/service-info/"; // -- is delimiter, dirty way of avoiding encoding procedure :(
-  interest.setApplicationParameters(reinterpret_cast<const uint8_t*>(serviceInfoName.c_str()), serviceInfoName.size());
+  // const std::string serviceInfoName =  m_servicePrefix.toUri() + "/service-info/"; // -- is delimiter, dirty way of avoiding encoding procedure :(
+  // interest.setApplicationParameters(reinterpret_cast<const uint8_t*>(serviceInfoName.c_str()), serviceInfoName.size());
 
   NDN_LOG_INFO("Sending periodic notification: " << name << " Current update counter: " << m_currentUpdateCounter);
   expressInterest(interest);
@@ -124,7 +124,6 @@ ProactiveDiscovery::sendNotificationInterest()
 void
 ProactiveDiscovery::publishUpdates()
 {
-
   // if notification is scheduled, cancle it
   try {
     m_scheduledSyncInterestId.cancel();
@@ -141,12 +140,12 @@ ProactiveDiscovery::publishUpdates()
     exit(0);   
   }
   auto name = m_discoveryPrefix;
-  name.appendNumber(m_currentUpdateCounter);
+  name.appendNumber(m_currentUpdateCounter).append(m_servicePrefix);
 
   ndn::Interest interest(name);
   
-  const std::string serviceInfoName =  "/uofm/printer1/service-info/"; // -- is delimiter, dirty way of avoiding encoding procedure :(
-  interest.setApplicationParameters(reinterpret_cast<const uint8_t*>(serviceInfoName.c_str()), serviceInfoName.size());
+  // const std::string serviceInfoName =  m_servicePrefix.toUri() + "/service-info/";  // -- is delimiter, dirty way of avoiding encoding procedure :(
+  // interest.setApplicationParameters(reinterpret_cast<const uint8_t*>(serviceInfoName.c_str()), serviceInfoName.size());
 
   NDN_LOG_INFO("Sending new publication interest: " << name << " Current update counter: " << m_currentUpdateCounter);
   expressInterest(interest);
@@ -198,7 +197,7 @@ ProactiveDiscovery::processInterest(const ndn::Name& name, const ndn::Interest& 
   NDN_LOG_INFO("Sending data for: " << name);
   ndn::Data replyData(name);
 
- const std::string c =  "update"+std::to_string(m_currentUpdateCounter);
+ const std::string c =  "update" + std::to_string(m_currentUpdateCounter);
   
   replyData.setContent(reinterpret_cast<const uint8_t*>(c.c_str()), c.size());
   m_keychain.sign(replyData);
@@ -219,8 +218,9 @@ ProactiveDiscovery::onRegistrationSuccess(const ndn::Name& name)
 }
 
 
-int main()
+int main(int argc, char* argv[])
 {
+  std::string serviceInfoPrefix = argv[1];
   ndn::time::milliseconds interval(1000);
-  ProactiveDiscovery pdiscovery("/uofm/printer1/", "printer", interval);
+  ProactiveDiscovery pdiscovery(serviceInfoPrefix, "printer", interval);
 }
