@@ -37,7 +37,7 @@ public:
     auto serviceName = m_servicePrefix;
     // serviceName.append("service-info");
     setInterestFilter(serviceName);
-    std::this_thread::sleep_for (std::chrono::seconds(1));
+    // std::this_thread::sleep_for (std::chrono::seconds(1));
     /* send notification interest under /uofm/printers/discovery
        /<domain>/<other-info>/discovery/<service-type>, second-last component is always service type
       application parameter: servicePrefix name
@@ -142,7 +142,9 @@ ProactiveDiscovery::publishUpdates()
   if (m_currentUpdateCounter >= MAX_UPDATES)
   {
     NDN_LOG_INFO("Reached maximum number of updated, exiting");
-    exit(0);   
+    // exit(0); 
+    m_scheduledSyncInterestId.cancel();
+    return;
   }
   auto name = m_discoveryPrefix;
   name.append(m_servicePrefix).appendNumber(m_currentUpdateCounter);
@@ -176,9 +178,9 @@ ProactiveDiscovery::expressInterest(ndn::Interest& interest)
   
   NDN_LOG_INFO("Sending interest: "<< interest);
   m_face.expressInterest(interest,
-                          ndn::bind(&ProactiveDiscovery::onData, this, _1, _2),
-                          ndn::bind(&ProactiveDiscovery::onTimeout, this, _1),
-                          ndn::bind(&ProactiveDiscovery::onTimeout, this, _1));
+                          std::bind(&ProactiveDiscovery::onData, this, _1, _2),
+                          std::bind(&ProactiveDiscovery::onTimeout, this, _1),
+                          std::bind(&ProactiveDiscovery::onTimeout, this, _1));
 }
 
 void

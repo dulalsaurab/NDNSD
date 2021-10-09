@@ -22,6 +22,8 @@ if __name__ == '__main__':
     # pass true if want to use NSLR
     exp = neb.NDNSDExperiment(ndn, producers, consumers, 'wired', True)
     # sleep(2)
+    # for host in ndn.net.hosts:
+    #   registerRouteToAllNeighbors(host, '/uofm/discovery/printer') 
 
     for host in ndn.net.hosts:
       discoveryPrefix = '/uofm/discovery/printer'
@@ -43,19 +45,19 @@ if __name__ == '__main__':
 
     # lets start consumer
     for consumer in exp.consumerNodes:
-      cmd = 'export NDN_LOG=ndnsd.comparision.*=TRACE'
+      cmd = 'export NDN_LOG=ndn.Face=TRACE:ndnsd.comparision.*=TRACE'
       consumer.cmd(cmd)
       cmd = 'proactive-consumer &> {}/{}/consumer.log &'.format(ndn.args.workDir, consumer.name)
       consumer.cmd(cmd)
-      sleep(2)
+      sleep(1)
 
     # start producer
     for producer in exp.producerNodes:
-      cmd = 'export NDN_LOG=ndnsd.comparision.*=TRACE'
-      consumer.cmd(cmd)
+      cmd = 'export NDN_LOG=ndn.Face=TRACE:ndnsd.comparision.*=TRACE'
+      producer.cmd(cmd)
       cmd = 'proactive-producer /uofm/{} &> {}/{}/producer.log &'.format(producer.name, ndn.args.workDir, producer.name)
-      consumer.cmd(cmd)
-
+      producer.cmd(cmd)
+    
     sleep(5)
     MiniNDNCLI(ndn.net)
     ndn.stop()
