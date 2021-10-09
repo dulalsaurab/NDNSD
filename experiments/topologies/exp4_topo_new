@@ -11,12 +11,12 @@ p1: _ radius=0.7 angle=3.22435678964
 p2: _ radius=1.7 angle=2.22435678964
 
 [links]
-c1:c2 delay=10ms loss=10
-c2:r1 delay=10ms loss=10
-p1:r1 delay=10ms loss=10
-c3:p1 delay=10ms loss=10
-r1:r2 delay=10ms loss=10
-r2:r3 delay=10ms loss=10
-r2:p2 delay=10ms loss=10
-c4:r2 delay=10ms loss=10
-c5:r3 delay=10ms loss=10
+c1:c2 delay=10ms
+c2:r1 delay=10ms
+p1:r1 delay=10ms
+c3:p1 delay=10ms
+r1:r2 delay=10ms
+r2:r3 delay=10ms
+r2:p2 delay=10ms
+c4:r2 delay=10ms
+c5:r3 delay=10ms

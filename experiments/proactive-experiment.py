@@ -21,34 +21,31 @@ if __name__ == '__main__':
   
     # pass true if want to use NSLR
     exp = neb.NDNSDExperiment(ndn, producers, consumers, 'wired', True)
-    sleep(2)
+    # sleep(2)
+
+    for host in ndn.net.hosts:
+      discoveryPrefix = '/uofm/discovery/printer'
+      print ("Discovery prefix: ", discoveryPrefix)
+      host.cmd('nlsrc advertise {}'.format(discoveryPrefix))
+      sleep(0.1)
+      # set sync prefix, /discovery/printers, to multicast on all the nodes.
+      Nfdc.setStrategy(host, '/uofm/discovery/printer', Nfdc.STRATEGY_MULTICAST)
+    # sleep(10)
 
     for producer in exp.producerNodes:
-        hostName = producer.name
-        appPrefix = '/uofm/{}'.format(hostName)
-        discoveryPrefix = '/ufom/discovery/printer'
-        print ("Producer: {} - discovery prefix: {}".format(hostName, discoveryPrefix))
+        appPrefix = '/uofm/{}'.format(producer.name)
+        print ("application prefix: {}".format(appPrefix))
         producer.cmd('nlsrc advertise {}'.format(appPrefix))
-        producer.cmd('nlsrc advertise {}'.format(discoveryPrefix))
-        sleep(10)
+        sleep(0.1)
+    # sleep(5)
 
-    for consumer in exp.consumerNodes:
-        hostName = consumer.name
-        discoveryPrefix = '/uofm/discovery/printer'
-        print ("Consumer: {} - discovery prefix: {}".format(hostName, discoveryPrefix))
-        consumer.cmd('nlsrc advertise {}'.format(discoveryPrefix))
-        sleep(10)
-
-     # set sync prefix, /discovery/printers, to multicast on all the nodes.
-    for host in ndn.net.hosts:
-      Nfdc.setStrategy(host, '/uofm/discovery/printer', Nfdc.STRATEGY_MULTICAST)
-      sleep(2)
+    sleep (40)
 
     # lets start consumer
     for consumer in exp.consumerNodes:
       cmd = 'export NDN_LOG=ndnsd.comparision.*=TRACE'
       consumer.cmd(cmd)
-      cmd = 'proactive-consumer &> {}/{}/consumer.log -c 1 -p 1 &'.format(ndn.args.workDir, consumer.name)
+      cmd = 'proactive-consumer &> {}/{}/consumer.log &'.format(ndn.args.workDir, consumer.name)
       consumer.cmd(cmd)
       sleep(2)
 
@@ -59,6 +56,6 @@ if __name__ == '__main__':
       cmd = 'proactive-producer /uofm/{} &> {}/{}/producer.log &'.format(producer.name, ndn.args.workDir, producer.name)
       consumer.cmd(cmd)
 
-    sleep(10)
+    sleep(5)
     MiniNDNCLI(ndn.net)
     ndn.stop()

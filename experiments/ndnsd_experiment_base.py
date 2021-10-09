@@ -76,10 +76,10 @@ class NDNSDExperiment():
   def start(self, nlsr):
     self.ndn.start()
     sleep(5)
-    AppManager(self.ndn, self.hosts, Nfd, logLevel='INFO')
+    AppManager(self.ndn, self.hosts, Nfd, logLevel='DEBUG')
     if nlsr:
         AppManager(self.ndn, self.ndn.net.hosts, Nlsr, logLevel='INFO')
-        sleep(90)
+        sleep(50)
     Popen(['cp', 'test.info', '/usr/local/etc/ndn/ndnsd_default.info'], stdout=PIPE, stderr=PIPE).communicate()
 
   def startProducer(self):

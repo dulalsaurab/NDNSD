@@ -15,7 +15,7 @@
 
 NDN_LOG_INIT(ndnsd.comparision.proactive_prod);
 
-int MAX_UPDATES = 3;
+int MAX_UPDATES = 1;
 
 class ProactiveDiscovery
 {
@@ -43,10 +43,15 @@ public:
       application parameter: servicePrefix name
     */
     // send periodic notification 500ms each
-    sendNotificationInterest();
+    m_scheduler.schedule(m_periodicInterval/2,
+                         [this] { sendNotificationInterest();});
+
+    // sendNotificationInterest();
 
     // publish updates, we will publish 300 updates 1 second each
-    publishUpdates();
+    m_scheduler.schedule(m_periodicInterval,
+                         [this] { publishUpdates();});
+    // publishUpdates();
 
     m_face.processEvents();
   }
@@ -104,7 +109,7 @@ void
 ProactiveDiscovery::sendNotificationInterest()
 {
   auto name = m_discoveryPrefix;
-  name.appendNumber(m_currentUpdateCounter).append(m_servicePrefix);
+  name.append(m_servicePrefix).appendNumber(m_currentUpdateCounter);
 
   ndn::Interest interest(name);
   
@@ -140,7 +145,7 @@ ProactiveDiscovery::publishUpdates()
     exit(0);   
   }
   auto name = m_discoveryPrefix;
-  name.appendNumber(m_currentUpdateCounter).append(m_servicePrefix);
+  name.append(m_servicePrefix).appendNumber(m_currentUpdateCounter);
 
   ndn::Interest interest(name);
   
@@ -166,8 +171,8 @@ void
 ProactiveDiscovery::expressInterest(ndn::Interest& interest)
 {
   // ndn::Interest interest(interestName);
-  interest.setCanBePrefix(false);
-  interest.setMustBeFresh(true);
+  interest.setCanBePrefix(true);
+  // interest.setMustBeFresh(true);
   
   NDN_LOG_INFO("Sending interest: "<< interest);
   m_face.expressInterest(interest,
@@ -191,14 +196,18 @@ ProactiveDiscovery::setInterestFilter(ndn::Name name)
 void
 ProactiveDiscovery::processInterest(const ndn::Name& name, const ndn::Interest& interest)
 {
-  NDN_LOG_INFO("Received interest: " << name);
+  NDN_LOG_INFO("Received interest: " << interest.getName());
 
   // send service-info data for the interest received
   NDN_LOG_INFO("Sending data for: " << name);
-  ndn::Data replyData(name);
+  // ndn::Data replyData(interest.getName());
+  ndn::Data replyData(interest.getName());
 
- const std::string c =  "update" + std::to_string(m_currentUpdateCounter);
+  const std::string c =  "update" + std::to_string(m_currentUpdateCounter);
   
+  ndn::time::milliseconds freshnessPeriod(100);
+  replyData.setFreshnessPeriod(freshnessPeriod);
+
   replyData.setContent(reinterpret_cast<const uint8_t*>(c.c_str()), c.size());
   m_keychain.sign(replyData);
   m_face.put(replyData);
