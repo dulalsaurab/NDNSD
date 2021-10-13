@@ -14,8 +14,8 @@ if __name__ == '__main__':
     ndn = Minindn()
     producers = dict()
     consumers = dict()
-    producers = neb.generateNodes('P', 2, "printer", 500)
-    consumers = neb.generateNodes('C', 5, "printer", 500)
+    producers = neb.generateNodes('P', 2, "printer", 1000)
+    consumers = neb.generateNodes('C', 5, "printer", 1000)
     print(consumers, producers)
   
     # pass true if want to use NSLR

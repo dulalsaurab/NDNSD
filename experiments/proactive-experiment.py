@@ -21,35 +21,32 @@ if __name__ == '__main__':
   
     # pass true if want to use NSLR
     exp = neb.NDNSDExperiment(ndn, producers, consumers, 'wired', True)
-    # sleep(2)
-    # for host in ndn.net.hosts:
-    #   registerRouteToAllNeighbors(host, '/uofm/discovery/printer') 
-
-    for host in ndn.net.hosts:
-      discoveryPrefix = '/uofm/discovery/printer'
-      print ("Discovery prefix: ", discoveryPrefix)
-      host.cmd('nlsrc advertise {}'.format(discoveryPrefix))
-      sleep(0.1)
-      # set sync prefix, /discovery/printers, to multicast on all the nodes.
-      Nfdc.setStrategy(host, '/uofm/discovery/printer', Nfdc.STRATEGY_MULTICAST)
-    # sleep(10)
+    discoveryPrefix = '/uofm/discovery/printer'
 
     for producer in exp.producerNodes:
         appPrefix = '/uofm/{}'.format(producer.name)
-        print ("application prefix: {}".format(appPrefix))
         producer.cmd('nlsrc advertise {}'.format(appPrefix))
         sleep(0.1)
-    # sleep(5)
+        # producer.cmd('nlsrc advertise {}'.format(discoveryPrefix))
 
+    for consumer in exp.consumerNodes:
+      consumer.cmd('nlsrc advertise {}'.format(discoveryPrefix))
+      sleep(0.1)
+    
+    # set sync prefix, /discovery/printers, to multicast on all the nodes.
+    for host in ndn.net.hosts:
+      Nfdc.setStrategy(host, '/uofm/discovery/printer', Nfdc.STRATEGY_MULTICAST)
+  
     sleep (40)
-
     # lets start consumer
     for consumer in exp.consumerNodes:
       cmd = 'export NDN_LOG=ndn.Face=TRACE:ndnsd.comparision.*=TRACE'
       consumer.cmd(cmd)
       cmd = 'proactive-consumer &> {}/{}/consumer.log &'.format(ndn.args.workDir, consumer.name)
       consumer.cmd(cmd)
-      sleep(1)
+      sleep(10)
+
+    # sleep(40)
 
     # start producer
     for producer in exp.producerNodes:
@@ -57,7 +54,8 @@ if __name__ == '__main__':
       producer.cmd(cmd)
       cmd = 'proactive-producer /uofm/{} &> {}/{}/producer.log &'.format(producer.name, ndn.args.workDir, producer.name)
       producer.cmd(cmd)
-    
-    sleep(5)
+
+    sleep(350)
+
     MiniNDNCLI(ndn.net)
     ndn.stop()

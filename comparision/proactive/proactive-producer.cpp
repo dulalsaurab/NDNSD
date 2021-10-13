@@ -15,7 +15,7 @@
 
 NDN_LOG_INIT(ndnsd.comparision.proactive_prod);
 
-int MAX_UPDATES = 1;
+int MAX_UPDATES = 300;
 
 class ProactiveDiscovery
 {
@@ -129,14 +129,6 @@ ProactiveDiscovery::sendNotificationInterest()
 void
 ProactiveDiscovery::publishUpdates()
 {
-  // if notification is scheduled, cancle it
-  try {
-    m_scheduledSyncInterestId.cancel();
-  }
-  catch (const  std::exception& e) {
-    NDN_LOG_ERROR("Encountered some error, " << e.what());
-  }
-
   // the service will be updated MAX_UPDATES times  
   ++m_currentUpdateCounter; 
   if (m_currentUpdateCounter >= MAX_UPDATES)
@@ -150,10 +142,15 @@ ProactiveDiscovery::publishUpdates()
   name.append(m_servicePrefix).appendNumber(m_currentUpdateCounter);
 
   ndn::Interest interest(name);
-  
-  // const std::string serviceInfoName =  m_servicePrefix.toUri() + "/service-info/";  // -- is delimiter, dirty way of avoiding encoding procedure :(
-  // interest.setApplicationParameters(reinterpret_cast<const uint8_t*>(serviceInfoName.c_str()), serviceInfoName.size());
 
+  // if notification is scheduled, cancle it
+  try {
+    m_scheduledSyncInterestId.cancel();
+  }
+  catch (const  std::exception& e) {
+    NDN_LOG_ERROR("Encountered some error, " << e.what());
+  }
+  
   NDN_LOG_INFO("Sending new publication interest: " << name << " Current update counter: " << m_currentUpdateCounter);
   expressInterest(interest);
   NDN_LOG_INFO("Publish interest: "  << name << " sent");
@@ -163,6 +160,7 @@ ProactiveDiscovery::publishUpdates()
   auto scheduledId = m_scheduler.schedule(m_periodicInterval,
                                   [this] {publishUpdates();});
 
+  
   // schedule notification now
   m_scheduledSyncInterestId = m_scheduler.schedule(m_periodicInterval/2,
                          [this] { sendNotificationInterest();}); 

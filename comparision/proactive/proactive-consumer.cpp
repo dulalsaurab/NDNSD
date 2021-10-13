@@ -46,8 +46,8 @@ public:
 
 private:
   ndn::Face m_face;
-
   ndn::Name m_discoveryPrefix;
+  std::vector<ndn::Name> m_obtainedNames;
   
 };
 
@@ -58,9 +58,9 @@ ProactiveConsumer::expressInterest(ndn::Interest& interest)
   // interest.setMustBeFresh(false);  
   NDN_LOG_INFO("Sending interest: "<< interest);
   m_face.expressInterest(interest,
-                          ndn::bind(&ProactiveConsumer::onData, this, _1, _2),
-                          ndn::bind(&ProactiveConsumer::onTimeout, this, _1),
-                          ndn::bind(&ProactiveConsumer::onTimeout, this, _1));
+                          std::bind(&ProactiveConsumer::onData, this, _1, _2),
+                          std::bind(&ProactiveConsumer::onTimeout, this, _1),
+                          std::bind(&ProactiveConsumer::onTimeout, this, _1));
 }
 
   void
@@ -68,7 +68,7 @@ ProactiveConsumer::expressInterest(ndn::Interest& interest)
   {
     NDN_LOG_INFO("Received data for interest: " << interest.getName());
     std::string _content(reinterpret_cast<const char*>(data.getContent().value()));
-    NDN_LOG_INFO("Data content: " << _content);
+    NDN_LOG_INFO("Data content received: ");
     // print data content as well
   }
 
@@ -94,10 +94,19 @@ ProactiveConsumer::processInterest(const ndn::Name& name, const ndn::Interest& i
 {
   NDN_LOG_INFO("Received interest: " << interest.getName() << " name: " << name);
 
-  // auto params = interest.getApplicationParameters();
-  // std::string _params(reinterpret_cast<const char*>(params.value()));
-  ndn::Name applicationPrefix(interest.getName().getSubName(-3, 3)); //.append("service-info"));
-  NDN_LOG_INFO("Application prefix: " << applicationPrefix);
+  auto tempName =  interest.getName().getSubName(-3, 3);
+
+  // check if this name was already fetched, if so don't fetch it again
+  for (auto sname : m_obtainedNames)
+    {
+      if (sname == tempName){
+        NDN_LOG_INFO("This name was already received before, dont fetch");
+        return;
+      }
+    }
+  m_obtainedNames.push_back(tempName);
+
+  ndn::Name applicationPrefix(tempName); //.append("service-info"));
   ndn::Interest dataInterest(applicationPrefix);
 
   NDN_LOG_INFO("Sending interest: " << applicationPrefix << " to fetch service info");
