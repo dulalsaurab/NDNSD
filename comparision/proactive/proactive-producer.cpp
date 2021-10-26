@@ -15,7 +15,7 @@
 
 NDN_LOG_INIT(ndnsd.comparision.proactive_prod);
 
-int MAX_UPDATES = 300;
+int MAX_UPDATES = 30;
 
 class ProactiveDiscovery
 {
@@ -42,13 +42,13 @@ public:
        /<domain>/<other-info>/discovery/<service-type>, second-last component is always service type
       application parameter: servicePrefix name
     */
-    // send periodic notification 500ms each
-    m_scheduler.schedule(m_periodicInterval/2,
+    // send periodic notification 1000ms each
+    m_scheduler.schedule(m_periodicInterval/10,
                          [this] { sendNotificationInterest();});
 
     // sendNotificationInterest();
 
-    // publish updates, we will publish 300 updates 1 second each
+    // publish updates, we will publish 30 updates 10 second each
     m_scheduler.schedule(m_periodicInterval,
                          [this] { publishUpdates();});
     // publishUpdates();
@@ -122,7 +122,7 @@ ProactiveDiscovery::sendNotificationInterest()
   // schedule another notification interest
   NDN_LOG_INFO("Next notification interest is scheduled on: " << m_periodicInterval);
 
-  m_scheduledSyncInterestId = m_scheduler.schedule(m_periodicInterval/2,
+  m_scheduledSyncInterestId = m_scheduler.schedule(m_periodicInterval/10,
                          [this] { sendNotificationInterest();});
 }
 
@@ -162,7 +162,7 @@ ProactiveDiscovery::publishUpdates()
 
   
   // schedule notification now
-  m_scheduledSyncInterestId = m_scheduler.schedule(m_periodicInterval/2,
+  m_scheduledSyncInterestId = m_scheduler.schedule(m_periodicInterval/10,
                          [this] { sendNotificationInterest();}); 
  
 }
@@ -230,6 +230,6 @@ ProactiveDiscovery::onRegistrationSuccess(const ndn::Name& name)
 int main(int argc, char* argv[])
 {
   std::string serviceInfoPrefix = argv[1];
-  ndn::time::milliseconds interval(1000);
+  ndn::time::milliseconds interval(10000);
   ProactiveDiscovery pdiscovery(serviceInfoPrefix, "printer", interval);
 }

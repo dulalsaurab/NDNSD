@@ -7,20 +7,26 @@ import csv
 import numpy as np
 
 #rootDir = "sync-delay-investigation/run-dec10-1/"
-# rootDir = "/home/mini-ndn/europa_bkp/mini-ndn/sdulal/mini-ndn/ndn-src/NDNSD/experiments/result/loss-experiment/10_percent"
-rootDir = "/tmp/minindn/"
+rootDir = "/home/mini-ndn/europa_bkp/mini-ndn/sdulal/mini-ndn/ndn-src/NDNSD/experiments/result/comparision/p_interval_10/ndnsd/loss_1"
+# rootDir = "/tmp/minindn/"
 
-topo = {
-        'c1p1':3, 'c1p2':4,
-        'c2p1':2, 'c2p2':3,
-        'c3p1':1,
-        'c4p1':3, 'c4p2':2,
-        'c5p1':4, 'c5p2':3
-        }
+# topo = {
+#         'ummemphis':3, 'umucla':4,
+#         'arizonamemphis':2, 'arizonaucla':3,
+#         'uiucmemphis':1,
+#         'uaslpmemphis':3, 'uaslpucla':2,
+#         'csumemphis':4, 'csuucla':3 
+#         }
+# this topo is to make things easier, to fit with this script, it doesnt reflect actual hop 
+topo = {'wumemphis':1 , 'arizonamemphis':1, 'uiucmemphis':1, 'uaslpmemphis':1, 'csumemphis':1,
+        'wuucla':2, 'arizonaucla':2, 'uiucucla':2, 'uaslpucla':2, 'csuucla':2}
 
 #topo = {'c1p1': 2, 'c1p2': 2, 'c1p3': 2}
-prod = ['p1', 'p2']
-cons = ['c1', 'c2', 'c3', 'c4', 'c5']
+# prod = ['p1', 'p2']
+# cons = ['c1', 'c2', 'c3', 'c4', 'c5']
+
+cons = ['wu', 'arizona', 'uiuc', 'uaslp', 'csu']
+prod = ['memphis', 'ucla']
 
 def processLogFile(filename, searchStrings):
   res_dict = {}

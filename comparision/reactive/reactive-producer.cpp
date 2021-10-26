@@ -15,7 +15,7 @@
 
 NDN_LOG_INIT(ndnsd.comparision.reactive_prod);
 
-int MAX_UPDATES = 10;
+int MAX_UPDATES = 30;
 
 class ReactiveDiscovery
 {
@@ -74,12 +74,17 @@ ReactiveDiscovery::updateService()
   ++m_currentUpdateCounter;
   if(m_currentUpdateCounter >= MAX_UPDATES)
   {
-    NDN_LOG_INFO("Reached maximum number of updated, exiting");
-    exit(0);
+    NDN_LOG_INFO("Reached maximum number of updated, no update further");
+    // don't need to update the service anymore
+    return;
   }
 
+  NDN_LOG_INFO("Next update is scheduled in: " << m_periodicInterval);
   m_scheduledSyncInterestId = m_scheduler.schedule(m_periodicInterval,
-                         [this] { updateService(); });
+                         [this] { 
+                           NDN_LOG_INFO("Service updated with update counter: " << m_currentUpdateCounter);
+                           updateService(); 
+                           });
 
 }
 
@@ -99,28 +104,45 @@ void
 ReactiveDiscovery::processInterest(const ndn::Name& name, const ndn::Interest& interest)
 {
   bool send = true;
-  NDN_LOG_INFO("Received interest: " << name);
-  // check if service name is excluded in the application parameter
-  auto params = interest.getApplicationParameters();
-  NDN_LOG_INFO("app params: " << params);
-  
-  std::string s(reinterpret_cast<const char*>(params.value()));
+  NDN_LOG_INFO("Received interest: " << interest.getName());
 
-  NDN_LOG_INFO("Excluded names: " << s);
-  std::string delimiter = "|";
-  size_t pos = 0;
-  std::string token;
-
-  while ((pos = s.find(delimiter)) != std::string::npos) {
-      token = s.substr(0, pos);
-      if (token == m_servicePrefix)
-          send = false;
-        // name is excluded, we have already send reply for this, so dont send anything
-      s.erase(0, pos + delimiter.length());
-  }
-  // finally check one more time
-  if (s == m_servicePrefix)
+  auto interestName = interest.getName().toUri();
+  if (interestName.find(m_servicePrefix.toUri()) != std::string::npos)
+  {
     send = false;
+    NDN_LOG_INFO("Name found in excluded name");
+  }
+
+  // check if service name is excluded in the application parameter
+  // auto params = interest.getApplicationParameters();
+  // NDN_LOG_INFO("app params: " << params);
+  
+  // getting some error on application parameter, quick/dirty solution is to put on try catch and stop 
+  // // program from crashing (NEED TO INVESTIGATE)
+  // try {
+  //   std::string s(reinterpret_cast<const char*>(params.value()));
+    
+  //   NDN_LOG_INFO("Excluded names: " << s);
+  //   std::string delimiter = "|";
+  //   size_t pos = 0;
+  //   std::string token;
+
+  //   while ((pos = s.find(delimiter)) != std::string::npos) {
+  //       token = s.substr(0, pos);
+  //       NDN_LOG_INFO("token:" << token << "service prefix: " << m_servicePrefic);
+  //       if (token == m_servicePrefix)
+  //           send = false;
+  //         // name is excluded, we have already send reply for this, so dont send anything
+  //       s.erase(0, pos + delimiter.length());
+  //   }
+  //   // finally check one more time
+  //   if (s == m_servicePrefix)
+  //     send = false;
+  // }
+  // catch (std::exception& e)
+  // {
+  //   NDN_LOG_INFO("got exception << " e.what());
+  // }
 
   if (send)
   {
@@ -150,8 +172,9 @@ ReactiveDiscovery::onRegistrationSuccess(const ndn::Name& name)
   NDN_LOG_DEBUG("Successfully registered prefix: " << name);
 }
 
-int main()
+int main(int argc, char* argv[])
 {
-  ndn::time::milliseconds interval(1000);
-  ReactiveDiscovery rdiscovery("/uofm/printer1/", "printer", interval);
+  std::string serviceInfoPrefix = argv[1];
+  ndn::time::milliseconds interval(10000);
+  ReactiveDiscovery rdiscovery(serviceInfoPrefix, "printer", interval);
 }

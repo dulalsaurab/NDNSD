@@ -78,8 +78,8 @@ class NDNSDExperiment():
     sleep(5)
     AppManager(self.ndn, self.hosts, Nfd, logLevel='DEBUG')
     if nlsr:
-        AppManager(self.ndn, self.ndn.net.hosts, Nlsr, logLevel='INFO')
-        sleep(90)
+        AppManager(self.ndn, self.ndn.net.hosts, Nlsr, security=self.ndn.args.security, logLevel='INFO')
+        sleep(180)
     Popen(['cp', 'test.info', '/usr/local/etc/ndn/ndnsd_default.info'], stdout=PIPE, stderr=PIPE).communicate()
 
   def startProducer(self):
@@ -94,7 +94,7 @@ class NDNSDExperiment():
       producer.cmd('infoedit -f {} -s required.appPrefix -v {}'.format(hostInfoFile, appPrefix))
 
       # uncomment to enable sync log
-      cmd = 'export NDN_LOG=ndnsd.*=TRACE'#:psync.*=TRACE:sync.*=TRACE'
+      cmd = 'export NDN_LOG=ndnsd.*=TRACE:psync.*=TRACE:sync.*=TRACE'
       producer.cmd(cmd)
       cmd = 'ndnsd-producer {} 1 &> {}/{}/producer.log &'.format(hostInfoFile, self.args.workDir, hostName)
       try:
@@ -108,7 +108,7 @@ class NDNSDExperiment():
     print("Staring consumers")
     for consumer in self.consumerNodes:
       cName = consumer.name
-      cmd = 'export NDN_LOG=ndnsd.*=TRACE'#:psync.*=TRACE:sync.*=TRACE'
+      cmd = 'export NDN_LOG=ndnsd.*=TRACE:psync.*=TRACE:sync.*=TRACE'
       consumer.cmd(cmd)
       cmd = 'ndnsd-consumer -s {} &> {}/{}/consumer.log -c 1 -p 1 &'.format(self.consumers[cName], self.args.workDir, cName)
       try:

@@ -4,20 +4,28 @@ from minindn.util import MiniNDNWifiCLI, MiniNDNCLI, getPopen
 from minindn.helpers.nfdc import Nfdc
 from time import sleep
 from minindn.minindn import Minindn
+from nlsr_common import getParser
 
-numberOfUpdates = 300
-jitter = 100
+numberOfUpdates = 30
+jitter = 60
 
 if __name__ == '__main__':
     neb.subprocess.call(['rm','-r','/tmp/minindn/'])
     setLogLevel('info')
-    ndn = Minindn()
+    ndn = Minindn(parser=getParser())
+    
     producers = dict()
     consumers = dict()
-    producers = neb.generateNodes('P', 2, "printer", 1000)
-    consumers = neb.generateNodes('C', 5, "printer", 1000)
+
+    consumers = {'wu': 'printer', 'arizona': 'printer', 'uiuc': 'printer', 'uaslp': 'printer', 'csu': 'printer',
+                'neu': 'printer', 'basel': 'printer', 'copelabs': 'printer', 'uclacs': 'printer', 'bern': 'printer'}
+    producers = {'ucla': ['printer', 10000], 'memphis': ['printer', 10000]}
+
+    # can call generate nodes if consumers are c1, c2.... and producers are p1, p2 ....
+    # producers = neb.generateNodes('P', 2, "printer", 1000)
+    # consumers = neb.generateNodes('C', 5, "printer", 1000)
     print(consumers, producers)
-  
+
     # pass true if want to use NSLR
     exp = neb.NDNSDExperiment(ndn, producers, consumers, 'wired', True)
     sleep(2)
@@ -58,7 +66,7 @@ if __name__ == '__main__':
     # MiniNDNCLI(ndn.net)
 
     # adjust approximate time to complete the experiment based on numberOfUpdates
-    print("Sleep approximately {} seconds to complete the experiment".format(2*numberOfUpdates + jitter))
-    sleep(numberOfUpdates + jitter)
+    print("Sleep approximately {} seconds to complete the experiment".format(10*numberOfUpdates + jitter))
+    sleep(10*numberOfUpdates + jitter)
     print("Experiment completed")
     ndn.stop()

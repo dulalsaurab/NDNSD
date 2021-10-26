@@ -16,7 +16,7 @@ if __name__ == '__main__':
     # args = ndn.args
     producers = dict()
     consumers = dict()
-  
+
     consumers = {'wu': 'printer', 'arizona': 'printer', 'uiuc': 'printer', 'uaslp': 'printer', 'csu': 'printer',
                 'neu': 'printer', 'basel': 'printer', 'copelabs': 'printer', 'uclacs': 'printer', 'bern': 'printer'}
     producers = {'ucla': ['printer', 10000], 'memphis': ['printer', 10000]}
@@ -31,15 +31,15 @@ if __name__ == '__main__':
     sleep(2)
     discoveryPrefix = '/uofm/discovery/printer'
 
-    for producer in exp.producerNodes:
-        appPrefix = '/uofm/{}'.format(producer.name)
-        producer.cmd('nlsrc advertise {}'.format(appPrefix))
-        sleep(10)
-        # producer.cmd('nlsrc advertise {}'.format(discoveryPrefix))
+    # for producer in exp.producerNodes:
+    #     appPrefix = '/uofm/{}'.format(producer.name)
+    #     producer.cmd('nlsrc advertise {}'.format(appPrefix))
+    #     sleep(5)
+    #     # producer.cmd('nlsrc advertise {}'.format(discoveryPrefix))
 
-    for consumer in exp.consumerNodes:
-      consumer.cmd('nlsrc advertise {}'.format(discoveryPrefix))
-      sleep(10)
+    for producer in exp.producerNodes:
+      producer.cmd('nlsrc advertise {}'.format(discoveryPrefix))
+      sleep(5)
     
     # set discovery prefix, /uofm/discovery/printers, to multicast on all the nodes.
     for host in ndn.net.hosts:
@@ -51,17 +51,17 @@ if __name__ == '__main__':
     for consumer in exp.consumerNodes:
       cmd = 'export NDN_LOG=ndn.Face=TRACE:ndnsd.comparision.*=TRACE'
       consumer.cmd(cmd)
-      cmd = 'proactive-consumer &> {}/{}/consumer.log &'.format(ndn.args.workDir, consumer.name)
+      cmd = 'reactive-consumer &> {}/{}/consumer.log &'.format(ndn.args.workDir, consumer.name)
       consumer.cmd(cmd)
-      sleep(10)
+      sleep(1)
 
     # start producer
     for producer in exp.producerNodes:
       cmd = 'export NDN_LOG=ndn.Face=TRACE:ndnsd.comparision.*=TRACE'
       producer.cmd(cmd)
-      cmd = 'proactive-producer /uofm/{} &> {}/{}/producer.log &'.format(producer.name, ndn.args.workDir, producer.name)
+      cmd = 'reactive-producer /uofm/{} &> {}/{}/producer.log &'.format(producer.name, ndn.args.workDir, producer.name)
       producer.cmd(cmd)
 
-    sleep(400)
+    sleep(320)
     # MiniNDNCLI(ndn.net)
     ndn.stop()
