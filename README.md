@@ -10,6 +10,6 @@
 - `sudo python ndnsd-experiments.py topologies/test-topo`
 
 
-#### Wired experiment
+#### Wireless experiment
 
 - `sudo python wifi-ndnsd-experiments.py topologies/wifi-topo`
