@@ -93,9 +93,8 @@ public:
     // append timestamp
     reloadPrefix.append(boost::lexical_cast<std::string>(ndn::time::system_clock::now()));
     ndn::Interest interest(reloadPrefix);
-    interest.setCanBePrefix(false);
     interest.setMustBeFresh(true);
-    
+
     NDN_LOG_INFO("Sending reload interest: "<< interest);
     m_face.expressInterest(interest,
                            std::bind(&UpdateState::onData, this, _1, _2),

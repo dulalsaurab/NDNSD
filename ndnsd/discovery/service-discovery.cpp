@@ -247,7 +247,6 @@ ServiceDiscovery::expressInterest(const ndn::Name& name)
 {
   NDN_LOG_INFO("Sending interest: "  << name);
   ndn::Interest interest(name);
-  interest.setCanBePrefix(false);
   interest.setMustBeFresh(true); //set true if want data explicit from producer.
   interest.setInterestLifetime(160_ms);
 

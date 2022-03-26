@@ -153,11 +153,11 @@ ReactiveDiscovery::processInterest(const ndn::Name& name, const ndn::Interest& i
     replyData.setFreshnessPeriod(freshnessPeriod);
     // attached current update counter so that consumer will know if all the publication is fetched or not
     const std::string c =  m_servicePrefix.toUri() + "|" + std::to_string(m_currentUpdateCounter) + "|";
-    replyData.setContent(reinterpret_cast<const uint8_t*>(c.c_str()), c.size());
-    m_keychain.sign(replyData); 
+    replyData.setContent(ndn::make_span(reinterpret_cast<const uint8_t*>(c.data()), c.size()));
+    m_keychain.sign(replyData);
     m_face.put(replyData);
     NDN_LOG_INFO("Data sent for :" << name);
-  } 
+  }
 }
 
 void
