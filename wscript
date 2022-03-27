@@ -3,13 +3,13 @@
 from waflib import Context, Logs, Utils
 import os, subprocess
 
-VERSION = "0.0.1"
-APPNAME = "ndnsd"
+VERSION = '0.1.0'
+APPNAME = 'ndnsd'
 
 def options(opt):
-    opt.load(['compiler_c', 'compiler_cxx', 'gnu_dirs'])
-    opt.load(['default-compiler-flags', 'coverage', 'sanitizers',
-              'boost'],
+    opt.load(['compiler_cxx', 'gnu_dirs'])
+    opt.load(['default-compiler-flags',
+              'coverage', 'sanitizers', 'boost'],
              tooldir=['.waf-tools'])
 
     optgrp = opt.add_option_group('ndnsd Options')
@@ -17,24 +17,24 @@ def options(opt):
                       help='Build examples')
 
 def configure(conf):
-    conf.load(['compiler_c', 'compiler_cxx', 'gnu_dirs',
+    conf.load(['compiler_cxx', 'gnu_dirs',
                'default-compiler-flags', 'boost'])
 
     conf.env.WITH_EXAMPLES = conf.options.with_examples
-    
-    pkg_config_path = os.environ.get('PKG_CONFIG_PATH', '%s/pkgconfig' % conf.env.LIBDIR)
-    conf.check_cfg(package='libndn-cxx', args=['--cflags', '--libs'], uselib_store='NDN_CXX',
-                   pkg_config_path=pkg_config_path)
 
-    boost_libs = ['system', 'iostreams', 'filesystem', 'regex']
+    pkg_config_path = os.environ.get('PKG_CONFIG_PATH', f'{conf.env.LIBDIR}/pkgconfig')
+    conf.check_cfg(package='libndn-cxx', args=['libndn-cxx >= 0.8.0', '--cflags', '--libs'],
+                   uselib_store='NDN_CXX', pkg_config_path=pkg_config_path)
+
+    boost_libs = ['system', 'program_options', 'filesystem']
 
     conf.check_boost(lib=boost_libs, mt=True)
 
-    conf.check_cfg(package='ChronoSync', args=['--cflags', '--libs'], uselib_store='SYNC',
-                   pkg_config_path=pkg_config_path)
+    conf.check_cfg(package='ChronoSync', args=['ChronoSync >= 0.5.4', '--cflags', '--libs'],
+                   uselib_store='SYNC', pkg_config_path=pkg_config_path)
 
-    conf.check_cfg(package='PSync', args=['--cflags', '--libs'], uselib_store='PSYNC',
-                   pkg_config_path=pkg_config_path)
+    conf.check_cfg(package='PSync', args=['PSync >= 0.3.0', '--cflags', '--libs'],
+                   uselib_store='PSYNC', pkg_config_path=pkg_config_path)
 
     conf.check_compiler_flags()
 
@@ -50,10 +50,8 @@ def configure(conf):
     # compiler on the command line.
     conf.write_config_header('ndnsd/config.hpp')
 
-
 def build(bld):
-    bld.shlib(features="c cshlib",
-              target='ndnsd',
+    bld.shlib(target='ndnsd',
               vnum=VERSION,
               cnum=VERSION,
               source=bld.path.ant_glob('ndnsd/**/*.cpp'),
@@ -103,7 +101,7 @@ def version(ctx):
     except (OSError, subprocess.CalledProcessError):
         pass
 
-    versionFile = ctx.path.find_node('VERSION')
+    versionFile = ctx.path.find_node('VERSION.info')
     if not gotVersionFromGit and versionFile is not None:
         try:
             Context.g_module.VERSION = versionFile.read()
@@ -120,7 +118,7 @@ def version(ctx):
         except EnvironmentError as e:
             Logs.warn('%s exists but is not readable (%s)' % (versionFile, e.strerror))
     else:
-        versionFile = ctx.path.make_node('VERSION')
+        versionFile = ctx.path.make_node('VERSION.info')
 
     try:
         versionFile.write(Context.g_module.VERSION)

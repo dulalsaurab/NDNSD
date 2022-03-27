@@ -208,7 +208,7 @@ ProactiveDiscovery::processInterest(const ndn::Name& name, const ndn::Interest& 
   ndn::time::milliseconds freshnessPeriod(100);
   replyData.setFreshnessPeriod(freshnessPeriod);
 
-  replyData.setContent(reinterpret_cast<const uint8_t*>(c.c_str()), c.size());
+  replyData.setContent(ndn::make_span(reinterpret_cast<const uint8_t*>(c.data()), c.size()));
   m_keychain.sign(replyData);
   m_face.put(replyData);
   NDN_LOG_INFO("Data sent for :" << name);

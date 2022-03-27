@@ -98,9 +98,6 @@ public:
   using std::runtime_error::runtime_error;
 };
 
-typedef struct Details Details;
-typedef struct Reply Reply;
-
 typedef std::function<void(const Reply& serviceUpdates)> DiscoveryCallback;
 
 std::map<std::string, std::string>
