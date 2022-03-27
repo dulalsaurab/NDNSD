@@ -1,17 +1,16 @@
-; all the item in the required section needs to be filled properly
-
-required
-{
-  serviceName printer
-  appPrefix /repo/r1 ; repo name prefix
-  lifetime 1 ; in seconds
+service-info-namespace {
+    root /edu/memphis
+    scope computing
+    type image-proc/rcnn
+    identifier rcnn1
 }
 
-; additional service details, user can put as many items as desired
+required-service-detail {
+    name /edu/memphis/computing/image-proc/rcnn/rcnn1
+    lifetime 50
+}
 
-details
-{
-  description "repo to insert sensor data"
-  appPrefix /repo/r1 ;repo prefix
-  servedPrefix /prefix ;prefix repo served data for
+optional-service-detail {
+    description "faster rcnn"
+    release inception_resnet_v2/1
 }

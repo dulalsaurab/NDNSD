@@ -35,7 +35,7 @@ class ServiceInfoFileProcessor
 public:
 
   ServiceInfoFileProcessor() = default;
-  ServiceInfoFileProcessor(const std::string filename);
+  explicit ServiceInfoFileProcessor(std::string  filename);
 
   ndn::Name&
   getServiceName()
@@ -69,7 +69,7 @@ private:
   ndn::Name m_serviceName;
   ndn::Name m_applicationPrefix;
   std::map<std::string, std::string> m_serviceMetaInfo;
-  ndn::time::seconds m_serviceLifeTime;
+  ndn::time::seconds m_serviceLifeTime{};
 };
 
 } // namespace discovery

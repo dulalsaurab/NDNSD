@@ -28,8 +28,8 @@ NDN_LOG_INIT(ndnsd.FileProcessor);
 namespace ndnsd {
 namespace discovery {
 
-ServiceInfoFileProcessor::ServiceInfoFileProcessor(const std::string filename)
- : m_filename(filename)
+ServiceInfoFileProcessor::ServiceInfoFileProcessor(std::string filename)
+ : m_filename(std::move(filename))
 {
   processFile();
 }
@@ -42,48 +42,52 @@ ServiceInfoFileProcessor::processFile()
 {
   try
   {
-    NDN_LOG_INFO("Reading file: "<< m_filename);
-    boost::property_tree::ptree pt;
-    read_info(m_filename, pt);
-    for (auto& block: pt)
-    {
-      if (block.first == "required")
-      {
-        for (auto& requiredElement: block.second)
-        {
-          const auto& val = requiredElement.second.get_value<std::string >();
+      namespace pt = boost::property_tree;
+      using ConfigSection = boost::property_tree::ptree;
+      NDN_LOG_INFO("Reading file: "<< m_filename);
+      std::ifstream ifstream(m_filename.c_str());
+      ConfigSection section;
+      pt::read_info(m_filename, section);
+      auto a = section.get_child("service-info-namespace");
 
-          if (requiredElement.first == "serviceName")
-          {
-            m_serviceName = val;
+      ndn::Name root, scope, type, identifier;
+      for (const auto &item: section.get_child("service-info-namespace")) {
+          std::string key = item.first;
+          ndn::Name value = item.second.get_value<ndn::Name>();
+          if (key == "root") {
+              root = value;
+          } else if (key == "scope") {
+              scope = value;
+          } else if (key == "type") {
+              type = value;
+          } else if (key == "identifier") {
+              identifier = value;
           }
-          if (requiredElement.first == "appPrefix")
-          {
-            m_applicationPrefix = val;
-          }
-          if (requiredElement.first == "lifetime")
-          {
-              uint32_t lifetime = std::stoi(val);
+      }
+      m_serviceName.append(root).append(scope).append(type).append(identifier);
+
+      for (const auto &item: section.get_child("required-service-detail")) {
+          std::string key = item.first;
+          std::string value = item.second.get_value<std::string>();
+          if (key == "name") {
+              m_applicationPrefix = value;
+          } else if (key == "lifetime") {
+              uint32_t lifetime = std::stoi(value);
               m_serviceLifeTime = ndn::time::seconds(lifetime);
           }
-        }
       }
 
-      if (block.first == "details")
-      {
-        m_serviceMetaInfo.clear();
-        for (auto& details: block.second)
-        {
-          const auto& key = details.first; //get_value<std::string >();
-          const auto& val = details.second.get_value<std::string >();
+      if (section.get_child_optional("optional-service-detail")) {
+          for (const auto &item: section.get_child("optional-service-detail")) {
+              std::string key = item.first;
+              std::string value = item.second.get_value<std::string>();
 
-          NDN_LOG_DEBUG("Key: " << key << "Value: " << val);
-
-          m_serviceMetaInfo.insert(std::pair<std::string, std::string>(key, val));
-        }
+              m_serviceMetaInfo.insert(std::pair<std::string, std::string>(key, value));
+          }
       }
-    }
-    NDN_LOG_INFO("Successfully updated the file content: ");
+
+      ifstream.close();
+      NDN_LOG_INFO("Successfully updated the file content: ");
   }
   catch (std::exception const& e)
   {
