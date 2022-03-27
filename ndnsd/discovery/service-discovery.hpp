@@ -24,11 +24,16 @@
 
 #include "file-processor.hpp"
 
+#include <nac-abe/attribute-authority.hpp>
+#include <nac-abe/producer.hpp>
+#include <nac-abe/consumer.hpp>
+
 #include <ndn-cxx/face.hpp>
 #include <ndn-cxx/util/random.hpp>
 #include <ndn-cxx/util/scheduler.hpp>
 #include <ndn-cxx/util/time.hpp>
 #include <ndn-cxx/util/dummy-client-face.hpp>
+
 
 using namespace ndn::time_literals;
 
@@ -272,6 +277,13 @@ private:
   mutable ndn::Block m_wire;
   DiscoveryCallback m_discoveryCallback;
   ndn::Name m_reloadPrefix;
+
+  // nac-abe
+  ndn::security::Certificate m_producerCert;
+  ndn::security::Certificate m_authorityCert;
+  std::unique_ptr<ndn::nacabe::Consumer> m_abe_consumer;
+  std::unique_ptr<ndn::nacabe::Producer> m_abe_producer;
+
 };
 } //namespace discovery
 } //namespace ndnsd

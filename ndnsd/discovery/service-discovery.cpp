@@ -38,10 +38,17 @@ ServiceDiscovery::ServiceDiscovery(const ndn::Name& serviceName,
   , m_counter(0)
   , m_syncProtocol(processFalgs(pFlags, 'p', false))
   , m_syncAdapter(m_face, m_syncProtocol, makeSyncPrefix(m_serviceName),
-                  "/defaultName", 1600_ms,
+                  "/ndnsd/finder", 1600_ms,
                   std::bind(&ServiceDiscovery::processSyncUpdate, this, _1))
   , m_discoveryCallback(discoveryCallback)
+  , m_abe_consumer(std::make_unique<ndn::nacabe::Consumer>(m_face, m_keyChain, 
+                   m_keyChain.getPib().getIdentity("/ndnsd/finder1").getDefaultKey().getDefaultCertificate(),
+                   m_keyChain.getPib().getIdentity("/ndnsd/aa").getDefaultKey().getDefaultCertificate())) // todo: aa prefix should be in configuration file?
+  , m_abe_producer(nullptr) // TODO: need to delete this properly 
 {
+  NDN_LOG_DEBUG("Initializing service finder");
+  m_abe_consumer->obtainDecryptionKey();
+
   // all the optional flag contDiscovery should be set here TODO:
   m_contDiscovery = processFalgs(pFlags, 'c', true);
 }
@@ -58,6 +65,10 @@ ServiceDiscovery::ServiceDiscovery(const std::string& filename,
                   m_fileProcessor.getAppPrefix(), 1600_ms,
                   std::bind(&ServiceDiscovery::processSyncUpdate, this, _1))
   , m_discoveryCallback(discoveryCallback)
+  , m_producerCert(m_keyChain.getPib().getIdentity(m_fileProcessor.getAppPrefix()).getDefaultKey().getDefaultCertificate())
+  , m_authorityCert(m_keyChain.getPib().getIdentity("/ndnsd/aa").getDefaultKey().getDefaultCertificate())
+  , m_abe_consumer(nullptr)
+  , m_abe_producer(std::make_unique<ndn::nacabe::Producer>(m_face, m_keyChain, m_producerCert, m_authorityCert))
 {
   setUpdateProducerState();
   // service is ACTIVE at this point
@@ -228,6 +239,12 @@ ServiceDiscovery::sendData(const ndn::Name& name)
   ndn::Data replyData(name);
   replyData.setFreshnessPeriod(5_s);
   replyData.setContent(wireEncode());
+
+  auto data = "hello world";
+  dataSufix = dataName.getSubName(3);
+  std::tie(ckData, enc_data) = m_abe_producer.produce(dataSufix, "A or B", 
+                               reinterpret_cast<const uint8_t *>(data.c_str()), data.size());
+
   m_keyChain.sign(replyData);
   m_face.put(replyData);
   NDN_LOG_DEBUG("Data sent for :" << name);
