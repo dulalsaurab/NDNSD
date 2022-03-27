@@ -33,12 +33,13 @@ namespace discovery {
 ServiceDiscovery::ServiceDiscovery(const ndn::Name& serviceName,
                                    const std::map<char, uint8_t>& pFlags,
                                    const DiscoveryCallback& discoveryCallback)
-  : m_serviceName(serviceName)
+  : m_scheduler(m_face.getIoService())
+  , m_serviceName(serviceName)
   , m_appType(processFalgs(pFlags, 't', false))
   , m_counter(0)
   , m_syncProtocol(processFalgs(pFlags, 'p', false))
   , m_syncAdapter(m_face, m_syncProtocol, makeSyncPrefix(m_serviceName),
-                  "/ndnsd/finder", 1600_ms,
+                  "/ndnsd/finder1", 1600_ms,
                   std::bind(&ServiceDiscovery::processSyncUpdate, this, _1))
   , m_discoveryCallback(discoveryCallback)
   , m_abe_consumer(std::make_unique<ndn::nacabe::Consumer>(m_face, m_keyChain, 
@@ -47,6 +48,7 @@ ServiceDiscovery::ServiceDiscovery(const ndn::Name& serviceName,
   , m_abe_producer(nullptr) // TODO: need to delete this properly 
 {
   NDN_LOG_DEBUG("Initializing service finder");
+  std::this_thread::sleep_for (std::chrono::seconds(2));
   m_abe_consumer->obtainDecryptionKey();
 
   // all the optional flag contDiscovery should be set here TODO:
@@ -57,7 +59,8 @@ ServiceDiscovery::ServiceDiscovery(const ndn::Name& serviceName,
 ServiceDiscovery::ServiceDiscovery(const std::string& filename,
                                    const std::map<char, uint8_t>& pFlags,
                                    const DiscoveryCallback& discoveryCallback)
-  : m_filename(filename)
+  : m_scheduler(m_face.getIoService())
+  , m_filename(filename)
   , m_fileProcessor(m_filename)
   , m_appType(processFalgs(pFlags, 't', false))
   , m_syncProtocol(processFalgs(pFlags, 'p', false))
@@ -65,24 +68,12 @@ ServiceDiscovery::ServiceDiscovery(const std::string& filename,
                   m_fileProcessor.getAppPrefix(), 1600_ms,
                   std::bind(&ServiceDiscovery::processSyncUpdate, this, _1))
   , m_discoveryCallback(discoveryCallback)
-  , m_producerCert(m_keyChain.getPib().getIdentity(m_fileProcessor.getAppPrefix()).getDefaultKey().getDefaultCertificate())
+  , m_producerCert(m_keyChain.getPib().getIdentity("/uofm/printer/printer1").getDefaultKey().getDefaultCertificate())
   , m_authorityCert(m_keyChain.getPib().getIdentity("/ndnsd/aa").getDefaultKey().getDefaultCertificate())
   , m_abe_consumer(nullptr)
   , m_abe_producer(std::make_unique<ndn::nacabe::Producer>(m_face, m_keyChain, m_producerCert, m_authorityCert))
 {
-  setUpdateProducerState();
-  // service is ACTIVE at this point
-  m_serviceStatus = ACTIVE;
-
-  setInterestFilter(m_producerState.applicationPrefix);
-
-  /**
-    each node will list on m_reloadPrefix, and will update their service once the
-    interest is received.
-  **/
-  m_reloadPrefix = m_fileProcessor.getAppPrefix();
-  m_reloadPrefix.append("reload");
-  // setInterestFilter(m_reloadPrefix);
+  std::this_thread::sleep_for (std::chrono::seconds(1));
 }
 
 void
@@ -101,12 +92,39 @@ ServiceDiscovery::setUpdateProducerState(bool update)
   else
   {
     m_producerState.serviceName = m_fileProcessor.getServiceName();
+    // m_producerState.serviceName.append(ndn::Name("NDNSD/discovery"));
     m_producerState.applicationPrefix = m_fileProcessor.getAppPrefix();
+    // m_producerState.applicationPrefix.append(ndn::Name("NDNSD/service-info"));
   }
   // update
   m_producerState.serviceLifetime = m_fileProcessor.getServiceLifetime();
   m_producerState.publishTimestamp = ndn::time::system_clock::now();
   m_producerState.serviceMetaInfo = m_fileProcessor.getServiceMeta();
+
+  std::string data = "hello world";
+
+  // auto seq_num = m_syncAdapter.getSeqNo(userPrefix) + 1; 
+  // NDN_LOG_INFO("seq_num from set update: " << seq_num);
+
+  auto dataSufix = ndn::Name("NDNSD/service-info");
+
+  std::shared_ptr<ndn::Data> enc_data, ckData;
+  try {
+    std::tie(enc_data, ckData) = m_abe_producer->produce(dataSufix, "A or B", 
+                               reinterpret_cast<const uint8_t *>(data.c_str()), data.size());
+  }
+   catch (const std::exception& ex)
+  {
+    NDN_THROW(Error(ex.what()));
+    NDN_LOG_ERROR("Face error: " << ex.what());
+    exit(-1);
+  }
+
+  NDN_LOG_INFO("Data name: " << enc_data->getName());
+  NDN_LOG_INFO("ckData name: " << ckData->getName());
+  
+  m_dataBuffer.emplace(enc_data->getName(), enc_data);
+  m_dataBuffer.emplace(ckData->getName(), ckData);
 
   // Reset the content of the wire after each reload.
   // This could have been better, but leaving as it is for now.
@@ -117,9 +135,10 @@ ServiceDiscovery::setUpdateProducerState(bool update)
 ndn::Name
 ServiceDiscovery::makeSyncPrefix(ndn::Name& service)
 {
-  ndn::Name sync("/discovery");
-  sync.append(service);
-  return sync;
+  return service;
+  // ndn::Name sync("/discovery");
+  // sync.append(service);
+  // return sync;
 }
 
 uint32_t
@@ -148,10 +167,28 @@ ServiceDiscovery::processFalgs(const std::map<char, uint8_t>& flags,
 
 void
 ServiceDiscovery::producerHandler()
-{
-  auto& prefix = m_producerState.applicationPrefix;
-  NDN_LOG_INFO("Advertising service under Name: " << prefix);
-  doUpdate(prefix);
+{ 
+  m_scheduler.schedule(ndn::time::milliseconds(5000), [=] {
+
+    setUpdateProducerState();
+    // service is ACTIVE at this point
+    m_serviceStatus = ACTIVE;
+
+    setInterestFilter(m_producerState.applicationPrefix.getPrefix(-2));
+
+    /**
+      each node will list on m_reloadPrefix, and will update their service once the
+      interest is received.
+    **/
+    m_reloadPrefix = m_fileProcessor.getAppPrefix();
+    m_reloadPrefix.append("reload");
+    // setInterestFilter(m_reloadPrefix);
+
+    auto& prefix = m_producerState.applicationPrefix;
+    NDN_LOG_INFO("Advertising service under Name: " << prefix);
+    doUpdate(prefix);
+  });
+
   run();
 }
 
@@ -231,23 +268,36 @@ ServiceDiscovery::sendData(const ndn::Name& name)
 {
   NDN_LOG_INFO("Sending data for: " << name);
 
-  auto timeDiff = ndn::time::system_clock::now() - m_producerState.publishTimestamp;
-  auto timeToExpire = ndn::time::duration_cast<ndn::time::seconds>(timeDiff);
+  auto it = m_dataBuffer.find(name);
+  if (it != m_dataBuffer.end()) {
+    NDN_LOG_INFO("Data found in the buffer for name: " << name);
+    m_face.put(*(it->second));
+    NDN_LOG_DEBUG("Data sent for :" << name);
+  }
+    
 
-  m_serviceStatus = (timeToExpire > m_producerState.serviceLifetime) ? EXPIRED : ACTIVE;
+  // auto timeDiff = ndn::time::system_clock::now() - m_producerState.publishTimestamp;
+  // auto timeToExpire = ndn::time::duration_cast<ndn::time::seconds>(timeDiff);
 
-  ndn::Data replyData(name);
-  replyData.setFreshnessPeriod(5_s);
-  replyData.setContent(wireEncode());
+  // m_serviceStatus = (timeToExpire > m_producerState.serviceLifetime) ? EXPIRED : ACTIVE;
 
-  auto data = "hello world";
-  dataSufix = dataName.getSubName(3);
-  std::tie(ckData, enc_data) = m_abe_producer.produce(dataSufix, "A or B", 
-                               reinterpret_cast<const uint8_t *>(data.c_str()), data.size());
+  // ndn::Data replyData(name);
+  // replyData.setFreshnessPeriod(5_s);
+  // replyData.setContent(wireEncode());
 
-  m_keyChain.sign(replyData);
-  m_face.put(replyData);
-  NDN_LOG_DEBUG("Data sent for :" << name);
+  // // auto data = "hello world";
+  // // dataSufix = dataName.getSubName(3);
+  // // std::shared_ptr<ndn::Data> enc_data, ckData;
+
+  // // std::tie(ckData, enc_data) = m_abe_producer.produce(dataSufix, "A or B", 
+  // //                              reinterpret_cast<const uint8_t *>(data.c_str()), data.size());
+
+  // // m_dataBuffer.insert({enc_data->getName(), enc_data});
+  // // m_dataBuffer.insert({enc_data->getName(), enc_data});
+
+  // m_keyChain.sign(replyData);
+  // m_face.put(replyData);
+  // NDN_LOG_DEBUG("Data sent for :" << name);
 }
 
 void
@@ -264,6 +314,7 @@ ServiceDiscovery::expressInterest(const ndn::Name& name)
 {
   NDN_LOG_INFO("Sending interest: "  << name);
   ndn::Interest interest(name);
+  interest.setCanBePrefix(true);
   interest.setMustBeFresh(true); //set true if want data explicit from producer.
   interest.setInterestLifetime(160_ms);
 
@@ -302,7 +353,11 @@ ServiceDiscovery::onTimeout(const ndn::Interest& interest)
         it->second++;
         NDN_LOG_DEBUG("Transmission count: " << getInterestRetransmissionCount(name)
                                              << " - Sending interest: "  << name);
-        expressInterest(interest.getName());
+        // expressInterest(interest.getName());
+        // expressInterest(interestName);
+        m_abe_consumer->consume(interest.getName().getPrefix(-1), bind(&ServiceDiscovery::abeOnData, this, _1),
+                             bind(&ServiceDiscovery::abeOnError, this, _1));
+
       }
       else
       {
@@ -354,7 +409,10 @@ ServiceDiscovery::processSyncUpdate(const std::vector<ndnsd::SyncDataInfo>& upda
         m_interestRetransmission.insert(std::pair<ndn::Name, uint32_t> (interestName, 1));
         NDN_LOG_DEBUG("Transmission count: " << getInterestRetransmissionCount(interestName)
                                              << " - Sending interest: "  << interestName);
-        expressInterest(interestName);
+        
+        // expressInterest(interestName);
+        m_abe_consumer->consume(interestName.getPrefix(-1), bind(&ServiceDiscovery::abeOnData, this, _1),
+                             bind(&ServiceDiscovery::abeOnError, this, _1));
       }
     }
   }
@@ -371,6 +429,22 @@ ServiceDiscovery::processSyncUpdate(const std::vector<ndnsd::SyncDataInfo>& upda
     }
   }
 }
+
+
+void 
+ServiceDiscovery::abeOnData(const ndn::Buffer& buffer)
+{
+  auto applicationData = std::string(buffer.begin(), buffer.end());
+  NDN_LOG_DEBUG ("Received Data " << applicationData);
+  // m_ApplicationDataCallback({applicationData});
+}
+void 
+ServiceDiscovery::abeOnError(const std::string& errorMessage)
+{
+  NDN_LOG_DEBUG ("ABE failled to fetch and encrypt data");
+}
+
+
 
 template<ndn::encoding::Tag TAG>
 size_t

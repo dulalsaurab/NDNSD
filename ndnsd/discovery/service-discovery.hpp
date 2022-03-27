@@ -34,6 +34,10 @@
 #include <ndn-cxx/util/time.hpp>
 #include <ndn-cxx/util/dummy-client-face.hpp>
 
+#include <chrono>
+#include <unistd.h>
+#include <thread>
+
 
 using namespace ndn::time_literals;
 
@@ -248,13 +252,22 @@ private:
   const ndn::Block&
   wireEncode();
 
+  void 
+  abeOnData(const ndn::Buffer& buffer);
+
+  void 
+  abeOnError(const std::string& errorMessage);
+
+
 private:
   ndn::Face m_face;
   ndn::KeyChain m_keyChain;
+  ndn::Scheduler m_scheduler;
 
   const std::string m_filename;
   ServiceInfoFileProcessor m_fileProcessor;
   ndn::Name m_serviceName;
+  std::unordered_map<ndn::Name, std::shared_ptr<ndn::Data>> m_dataBuffer;
   // std::map<char, uint8_t> m_Flags; //used??
 
   Details m_producerState;
