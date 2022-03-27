@@ -39,8 +39,8 @@ usage(const boost::program_options::options_description& options)
 class Consumer
 {
 public:
-  Consumer(const ndn::Name& serviceName, const std::map<char, uint8_t>& pFlags)
-   : m_serviceDiscovery(serviceName, pFlags, std::bind(&Consumer::processCallback, this, _1))
+  Consumer(const ndn::Name& serviceName, std::string appPrefix, const std::map<char, uint8_t>& pFlags)
+   : m_serviceDiscovery(serviceName, pFlags, appPrefix, std::bind(&Consumer::processCallback, this, _1))
   {
   }
 
@@ -73,6 +73,7 @@ int
 main(int argc, char* argv[])
 {
   std::string serviceName;
+  std::string appPrefix;
   int contFlag = -1;
   int syncProtocol = ndnsd::SYNC_PROTOCOL_PSYNC; // default psync
 
@@ -82,6 +83,7 @@ main(int argc, char* argv[])
   visibleOptDesc.add_options()
     ("help,h",      "print this message and exit")
     ("serviceName,s", po::value<std::string>(&serviceName)->required(), "Service name to fetch service info")
+    ("appPrefix, ap", po::value<std::string>(&appPrefix)->required(), "Application name")
     ("continuous,c", po::value<int>(&contFlag), "continuous discovery, 1 for true 0 for false")
     ("sync-protocol,p", po::value<int>(&syncProtocol), "sync protocol choic, 1 psync, 0 chronosync")
   ;
@@ -109,6 +111,14 @@ main(int argc, char* argv[])
       }
     }
 
+    if (optVm.count("appPrefix")) {
+      if (appPrefix.empty())
+      {
+        std::cerr << "ERROR: application prefix cannot be empty" << std::endl;
+        usage(visibleOptDesc);
+      }
+    }
+
   }
   catch (const po::error& e) {
     std::cerr << "ERROR: " << e.what() << std::endl;
@@ -123,7 +133,7 @@ main(int argc, char* argv[])
   try
   {
     NDN_LOG_INFO("Fetching service info for: " << serviceName);
-    Consumer consumer(serviceName, flags);
+    Consumer consumer(serviceName, appPrefix, flags);
     consumer.execute();
   }
   catch (const std::exception& e) {

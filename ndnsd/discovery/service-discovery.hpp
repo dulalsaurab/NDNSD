@@ -132,6 +132,7 @@ public:
   **/
   ServiceDiscovery(const ndn::Name& serviceName,
                    const std::map<char, uint8_t>& pFlags,
+                   ndn::Name appPrefix,
                    const DiscoveryCallback& discoveryCallback);
 
   /**
@@ -161,6 +162,7 @@ public:
 
   ServiceDiscovery(const std::string& filename,
                    const std::map<char, uint8_t>& pFlags,
+                   std::string abePolicy,
                    const DiscoveryCallback& discoveryCallback);
 
   void
@@ -296,6 +298,7 @@ private:
   ndn::security::Certificate m_authorityCert;
   std::unique_ptr<ndn::nacabe::Consumer> m_abe_consumer;
   std::unique_ptr<ndn::nacabe::Producer> m_abe_producer;
+  std::string m_abePolicy;
 
 };
 } //namespace discovery

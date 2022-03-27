@@ -21,6 +21,23 @@ public:
     std::list<std::string> attrList = {"A", "B"};
     auto requesterCert = m_keyChain.getPib().getIdentity("/ndnsd/finder1").getDefaultKey().getDefaultCertificate();
     m_attrAuthority.addNewPolicy(requesterCert, attrList);
+
+    
+    std::list<std::string> attrList1 = {"A"};
+    auto requesterCert1 = m_keyChain.getPib().getIdentity("/ndnsd/finder2").getDefaultKey().getDefaultCertificate();
+    m_attrAuthority.addNewPolicy(requesterCert1, attrList1);
+
+
+    std::list<std::string> attrList2 = {"C"};
+    auto requesterCert2 = m_keyChain.getPib().getIdentity("/ndnsd/finder3").getDefaultKey().getDefaultCertificate();
+    m_attrAuthority.addNewPolicy(requesterCert2, attrList2);
+
+    std::this_thread::sleep_for (std::chrono::seconds(2));
+
+    // std::list<std::string> attrList1 = {"A"};
+    // auto requesterCert1 = m_keyChain.getPib().getIdentity("/ndnsd/finder2").getDefaultKey().getDefaultCertificate();
+    // m_attrAuthority.addNewPolicy(requesterCert1, attrList1);
+
   }
   
   ndn::nacabe::CpAttributeAuthority&

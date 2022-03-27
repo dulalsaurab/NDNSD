@@ -32,6 +32,7 @@ namespace discovery {
 // consumer
 ServiceDiscovery::ServiceDiscovery(const ndn::Name& serviceName,
                                    const std::map<char, uint8_t>& pFlags,
+                                   ndn::Name appPrefix,
                                    const DiscoveryCallback& discoveryCallback)
   : m_scheduler(m_face.getIoService())
   , m_serviceName(serviceName)
@@ -39,11 +40,11 @@ ServiceDiscovery::ServiceDiscovery(const ndn::Name& serviceName,
   , m_counter(0)
   , m_syncProtocol(processFalgs(pFlags, 'p', false))
   , m_syncAdapter(m_face, m_syncProtocol, makeSyncPrefix(m_serviceName),
-                  "/ndnsd/finder1", 1600_ms,
+                  appPrefix, 1600_ms,
                   std::bind(&ServiceDiscovery::processSyncUpdate, this, _1))
   , m_discoveryCallback(discoveryCallback)
   , m_abe_consumer(std::make_unique<ndn::nacabe::Consumer>(m_face, m_keyChain, 
-                   m_keyChain.getPib().getIdentity("/ndnsd/finder1").getDefaultKey().getDefaultCertificate(),
+                   m_keyChain.getPib().getIdentity(appPrefix).getDefaultKey().getDefaultCertificate(),
                    m_keyChain.getPib().getIdentity("/ndnsd/aa").getDefaultKey().getDefaultCertificate())) // todo: aa prefix should be in configuration file?
   , m_abe_producer(nullptr) // TODO: need to delete this properly 
 {
@@ -58,6 +59,7 @@ ServiceDiscovery::ServiceDiscovery(const ndn::Name& serviceName,
 // producer
 ServiceDiscovery::ServiceDiscovery(const std::string& filename,
                                    const std::map<char, uint8_t>& pFlags,
+                                   std::string abePolicy,
                                    const DiscoveryCallback& discoveryCallback)
   : m_scheduler(m_face.getIoService())
   , m_filename(filename)
@@ -72,6 +74,7 @@ ServiceDiscovery::ServiceDiscovery(const std::string& filename,
   , m_authorityCert(m_keyChain.getPib().getIdentity("/ndnsd/aa").getDefaultKey().getDefaultCertificate())
   , m_abe_consumer(nullptr)
   , m_abe_producer(std::make_unique<ndn::nacabe::Producer>(m_face, m_keyChain, m_producerCert, m_authorityCert))
+  , m_abePolicy(abePolicy)
 {
   std::this_thread::sleep_for (std::chrono::seconds(1));
 }
@@ -101,7 +104,21 @@ ServiceDiscovery::setUpdateProducerState(bool update)
   m_producerState.publishTimestamp = ndn::time::system_clock::now();
   m_producerState.serviceMetaInfo = m_fileProcessor.getServiceMeta();
 
-  std::string data = "hello world";
+  // std::string data = "hello world";
+
+  // |service-name|<applicationPrefix>|<key>|<val>|<key>|<val>|...and so on
+  std::string dataContent = "service-name";
+  dataContent += "|";
+  dataContent += m_producerState.applicationPrefix.toUri();
+
+  for (auto const& item : m_producerState.serviceMetaInfo)
+  {
+    dataContent += "|";
+    dataContent += item.first;
+    dataContent += "|";
+    dataContent += item.second;
+  }
+
 
   // auto seq_num = m_syncAdapter.getSeqNo(userPrefix) + 1; 
   // NDN_LOG_INFO("seq_num from set update: " << seq_num);
@@ -110,8 +127,8 @@ ServiceDiscovery::setUpdateProducerState(bool update)
 
   std::shared_ptr<ndn::Data> enc_data, ckData;
   try {
-    std::tie(enc_data, ckData) = m_abe_producer->produce(dataSufix, "A or B", 
-                               reinterpret_cast<const uint8_t *>(data.c_str()), data.size());
+    std::tie(enc_data, ckData) = m_abe_producer->produce(dataSufix, m_abePolicy, 
+                                 reinterpret_cast<const uint8_t *>(dataContent.c_str()), dataContent.size());
   }
    catch (const std::exception& ex)
   {
@@ -434,14 +451,19 @@ ServiceDiscovery::processSyncUpdate(const std::vector<ndnsd::SyncDataInfo>& upda
 void 
 ServiceDiscovery::abeOnData(const ndn::Buffer& buffer)
 {
+  Reply consumerReply;
+
   auto applicationData = std::string(buffer.begin(), buffer.end());
+  consumerReply.serviceDetails = processData(applicationData);
   NDN_LOG_DEBUG ("Received Data " << applicationData);
+  consumerReply.status = ACTIVE;
+  m_discoveryCallback(consumerReply);
   // m_ApplicationDataCallback({applicationData});
 }
 void 
 ServiceDiscovery::abeOnError(const std::string& errorMessage)
 {
-  NDN_LOG_DEBUG ("ABE failled to fetch and encrypt data");
+  NDN_LOG_DEBUG ("ABE failled to fetch and decrypt data, hints: insufficient policy");
 }
 
 
