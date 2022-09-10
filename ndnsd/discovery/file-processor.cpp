@@ -56,10 +56,12 @@ ServiceInfoFileProcessor::processFile()
           if (requiredElement.first == "serviceName")
           {
             m_serviceName = val;
+            m_serviceName.append(ndn::Name("NDNSD/discovery"));
           }
           if (requiredElement.first == "appPrefix")
           {
             m_applicationPrefix = val;
+            m_applicationPrefix.append(ndn::Name("NDNSD/service-info"));
           }
           if (requiredElement.first == "lifetime")
           {

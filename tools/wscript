@@ -8,4 +8,4 @@ def build(bld):
         bld.program(name='tools-%s' % name,
                     target='%s' % name,
                     source=[ex],
-                    use='ndnsd')
+                    use='ndnsd NAC-ABE')

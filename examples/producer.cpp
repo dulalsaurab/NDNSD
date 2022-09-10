@@ -37,8 +37,8 @@ class Producer
 {
 public:
 
-  Producer(const std::string& filename, const std::map<char, uint8_t>& pFlags)
-    : m_serviceDiscovery(filename, pFlags, std::bind(&Producer::processCallback, this, _1))
+  Producer(const std::string& filename, std::string abePolicy, const std::map<char, uint8_t>& pFlags)
+    : m_serviceDiscovery(filename, pFlags, abePolicy, std::bind(&Producer::processCallback, this, _1))
   {
   }
   void
@@ -69,16 +69,17 @@ main(int argc, char* argv[])
 {
   int syncProtocol = ndnsd::SYNC_PROTOCOL_PSYNC;
   // this is causing seg fault, need to look.
-  if (argc > 2)
-    syncProtocol = atoi(argv[2]);
+  // if (argc > 2)
+  //   syncProtocol = atoi(argv[2]);
 
   std::map<char, uint8_t> flags;
+  std::string abePolicy;
   flags.insert(std::pair<char, uint8_t>('p', syncProtocol)); //protocol choice
   flags.insert(std::pair<char, uint8_t>('t', ndnsd::discovery::PRODUCER)); //type producer: 1
 
   try {
-    NDN_LOG_INFO("Starting producer application");
-    Producer producer(argv[1], flags);
+    NDN_LOG_INFO("Starting producer application: " << "with abe policy: " << argv[2]);
+    Producer producer(argv[1], argv[2], flags);
     producer.execute();
   }
   catch (const std::exception& e) {

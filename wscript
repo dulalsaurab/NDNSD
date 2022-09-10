@@ -33,6 +33,9 @@ def configure(conf):
     conf.check_cfg(package='ChronoSync', args=['ChronoSync >= 0.5.4', '--cflags', '--libs'],
                    uselib_store='SYNC', pkg_config_path=pkg_config_path)
 
+    conf.check_cfg(package='libnac-abe', args=['--cflags', '--libs'], uselib_store='NAC-ABE',
+                   pkg_config_path=pkg_config_path)
+
     conf.check_cfg(package='PSync', args=['PSync >= 0.3.0', '--cflags', '--libs'],
                    uselib_store='PSYNC', pkg_config_path=pkg_config_path)
 
@@ -55,7 +58,7 @@ def build(bld):
               vnum=VERSION,
               cnum=VERSION,
               source=bld.path.ant_glob('ndnsd/**/*.cpp'),
-              use='NDN_CXX BOOST SYNC PSYNC',
+              use='NDN_CXX BOOST SYNC PSYNC NAC-ABE',
               includes='.',
               export_includes='.')
 

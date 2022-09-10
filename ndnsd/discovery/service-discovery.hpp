@@ -24,11 +24,20 @@
 
 #include "file-processor.hpp"
 
+#include <nac-abe/attribute-authority.hpp>
+#include <nac-abe/producer.hpp>
+#include <nac-abe/consumer.hpp>
+
 #include <ndn-cxx/face.hpp>
 #include <ndn-cxx/util/random.hpp>
 #include <ndn-cxx/util/scheduler.hpp>
 #include <ndn-cxx/util/time.hpp>
 #include <ndn-cxx/util/dummy-client-face.hpp>
+
+#include <chrono>
+#include <unistd.h>
+#include <thread>
+
 
 using namespace ndn::time_literals;
 
@@ -123,6 +132,7 @@ public:
   **/
   ServiceDiscovery(const ndn::Name& serviceName,
                    const std::map<char, uint8_t>& pFlags,
+                   ndn::Name appPrefix,
                    const DiscoveryCallback& discoveryCallback);
 
   /**
@@ -152,6 +162,7 @@ public:
 
   ServiceDiscovery(const std::string& filename,
                    const std::map<char, uint8_t>& pFlags,
+                   std::string abePolicy,
                    const DiscoveryCallback& discoveryCallback);
 
   void
@@ -243,13 +254,22 @@ private:
   const ndn::Block&
   wireEncode();
 
+  void 
+  abeOnData(const ndn::Buffer& buffer);
+
+  void 
+  abeOnError(const std::string& errorMessage);
+
+
 private:
   ndn::Face m_face;
   ndn::KeyChain m_keyChain;
+  ndn::Scheduler m_scheduler;
 
   const std::string m_filename;
   ServiceInfoFileProcessor m_fileProcessor;
   ndn::Name m_serviceName;
+  std::unordered_map<ndn::Name, std::shared_ptr<ndn::Data>> m_dataBuffer;
   // std::map<char, uint8_t> m_Flags; //used??
 
   Details m_producerState;
@@ -272,6 +292,14 @@ private:
   mutable ndn::Block m_wire;
   DiscoveryCallback m_discoveryCallback;
   ndn::Name m_reloadPrefix;
+
+  // nac-abe
+  ndn::security::Certificate m_producerCert;
+  ndn::security::Certificate m_authorityCert;
+  std::unique_ptr<ndn::nacabe::Consumer> m_abe_consumer;
+  std::unique_ptr<ndn::nacabe::Producer> m_abe_producer;
+  std::string m_abePolicy;
+
 };
 } //namespace discovery
 } //namespace ndnsd

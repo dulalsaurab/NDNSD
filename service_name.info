@@ -3,7 +3,7 @@
 required
 {
   serviceName printer
-  appPrefix /repo/r1 ; repo name prefix
+  appPrefix /uofm/printer/printer1 ; repo name prefix
   lifetime 1 ; in seconds
 }
 
@@ -12,6 +12,5 @@ required
 details
 {
   description "repo to insert sensor data"
-  appPrefix /repo/r1 ;repo prefix
-  servedPrefix /prefix ;prefix repo served data for
+  appPrefix /uofm/printer/printer1 ;repo prefix
 }
